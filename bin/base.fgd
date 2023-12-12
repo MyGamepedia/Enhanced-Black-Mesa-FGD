@@ -514,6 +514,10 @@
 	]
 
 	physdamagescale(float) : "Physics Impact Damage Scale" : "1.0" : "Scales damage energy when this character is hit by a physics object. With a value of 0 the NPC will take no damage from physics."
+	
+	SetBodyGroup(integer) : "Body Group" : 0	// NEEDHELP
+	skin(integer) : "Skin" : 0 : "Some models have multiple versions of their textures, called skins. Set this to a number other than 0 to use that skin instead of the default."
+	
 
 	// Outputs
 	output OnDamaged(void) : "Fired when this NPC takes damage."
