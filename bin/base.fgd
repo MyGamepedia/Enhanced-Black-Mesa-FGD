@@ -1290,30 +1290,30 @@
 @PointClass base(Targetname) iconsprite("editor/env_tonemap_controller.vmt") = env_tonemap_controller : 
 	"An entity that controls the HDR tonemapping for the player. Think of it as a method of controlling the exposure of the player's eyes."
 [
-	bUseNextGenBloom(choices) : "bUseNextGenBloom" : 0 = 
+	bUseNextGenBloom(choices) : "bUseNextGenBloom" : 1 = 
 	[
 		0 : "NO"
 		1 : "YES"
 	]
 	
-	bUseCusBloomNG_Threshold(choices) : "bUseCusBloomNG_Threshold" : 0 = 
+	bUseCusBloomNG_Threshold(choices) : "bUseCusBloomNG_Threshold" : 1 = 
 	[
 		0 : "NO"
 		1 : "YES"
 	]
 	
-	fCusBloomNG_Threshold(float)	: "fCusBloomNG_Threshold": 0 : "threshold for bright pass filter"
+	fCusBloomNG_Threshold(float)	: "fCusBloomNG_Threshold": 0 : "Threshold for bright pass filter. Determines the influence of tonemapping; with high values, only brightest parts of frame will be bloomed."
 	
-	bUseCusBloomNG_tintExponent(choices) : "bUseCusBloomNG_tintExponent" : 0 = 
+	bUseCusBloomNG_tintExponent(choices) : "bUseCusBloomNG_tintExponent" : 1 = 
 	[
 		0 : "NO"
 		1 : "YES"
 	]
 	
-	m_fCustomBloomNextGen_r(float)	: "m_fCustomBloomNextGen_r": "1.0" : "m_fCustomBloomNextGen_r"
-	m_fCustomBloomNextGen_g(float)	: "m_fCustomBloomNextGen_g": "1.0" : "m_fCustomBloomNextGen_g"
-	m_fCustomBloomNextGen_b(float)	: "m_fCustomBloomNextGen_b": "1.0" : "m_fCustomBloomNextGen_b"
-	m_fCusBloomNG_exponent(float)	: "m_fCusBloomNG_exponent": "1.0" : "m_fCusBloomNG_exponent"
+	m_fCustomBloomNextGen_r(float)	: "m_fCustomBloomNextGen_r": "0.33" : "Determines the influence for reder tones in frame."
+	m_fCustomBloomNextGen_g(float)	: "m_fCustomBloomNextGen_g": "0.33" : "Determines the influence for greener tones in frame."
+	m_fCustomBloomNextGen_b(float)	: "m_fCustomBloomNextGen_b": "0.33" : "Determines the influence for bluer tones in frame."
+	m_fCusBloomNG_exponent(float)	: "m_fCusBloomNG_exponent": "1.0" : "Determines the brightness of the bloom."
 	
 	// Inputs
 	input SetTonemapScale(void) : "Set the player's tonemap scale. It should be a value between 0 and 2, where 0 is the eyes fully closed, 1 is use the unchanged autoexposure (default), and 2 is the eye fully wide open."
@@ -2759,7 +2759,7 @@
 ]
 
 @SolidClass base(Targetname, Parentname) = game_zone_player : 
-	"An entity used to count the number of players within a zone."
+	"An entity used to count the number of players within a zone. Fire on input CountPlayersInZone."
 [
 	// Inputs
 	input CountPlayersInZone(void) : "Count the number of players in the zone, and fire the corresponding outputs."
@@ -4257,7 +4257,7 @@
 	output OnFullyClosed(void) : "Fired when the water brush reaches the starting position."
 ]
 
-@SolidClass base(Targetname, Parentname, Origin, Angles, RenderFields, Shadows) = func_rotating : 
+@SolidClass base(Targetname, Parentname, Origin, Angles, RenderFields, Shadows) studio("models/editor/axis_helper.mdl") = func_rotating : 
 	"A rotating brush entity."
 [
 	maxspeed(integer) : "Max Rotation Speed" : 100 : "The maximum rotation speed of the brushes, in degrees per second."
@@ -4961,7 +4961,7 @@
 	input TurnOff(void) : "Turn off."
 ]
 
-@SolidClass base(Targetname, BModelParticleSpawner) = func_dustmotes : 
+@SolidClass base(Targetname, BModelParticleSpawner) sphere(DistMax) = func_dustmotes : 
 	"A brush entity that spawns sparkling dust motes within its volume."
 [
 	SizeMin(string) : "Minimum Particle Size" : 10
@@ -4995,7 +4995,7 @@
 	input SetDensity(float) : "Set the particle density. It should be a range from 0 to 1."
 ]
 
-@SolidClass base( Targetname, BModelParticleSpawner ) = func_dustcloud : 
+@SolidClass base( Targetname, BModelParticleSpawner ) sphere(DistMax) = func_dustcloud : 
 	"A brush entity that spawns a translucent dust cloud within its volume."
 [
 	Alpha(integer) : "Alpha" : 30
@@ -6557,7 +6557,7 @@
 	input InputChangePlayerTouchDamge(float) : "InputChangePlayerTouchDamge"
 ]
 
-@PointClass base(prop_dynamic_base) studioprop() = prop_dynamic_override :
+@PointClass base(prop_dynamic_base) sphere(fademindist) sphere(fademaxdist) studioprop() = prop_dynamic_override :
 	"A prop that can be placed in hierarchy and can play animations. It can also be configured to break when it takes enough damage.\n"+
 	"prop_dynamic_override is a prototyping entity only. It will allow the use of models designed to be used as prop_physics."
 [
