@@ -518,6 +518,22 @@
 	SetBodyGroup(integer) : "Body Group" : 0	// NEEDHELP
 	skin(integer) : "Skin" : 0 : "Some models have multiple versions of their textures, called skins. Set this to a number other than 0 to use that skin instead of the default."
 	
+	relationship(string) : "Relationship" :  : "Changes whether this NPC likes or dislikes certain others. Used like the ai_relationship entity, with this NPC as the subject. Format: <string|targetname or classname> <string|disposition> <int|rank>. Values for disposition are: D_HT: Hate, D_FR: Fear, D_LI: Like, D_NU: Neutral"	
+	
+	effects(choices) : "Effect Flags" : 0 : "For configuring visual effects. If you want to combine effects, simply type in the sum of the effect numbers, e.g., '72' for 64+8." =
+    [
+	    0: "None"
+	    1: "Bonemerge always (very expensive!)"
+	    2: "Bright, dynamic light at entity origin"
+	    4: "Dim, dynamic light at entity origin"
+	    8: "No movement interpolation"
+	    16: "Don't cast shadows"
+	    32: "Don't draw entity (entity is fully ignored by clients, NOT server; can cause collision problems)"
+	    64: "Don't receive dynamic shadows"
+	    128: "Bonemerge only in PVS, better performance but prone to disappearing. Use with Bonemerge."
+	    256: "Unsubtle blink"
+	    512: "Flag parent as always animating and realign each frame"
+    ]
 
 	// Outputs
 	output OnDamaged(void) : "Fired when this NPC takes damage."
@@ -6795,7 +6811,7 @@
 	input Toggle(void) : "Toggle the open/closed state of the portal."
 ]
 
-@SolidClass base(Targetname) color(0 255 255) = func_occluder :
+@SolidClass base(Targetname) color(0 255 255) sphere(maximumdistance) = func_occluder :
 	"A occluder brush used to manage dynamic visibility in maps. Occluders are used to dynamically " +
 	"determine what things are behind them, to prevent trying to draw them at all."
 [

@@ -93,6 +93,13 @@
 	]
 ]
 
+@SolidClass base(Parentname, Targetname, Global) = func_vehicleclip: "Vehicle Clip" 
+[
+	input Kill( void ) : "Removes this entity from the world"
+	input Enable( void ) : "Enable collisions with vehicles"
+	input Disable( void ) : "Disable collisions with vehicles"
+]
+
 @SolidClass base(Trigger) = trigger_weapon_dissolve :
 	"A volumetric trigger that dissolves all weapons within it"
 [
