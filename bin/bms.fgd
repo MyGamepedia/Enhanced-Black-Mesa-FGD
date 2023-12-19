@@ -276,10 +276,28 @@
 
 @BaseClass base(Targetname, Angles, Shadow, BaseFadeProp) sphere(fademindist) sphere(fademaxdist) = BasePickup
 [
+	skin(integer) : "Skin" : 0 : "Some models have multiple versions of their textures, called skins. Set this to a number other than 0 to use that skin instead of the default."
+	modelscale(float) : "Model Scale" : "1.0" : "A multiplier for the size of the model."
+	SetBodyGroup(integer) : "Body Group" : 0 : "Body group that use model at map start."
+	respawntime(float) : "Respawn Time" : "15" : "Time waited between respawns."
+	
+	effects(choices) : "Effect Flags" : 0 : "For configuring visual effects. If you want to combine effects, simply type in the sum of the effect numbers, e.g., '72' for 64+8." =
+    [
+	    0: "None"
+	    1: "Bonemerge always (very expensive!)"
+	    2: "Bright, dynamic light at entity origin"
+	    4: "Dim, dynamic light at entity origin"
+	    8: "No movement interpolation"
+	    16: "Don't cast shadows"
+	    32: "Don't draw entity (entity is fully ignored by clients, NOT server; can cause collision problems)"
+	    64: "Don't receive dynamic shadows"
+	    128: "Bonemerge only in PVS, better performance but prone to disappearing. Use with Bonemerge."
+	    256: "Unsubtle blink"
+	    512: "Flag parent as always animating and realign each frame"
+    ]
+
 	output OnPlayerPickup(void) : "Fires when the player picks up this object."
 	output OnPlayerDenied(void) : "Fires when the player attempts to pick up this object but is denied."
-
-	respawntime(float) : "Respawn Time" : "15" : "Time waited between respawns."
 
 	spawnflags(flags) =
 	[
@@ -295,10 +313,31 @@
 
 @BaseClass base(Targetname, Angles, Shadow, BaseFadeProp) sphere(fademindist) sphere(fademaxdist) = BaseWeapon //Differences - no motion disable in MP, other respawn sound, longer respawn, can't be breaked (snark only)
 [
+
+	skin(integer) : "Skin" : 0 : "Some models have multiple versions of their textures, called skins. Set this to a number other than 0 to use that skin instead of the default."
+	modelscale(float) : "Model Scale" : "1.0" : "A multiplier for the size of the model."
+	SetBodyGroup(integer) : "Body Group" : 0 : "Body group that use model at map start."
+	respawntime(float) : "Respawn Time" : "15" : "Time waited between respawns."
+	
+	effects(choices) : "Effect Flags" : 0 : "For configuring visual effects. If you want to combine effects, simply type in the sum of the effect numbers, e.g., '72' for 64+8." =
+    [
+	    0: "None"
+	    1: "Bonemerge always (very expensive!)"
+	    2: "Bright, dynamic light at entity origin"
+	    4: "Dim, dynamic light at entity origin"
+	    8: "No movement interpolation"
+	    16: "Don't cast shadows"
+	    32: "Don't draw entity (entity is fully ignored by clients, NOT server; can cause collision problems)"
+	    64: "Don't receive dynamic shadows"
+	    128: "Bonemerge only in PVS, better performance but prone to disappearing. Use with Bonemerge."
+	    256: "Unsubtle blink"
+	    512: "Flag parent as always animating and realign each frame"
+    ]
+	
+	respawntime(float) : "Respawn Time" : "15" : "Time waited between respawns."
+	
 	output OnPlayerPickup(void) : "Fires when the player picks up this object."
 	output OnPlayerDenied(void) : "Fires when the player attempts to pick up this object but is denied."
-
-	respawntime(float) : "Respawn Time" : "15" : "Time waited between respawns."
 
 	spawnflags(flags) =
 	[
@@ -318,53 +357,167 @@
 	fademaxdist(float) : "End Fade Dist/Pixels" : 1200 : "Maximum distance at which the prop is visible."
 ]
 
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_357.mdl") = item_weapon_357 : "357 Revolver" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_crowbar.mdl") = item_weapon_crowbar : "Crowbar" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_crossbow.mdl") = item_weapon_crossbow : "Crossbow" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_grenade.mdl") = item_weapon_frag : "Frag Grenade" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_glock.mdl") = item_weapon_assassin_glock : "Assassin's Glock-18 Handgun" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_glock.mdl") = item_weapon_glock : "Glock-18 Handgun" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_egon_pickup.mdl") = item_weapon_gluon : "Gluon Gun" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_hgun.mdl") = item_weapon_hivehand : "Hivearm" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_mp5.mdl") = item_weapon_mp5 : "MP5 Submachinegun" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_shotgun.mdl") = item_weapon_shotgun : "SPAS-12 Shotgun" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_rpg.mdl") = item_weapon_rpg : "RPG" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_satchel.mdl") = item_weapon_satchel : "Satchel Charge" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/xenians/snarknest.mdl") = item_weapon_snark : "Snarks"
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_weapon_357 : "357 Revolver"
 [
+
+	model(studio) : "Model" : "models/weapons/w_357.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_crowbar.mdl") = item_weapon_crowbar : "Crowbar"
+[
+
+	model(studio) : "Model" : "models/weapons/w_357.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_weapon_crossbow : "Crossbow"
+[
+
+	model(studio) : "Model" : "models/weapons/w_crossbow.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_weapon_frag : "Frag Grenade"
+[
+
+	model(studio) : "Model" : "models/weapons/w_grenade.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_weapon_assassin_glock : "Assassin's Glock-18 Handgun"
+[
+
+	model(studio) : "Model" : "models/weapons/w_glock.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_glock.mdl") = item_weapon_glock : "Glock-18 Handgun"
+[
+
+	model(studio) : "Model" : "models/weapons/w_glock.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_weapon_gluon : "Gluon Gun"
+[
+
+	model(studio) : "Model" : "models/weapons/w_egon_pickup.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_weapon_hivehand : "Hivearm"
+[
+
+	model(studio) : "Model" : "models/weapons/w_hgun.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_weapon_mp5 : "MP5 Submachinegun"
+[
+
+	model(studio) : "Model" : "models/weapons/w_mp5.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_weapon_shotgun : "SPAS-12 Shotgun"
+[
+
+	model(studio) : "Model" : "models/weapons/w_shotgun.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_weapon_rpg : "RPG"
+[
+
+	model(studio) : "Model" : "models/weapons/w_rpg.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_weapon_satchel : "Satchel Charge"
+[
+
+	model(studio) : "Model" : "models/weapons/w_satchel.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_weapon_snark : "Snarks"
+[
+	model(studio) : "Model" : "models/xenians/snarknest.mdl" : "Model to use (does not affect how it looks in the player's hands)."
 	health(integer) : "Health" : 10 : "Number of points of damage to take before breaking. 10 is default value."
 ]
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_gauss.mdl") = item_weapon_tau : "Tau Cannon" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_tripmine.mdl") = item_weapon_tripmine : "Tripmine" []
-
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_357.mdl") = weapon_357 : "357 Revolver" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_crowbar.mdl") = weapon_crowbar : "Crowbar" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_crossbow.mdl") = weapon_crossbow : "Crossbow" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_grenade.mdl") = weapon_frag : "Frag Grenade" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_glock.mdl") = weapon_assassin_glock : "Assassin's Glock-18 Handgun" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_glock.mdl") = weapon_glock : "Glock-18 Handgun" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_egon_pickup.mdl") = weapon_gluon : "Gluon Gun" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/headcrabclassic.mdl") = weapon_headcrab : "Used when a headcrab hits the player's head hitboxes. The command enabling the mechanic has been removed and therefore requires implementation via Hammer. Need some work to make it nice. BAGGY!" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_hgun.mdl") = weapon_hivehand : "Hivearm" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_mp5.mdl") = weapon_mp5 : "MP5 Submachinegun" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_shotgun.mdl") = weapon_shotgun : "SPAS-12 Shotgun" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_rpg.mdl") = weapon_rpg : "RPG" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_satchel.mdl") = weapon_satchel : "Satchel Charge" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/xenians/snarknest.mdl") = weapon_snark : "Snarks" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_gauss.mdl") = weapon_tau : "Tau Cannon" []
-@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_tripmine.mdl") = weapon_tripmine : "Tripmine" []
-
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_357ammobox.mdl") = item_ammo_357 : "357 Rounds" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_crossbow_clip.mdl") = item_ammo_crossbow : "Crossbow Bolts" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_9mmclip.mdl") = item_ammo_glock : "Glock Clip" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_gaussammo.mdl") = item_ammo_energy : "Uranium" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_9mmARclip.mdl") = item_ammo_mp5 : "MP5 Clip" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_shotbox.mdl") = item_ammo_shotgun : "Shotgun Shells" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_argrenade.mdl") = item_grenade_mp5 : "MP5 Grenades" []
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_rpgammo.mdl") = item_grenade_rpg : "RPG Round" []
-
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_weaponbox.mdl") = item_ammo_canister : "Ammo canister"
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_weapon_tau : "Tau Cannon"
 [
+
+	model(studio) : "Model" : "models/weapons/w_gauss.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_weapon_tripmine : "Tripmine"
+[
+
+	model(studio) : "Model" : "models/weapons/w_tripmine.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_357.mdl") = weapon_357 : "357 Revolver" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_crowbar.mdl") = weapon_crowbar : "Crowbar" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_crossbow.mdl") = weapon_crossbow : "Crossbow" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_grenade.mdl") = weapon_frag : "Frag Grenade" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_glock.mdl") = weapon_assassin_glock : "Assassin's Glock-18 Handgun" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_glock.mdl") = weapon_glock : "Glock-18 Handgun" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_egon_pickup.mdl") = weapon_gluon : "Gluon Gun" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/headcrabclassic.mdl") = weapon_headcrab : "Used when a headcrab hits the player's head hitboxes. The command enabling the mechanic has been removed and therefore requires implementation via Hammer. Need some work to make it nice. BAGGY!" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_hgun.mdl") = weapon_hivehand : "Hivearm" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_mp5.mdl") = weapon_mp5 : "MP5 Submachinegun" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_shotgun.mdl") = weapon_shotgun : "SPAS-12 Shotgun" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_rpg.mdl") = weapon_rpg : "RPG" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_satchel.mdl") = weapon_satchel : "Satchel Charge" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/xenians/snarknest.mdl") = weapon_snark : "Snarks" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_gauss.mdl") = weapon_tau : "Tau Cannon" []
+@PointClass base(BaseWeapon) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_tripmine.mdl") = weapon_tripmine : "Tripmine" []
+
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_ammo_357 : "357 Rounds"
+[
+
+	model(studio) : "Model" : "models/weapons/w_357ammobox.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_crossbow_clip.mdl") = item_ammo_crossbow : "Crossbow Bolts"
+[
+
+	model(studio) : "Model" : "models/weapons/w_357ammobox.mdl" : "Model to use (does not affect how it looks in the player's hands)."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop("models/weapons/w_9mmclip.mdl") = item_ammo_glock : "Glock Clip"
+[
+
+	model(studio) : "Model" : "models/weapons/w_357ammobox.mdl" : "Model to use."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_ammo_energy : "Uranium"
+[
+
+	model(studio) : "Model" : "models/weapons/w_gaussammo.mdl" : "Model to use."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_ammo_mp5 : "MP5 Clip"
+[
+
+	model(studio) : "Model" : "models/weapons/w_9mmARclip.mdl" : "Model to use."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_ammo_shotgun : "Shotgun Shells"
+[
+
+	model(studio) : "Model" : "models/weapons/w_shotbox.mdl" : "Model to use."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_grenade_mp5 : "MP5 Grenades"
+[
+
+	model(studio) : "Model" : "models/weapons/w_argrenade.mdl" : "Model to use."
+
+]
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_grenade_rpg : "RPG Round"
+[
+
+	model(studio) : "Model" : "models/weapons/w_rpgammo.mdl" : "Model to use."
+
+]
+
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_ammo_canister : "Ammo canister"
+[
+
+	model(studio) : "Model" : "models/weapons/w_weaponbox.mdl" : "Model to use."
+
 	AmmoGlock(integer) : "AmmoGlock" : 0 : "AmmoGlock"
 	AmmoMp5(integer) : "AmmoMp5" : 0 : "AmmoMp5"
 	Ammo357(integer) : "Ammo357" : 0 : "Ammo357"
@@ -379,9 +532,9 @@
 	AmmoFrag(integer) : "AmmoFrag" : 0 : "AmmoFrag"
 ]
 
-@PointClass base(Targetname, Angles, BaseFadeProp) studio("models/items/ammocrate_rockets.mdl") = item_ammo_crate : "Ammo Crate"
+@PointClass base(Targetname, Angles, BaseFadeProp) studioprop() = item_ammo_crate : "Ammo Crate"
 [
-	model(studio) : "Model" : "models/items/ammocrate_rockets.mdl" : "Model to use for the medkit"
+	model(studio) : "Model" : "models/items/ammocrate_rockets.mdl" : "Model to use for the crate"
 
 	AmmoType(choices) : "Ammo Type" : "grenade_rpg" =
 	[
@@ -405,8 +558,11 @@
 	output OnUsed(void) : "Fires when +used by the player."
 ]
 
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/props_am/hev_suit.mdl") = item_suit : "HEV Suit"
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_suit : "HEV Suit"
 [
+
+	model(studio) : "Model" : "models/props_am/hev_suit.mdl" : "Model to use."
+
 	spawnflags(Flags) =
 	[
 	  131072 : "Boot Sequence" : 0
@@ -416,31 +572,48 @@
 @PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_battery : "HEV Battery"
 [
 	model(studio) : "Model" : "models/weapons/w_battery.mdl" : "Model to use for the battery"
-	skin(integer) : "Skin" : 0 : "Some models have multiple versions of their textures, called skins. Set this to a number other than 0 to use that skin instead of the default."
-	modelscale(float) : "Model Scale" : "1.0" : "A multiplier for the size of the model."
-	SetBodyGroup(integer) : "Body Group" : 0 : "Body group that use model at map start."
 ]
 
 @PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_healthkit : "Health Kit"
 [
 	model(studio) : "Model" : "models/weapons/w_medkit.mdl" : "Model to use for the medkit"
-	skin(integer) : "Skin" : 0 : "Some models have multiple versions of their textures, called skins. Set this to a number other than 0 to use that skin instead of the default."
-	modelscale(float) : "Model Scale" : "1.0" : "A multiplier for the size of the model."
-	SetBodyGroup(integer) : "Body Group" : 0 : "Body group that use model at map start."
 ]
 
 @PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_syringe : "Scientist syringe. Probably must be used when scientist with syringe die, however nothing like this in game. Can be respawn, but with no effects and sound. Requaried model fixes."
 [
 	model(studio) : "Model" : "models/humans/props/scientist_syringe.mdl" : "Model to use for the medkit"
-	skin(integer) : "Skin" : 0 : "Some models have multiple versions of their textures, called skins. Set this to a number other than 0 to use that skin instead of the default."
-	modelscale(float) : "Model Scale" : "1.0" : "A multiplier for the size of the model."
-	SetBodyGroup(integer) : "Body Group" : 0 : "Body group that use model at map start."
 ]
 
-@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studio("models/weapons/w_longjump.mdl") = item_longjump : "Longjump Module" []
+@PointClass base(BasePickup) sphere(fademindist) sphere(fademaxdist) studioprop() = item_longjump : "Longjump Module"
+[
+
+	model(studio) : "Model" : "models/weapons/w_longjump.mdl" : "Model to use."
+
+]
 
 @BaseClass base(Targetname, Angles, Shadow) = BaseGrenade
 [
+	skin(integer) : "Skin" : 0 : "Some models have multiple versions of their textures, called skins. Set this to a number other than 0 to use that skin instead of the default."
+	modelscale(float) : "Model Scale" : "1.0" : "A multiplier for the size of the model."
+	SetBodyGroup(integer) : "Body Group" : 0 : "Body group that use model at map start."
+	respawntime(float) : "Respawn Time" : "15" : "Time waited between respawns."
+	
+	effects(choices) : "Effect Flags" : 0 : "For configuring visual effects. If you want to combine effects, simply type in the sum of the effect numbers, e.g., '72' for 64+8." =
+    [
+	    0: "None"
+	    1: "Bonemerge always (very expensive!)"
+	    2: "Bright, dynamic light at entity origin"
+	    4: "Dim, dynamic light at entity origin"
+	    8: "No movement interpolation"
+	    16: "Don't cast shadows"
+	    32: "Don't draw entity (entity is fully ignored by clients, NOT server; can cause collision problems)"
+	    64: "Don't receive dynamic shadows"
+	    128: "Bonemerge only in PVS, better performance but prone to disappearing. Use with Bonemerge."
+	    256: "Unsubtle blink"
+	    512: "Flag parent as always animating and realign each frame"
+    ]
+	
+	
 	input Detonate(void) : "Fire to make the grenade explode."
 	output OnDetonate(void) : "Grenade has just exploded."
 ]
@@ -741,6 +914,15 @@
 
 @NPCClass base(BaseNPC) studio("models/barnacle.mdl") = npc_barnacle : "Barnacle"
 [
+   	output OnGrab(target_destination) : ""
+	output OnRelease(target_destination) : "Fired when I attach/detach my tongue to/from something."
+
+	
+   	input DropTongue(void) : "Drop tongue towards the ground. Use in conjunction with Ambush Mode spawnflag."
+	input SetDropTongueSpeed(integer) : "Set Drop Tongue speed."
+	input LetGo(void) : "Let go of anything I am holding."
+  	input TongueTipUpdated(void) : ""
+    
 	spawnflags(Flags) =
 	[
 		65536 : "Cheap death" : 0

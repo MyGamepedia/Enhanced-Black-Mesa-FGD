@@ -2407,7 +2407,7 @@
 	input SparkOnce(void) : "Spark once."
 ]
 
-@PointClass base(Targetname, Parentname, RenderFields,DXLevelChoice) studio("models/editor/axis_helper.mdl") sprite() sphere(GlowProxySize) color(20 140 20) = env_sprite : 
+@PointClass base(Targetname, Parentname, RenderFields,DXLevelChoice) sprite() studioprop("models/editor/axis_helper.mdl") sphere(GlowProxySize) color(20 140 20) = env_sprite : 
 	"An entity that controls the drawing of a sprite in the world." 
 [
 	framerate(string) : "Framerate" : "10.0" : "Rate at which the sprite should animate, if at all."
