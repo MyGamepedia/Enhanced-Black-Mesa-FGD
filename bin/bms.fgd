@@ -914,8 +914,8 @@
 
 @NPCClass base(BaseNPC) studio("models/barnacle.mdl") = npc_barnacle : "Barnacle"
 [
-   	output OnGrab(target_destination) : ""
-	output OnRelease(target_destination) : "Fired when I attach/detach my tongue to/from something."
+   	output OnGrab(void) : ""
+	output OnRelease(void) : "Fired when I attach/detach my tongue to/from something."
 
 	
    	input DropTongue(void) : "Drop tongue towards the ground. Use in conjunction with Ambush Mode spawnflag."
