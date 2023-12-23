@@ -3790,30 +3790,30 @@
 ]
 
 
-@PointClass base(Targetname) = newlights_gbuffersettings : 
-	"An entity to control some of the Gbuffer Settings via Hammer"
-[
-	Enable4WaysFastPath(Choices) : "Enable4WaysFastPath" : 1 : "Enable 4ways Fast path" =
-	[
-		0 : "NO"
-		1 : "YES"
-	]
-	DisableGbufferOnSecondaryCams(Choices) : "DisableGbufferOnSecondaryCams" : 0  : "Disable Gbuffer/NewLights/Fx for secondary cams like point cam, intro cam, water, reflection,refraction view" =
-	[
-		0 : "NO"
-		1 : "YES"
-	]
-	DisableGbufferOnRefractions(Choices) : "DisableGbufferOnRefractions" : 0  : "Disable Gbuffer/NewLights/Fx for refraction view" =
-	[
-		0 : "NO"
-		1 : "YES"
-	]
-	DisableGbufferOnReflections(Choices) : "DisableGbufferOnReflections" : 0  : "Disable Gbuffer/NewLights/Fx reflection view etc" =
-	[
-		0 : "NO"
-		1 : "YES"
-	]
-]
+//@PointClass base(Targetname) = newlights_gbuffersettings :  BROKEN!
+//	"An entity to control some of the Gbuffer Settings via Hammer"
+//[
+//	Enable4WaysFastPath(Choices) : "Enable4WaysFastPath" : 1 : "Enable 4ways Fast path" =
+//	[
+//		0 : "NO"
+//		1 : "YES"
+//	]
+//	DisableGbufferOnSecondaryCams(Choices) : "DisableGbufferOnSecondaryCams" : 0  : "Disable Gbuffer/NewLights/Fx for secondary cams like point cam, intro cam, water, reflection,refraction view" =
+//	[
+//		0 : "NO"
+//		1 : "YES"
+//	]
+//	DisableGbufferOnRefractions(Choices) : "DisableGbufferOnRefractions" : 0  : "Disable Gbuffer/NewLights/Fx for refraction view" =
+//	[
+//		0 : "NO"
+//		1 : "YES"
+//	]
+//	DisableGbufferOnReflections(Choices) : "DisableGbufferOnReflections" : 0  : "Disable Gbuffer/NewLights/Fx reflection view etc" =
+//	[
+//		0 : "NO"
+//		1 : "YES"
+//	]
+//]
 
 
 @PointClass base(Targetname)  = newLights_Spawner : 
