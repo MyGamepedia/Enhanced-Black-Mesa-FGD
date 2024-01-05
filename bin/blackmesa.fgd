@@ -219,6 +219,14 @@
 		"light_environment"
 		"light_spot"
 		"point_spotlight"
+		"newLight_Point"
+		"newLight_Dir"
+		"newLight_Spot"
+		"newLights_settings"
+		"newlights_gbuffersettings"
+		"newLights_Spawner"
+		"godrays_settings"
+		"env_cascade_light"
 		]
 	"NPCs"
 		[
@@ -342,7 +350,6 @@
 		"env_fog_controller"
 		"env_global"
 		"env_glow"
-		"env_godrays_controller"
 		"env_gravity"
 		"env_gunfire"
 		"env_introcredits"
@@ -1173,7 +1180,6 @@
 		"env_detail_controller"
 		"env_fog_controller"
 		"env_global"
-		"env_godrays_controller"
 		"env_gravity"
 		"env_introcredits"
 		"env_tonemap_controller"
@@ -2072,6 +2078,7 @@
 	teamnum(integer) : "Team"
 
 	// Inputs
+	input TeamNum(integer) : "Changes the entity's team num."
 	input SetTeam(integer) : "Changes the entity's team."
 	]
 
@@ -5043,6 +5050,24 @@
 	input EmitBlood(void) : "Triggers the blood effect."
 	]
 
+@PointClass base(BaseEntityPoint)
+	studio("models/editor/env_splash.mdl")
+= env_splash : 
+	"An entity that creates a splash effect at its origin. If the 'find water surface' spawnflag is set, it will instead trace down below itself to find the water surface on which to create splashes."
+[
+	scale(float) : "Scale of the splash" : "8.0"
+
+	// Inputs
+	input Splash(void) : "Create a splash effect."
+
+	spawnflags(flags) =
+		[
+		1: "Automatically find water surface (place entity above water)" : 0
+		2: "Diminish with depth (diminished completely in 10 feet of water)" : 1
+		]
+]
+
+
 @SolidClass base(BaseEntity) 
 	color(200 200 0)
 = env_bubbles: "An entity used to create a volume in which to spawn bubbles."
@@ -5067,7 +5092,7 @@
 
 @PointClass base(BaseEntityPoint, EnableDisable) 
 	iconsprite("editor/shadow_control.vmt")
-	lightprop("models/editor/spot.mdl")
+	studio("models/editor/spot.mdl")
 = env_cascade_light: "An entity to control the sunlight that casts cascaded shadows in the map."
 	[
 	angles(angle) : "Pitch Yaw Roll (Y Z X)" : "50 40 0" : "This is the shadow casting direction. Pitch is rotation around the Y axis, yaw is the rotation around the Z axis, and roll is the rotation around the X axis. (Note that pitch is negated vs. 's pitch.)"
@@ -7649,7 +7674,7 @@
 
 @PointClass base(BaseEntityPoint) 
 	color(0 255 0)
-	studio("models/player/mp_marine.mdl")
+	studio("models/humans/marine.mdl")
 = info_player_marine
 	[
 	itemstogive(string) : "List of items to spawn the player with."
@@ -7661,7 +7686,7 @@
 
 @PointClass base(BaseEntityPoint) 
 	color(0 255 0)
-	studio("models/player/mp_marine.mdl")
+	studio("models/humans/hev_male_xen.mdl")
 = info_player_scientist
 	[
 	itemstogive(string) : "List of items to spawn the player with."
@@ -8847,7 +8872,7 @@
 	]
 
 @PointClass base(BaseEntityPoint) 
-	lightprop("models/editor/axis_helper_thick.mdl")
+	studio("models/editor/axis_helper_white.mdl")
 	iconsprite("editor/light_new.vmt")
 	sphere(range)
 	sphere(NearZ)
@@ -9047,7 +9072,7 @@
 	]
 
 @PointClass base(BaseEntityPoint, Angles) 
-	lightprop("models/editor/spot_color.mdl")
+	lightprop("models/editor/spot.mdl")
 	iconsprite("editor/light_new.vmt")
 	sphere(range)
 	sphere(NearZ)
@@ -9199,12 +9224,12 @@
 	]
 
 @PointClass base(BaseEntityPoint)
-	studio("models/editor/spot_color.mdl")
+	studio("models/editor/spot.mdl")
 	iconsprite("editor/light_new.vmt")
 	sphere(range)
 	sphere(NearZ)
 	frustum(phi,NearZ,Range,LightColor,-1)
-= newLights_settings: "newLight_light_settings"
+= newLights_settings: "This entity uses to dynamically change some lighting settings for newLight_Spot and newLight_Point."
 	[
 	targetnewlightentity(target_destination) : "TargetNewLightEntity_Name" : : "Target Light Entity name"
 	transitiontime(integer) : "TransitionTime" : 0 : "TransitionTime in secs ( 0 for instant ) to transition into new settings. Its a lerp operation A + (B-A)*TimeFactor"
@@ -9241,9 +9266,6 @@
 	intensity(float) : "Light Intensity" : 8000 : "RGB * Intensity"
 	specmultiplier(float) : "SpecularMultiplier" : 1 : "0 to 1 RGB * Intensity * SpecularMultiplier"
 	range(float) : "Range" : 1000 : "Range"
-	falloffquadratic(float) : "falloffQuadratic" : 0 : "falloffQuadratic"
-	fallofflinear(float) : "falloffLinear" : 0 : "falloffLinear"
-	falloffconstant(float) : "falloffConstant" : 1 : "falloffConstant"
 	phi(float) : "OuterAngle" : 60 : "OuterAngle"
 	theta(float) : "InnerAngle" : 30 : "InnerAngle"
 	angularfalloff(float) : "AngularFallOff" : 2 : "AngularFallOff"
@@ -9279,6 +9301,36 @@
 		]
 
 	]
+	
+@PointClass base(BaseEntityPoint) 
+= godrays_settings : "This entity uses to dynamically change godrays settings for newLight_Point and newLight_Dir."
+[
+	TargetGodRays(string) : "TargetGodRays_Name" : "" : "Target Light Entity name with godrays (Dir or Point - SpotLight godrays aren't supported)"
+	TransitionTime(integer) : "TransitionTime" : 0 : "TransitionTime in secs ( 0 for instant ) to transition into new settings. Its a lerp operation A + (B-A)*TimeFactor"
+	
+	LightType(Choices) : "LightType" : 1 =
+		[
+		0 : "Direction/Sun Light"
+		1 : "Point Light"
+		]
+	
+	EnableGodRays(integer) : "EnableGodRays" : 1 : "EnableGodRays Enabled or Disabled"
+	Density(float) : "Density" : "1.0" : "Density Controls the length of rays/volumetric shadows. 1.0 should work in 99% cases. Good value range is 0.5 to 1.5"	
+	Weight(float) : "Weight" : "1.0" : "Weight Controls the intensity of volumetric shadow. Blocking of rays by geometry. good values 0.1 - 10.0"	
+	Decay(float) : "Decay" : "1.0" : "Decay NOT being used"	
+	Exposure(float) : "Exposure" : "2.5" : "Exposure Controls the intensity of Rays during blending pass with main scene. 2.0 is a good start. Good values are 1.0 - 10.0"	
+	DistFactor(float) : "DistFactor" : "1.0" : "DistFactor Controls the falloff of rays / length. 1.0f is a good starting value increase or decrease in the increments of 0.1. 0.0 will make the rays dissappear only disk will be rendererd."		
+	
+	DiskRadius(float) : "DiskRadius" : "0.02" : "DiskRadius"	
+	DiskInnerSizePercent(float) : "DiskInnerSizePercent" : "0.75" : "Disk inner circle radius = DiskRadius * DiskInnerSizePercent"	
+	
+	ColorInner(color255) : "ColorInner" : "128 200 255 1" : "This is the color of the inner circle"
+	ColorOuter(color255) : "ColorOuter" : "255 255 164 1" : "This is the color of the outer circle."
+	ColorRays(color255) : "ColorRays" : "200 200 255 1" : "This is the color of the rays."
+	
+	////Inputs
+	input InputApplySettings(void) : "InputApplySettings Trigger to apply settings"
+]
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/xog_global.vmt")
@@ -10632,7 +10684,7 @@
 	output OnDetonate(void) : "Grenade has just exploded."
 	]
 
-@BaseClass base(BaseEntityAnimating, DamageFilter) = BaseLogicalNPC: "NPC behaviours, split out so npc_bullseye doesn't have model-related stuff."
+@BaseClass base(BaseEntityAnimating, DamageFilter, TeamNum) = BaseLogicalNPC: "NPC behaviours, split out so npc_bullseye doesn't have model-related stuff."
 	[
 	health(integer) : "Health" : : "Overrides the NPC's default health. Cannot be higher than Max Health."
 	max_health(integer) : "Max Health" : : "Overrides the NPC's max health. Health cannot exceed this amount."
@@ -12143,7 +12195,7 @@
 	line(255 0 0, targetname, airboat_gun_model)
 = func_tankairboatgun: "Airboat Gun Turret"
 	[
-	airboat_gun_model(target_destination) : "Name of a prop_dynamic which is the airboat gun model"
+	airboat_gun_model(target_destination) : "Model" : : "Name of a prop_dynamic which is the airboat gun model"
 	]
 
 @SolidClass base(BaseTank) 
@@ -15560,7 +15612,11 @@
 		4194304: "[4194304] Physgun is NOT allowed to punt this object." : 0
 		8388608: "[8388608] Prevent motion enable on player bump" : 0
 		]
-
+    disableshadows(choices) : "Disable Shadows" : 0 =
+		[
+		0: "No"
+		1: "Yes"
+		]
 	damagetype(choices) : "Impact Damage Type" : 0 =
 		[
 		0: "Blunt"
@@ -16074,7 +16130,7 @@
 		1: "Stalker"
 		]
 
-	icantakedamage(choices) : "TakeDamage" : 1 =
+	icantakedamage(choices) : "Can I take damage ?" : 1 =
 		[
 		0: "No"
 		1: "Yes"
@@ -16101,7 +16157,7 @@
 		1: "Stalker"
 		]
 
-	icantakedamage(choices) : "TakeDamage" : 0 =
+	icantakedamage(choices) : "Can I take damage ?" : 0 =
 		[
 		0: "No"
 		1: "Yes"
@@ -16146,9 +16202,17 @@
 	line(255 255 255, targetname, target)
 	studio("models/xenians/snark.mdl")
 = npc_snark: "Armed Snark"
-	[
-	m_flifetime(float) : "myLifeTime" : 14 : "LifeTime. Default value is 14.5 secs"
-	]
+	[]
+
+@NpcClass base(BaseNPC) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	line(255 0 0, targetname, enemyfilter)
+	color(0 200 200)
+	line(255 255 255, targetname, target)
+	studio("models/leech.mdl")
+= npc_leech: "Leech. Non-functional, because of the Half-Life: 2 model have no required animations. Half-Life: Source model works pretty fine."
+	[]
 
 @NpcClass base(BaseNPC) 
 	sphere(fademindist)
@@ -16581,6 +16645,11 @@
 	sphere(exploderadius)
 = func_physbox_multiplayer: "This class is the same as func_physbox, except the runtime collisions use a more bouncy method that avoids the prediction errors normal physics objects get."
 	[
+		disableshadows(choices) : "Disable Shadows" : 0 =
+		[
+		0: "No"
+		1: "Yes"
+		]
 	]
 
 @SolidClass base(func_trackchange) 
@@ -16938,6 +17007,7 @@
 		"weapon_glock": "weapon_glock"
 		"weapon_357": "weapon_357"
 		"weapon_shotgun": "weapon_shotgun"
+		"weapon_mp5": "weapon_mp5"
 		]
 
 
