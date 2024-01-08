@@ -5469,17 +5469,9 @@
 	iconsprite("editor/env_global.vmt")
 = env_global: "An entity to control a game-specific global states."
 	[
-	globalstate(choices) : "Global State to Set" =
+	globalstate(choices) : "Global State to Set" : "Predisaster - makes scientist and guard NPCs use pre-disaster speech (greetings, idles, busy responses)." =
 		[
-		"gordon_precriminal": "Gordon pre-criminal (Point Insertion behavior)"
-		"antlion_allied": "Antlions are player allies, respond to bugbait"
-		"suit_no_sprint": "Disable sprinting"
-		"super_phys_gun": "Enable Super Gravity Gun"
-		"friendly_encounter": "Friendly encounter sequence (lower weapons, etc.)"
-		"gordon_invulnerable": "Player is invulnerable"
-		"no_seagulls_on_jeep": "Don't spawn seagulls on the jeep"
-		"citizens_passive": "Non-rebel citizens, doesn't work exactly like 'Gordon pre-criminal'"
-		"gordon_protect_driver": "Protect driver. Changes damage when in a vehicle and being crushed."
+		"predisaster" : "Pre-Disaster"
 		]
 
 	initialstate(choices) : "Initial State" : 0 =
@@ -8836,7 +8828,7 @@
 	weight(float) : "Weight" : "1.0" : "Weight Controls the intensity of volumetric shadow. Blocking of rays by geometry. good values 0.1 - 10.0"
 	decay(float) : "Decay" : "1.0" : "Decay NOT being used"
 	exposure(float) : "Exposure" : "2.5" : "Exposure Controls the intensity of Rays during blending pass with main scene. 2.0 is a good start. Good values are 1.0 - 10.0"
-	distfactor(float) : "Dist Factor" : "1.0" : "DistFactor Controls the falloff of rays / length. 1.0f is a good starting value increase or decrease in the increments of 0.1. 0.0 will make the rays dissappear only disk will be rendererd."
+	distfactor(float) : "Dist Factor" : "1.0" : "DistFactor Controls the falloff of rays / length. 1.0f is a good starting value increase or decrease in the increments of 0.1. 0.0 will make the rays dissappear only disk	will be rendererd."
 	diskradius(float) : "Disk Radius" : "0.02" : "DiskRadius Radius of Disk/circle of sun in texturespace. 1.0 will be full screen 0.5 is half screen etc"
 	diskinnersizepercent(float) : "Disk Inner Size Percent" : "0.75" : "Used to control the thickness of circumference. Disk inner circle radius = DiskRadius * DiskInnerSizePercent"
 	colorinner(color255) : "Color Inner" : "128 200 255 255" : "This is the color of the inner circle"
@@ -8999,7 +8991,7 @@
 	ell_rrf_constb(float) : "Fancy Rays Inner Distortion" : "0.1" : "For fancy Godrays inner distortion."
 	rotspeed(float) : "Rotating Speed" : "3.14" : "Rotating speed. For fancy Godrays only."
 	rotpatternfreq(float) : "Rotating Pattern Freq" : "10.0" : "Determines count of fancy rays in frame, with negative number will deny Rotating Speed +/- effect."
-	m_benableworldspace(choices) : "Render In World Space ?" : 0 : "Disables disks if this enabled." =
+	m_benableworldspace(choices) : "Render In World Space ?" : 1 : "Disables disks if this enabled." =
 		[
 		0: "No"
 		1: "Yes"
