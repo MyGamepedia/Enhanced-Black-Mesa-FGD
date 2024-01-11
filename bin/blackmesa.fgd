@@ -74,6 +74,7 @@
 		"func_pushable"
 		"func_rotating"
 		"func_tank"
+		"func_tank_combine_cannon"
 		"func_tankairboatgun"
 		"func_tanklaser"
 		"func_tankmortar"
@@ -379,7 +380,6 @@
 		"info_projecteddecal"
 		"info_target"
 		"info_target_gunshipcrash"
-		"info_target_helicopter_crash"
 		"info_target_helicoptercrash"
 		"info_target_vehicle_transition"
 		"info_teleport_destination"
@@ -648,6 +648,7 @@
 		[
 		"func_50cal"
 		"func_tank"
+		"func_tank_combine_cannon"
 		"func_tankairboatgun"
 		"func_tanklaser"
 		"func_tankmortar"
@@ -5026,7 +5027,7 @@
 	]
 
 @PointClass base(BaseEntityPoint, EnableDisable) 
-	iconsprite("editor/shadow_control.vmt")
+	iconsprite("editor/env_cascade_light.vmt")
 	studio("models/editor/spot.mdl")
 = env_cascade_light: "An entity to control the sunlight that casts cascaded shadows in the map."
 	[
@@ -5588,11 +5589,11 @@
 	]
 
 @PointClass base(BaseEntityPoint)
-    studio("models/editor/axis_helper.mdl")
+    studio("models/editor/angle_helper.mdl")
 	sphere(GlowProxySize)
 	sphere(flareattenuation)
 	iconsprite("editor/lensflare.vmt")
-= env_lensflare: "Controls LensFlare"
+= env_lensflare: "Controls lensflare. "
 	[
 	flarefile(string) : "File" : : "Optionnal - file defining the lens flare. Note: Hammer's parameters overwrite the file's parameters."
 	spawnflags(flags)  =
@@ -5602,7 +5603,7 @@
 		]
 
 	flareattenuation(float) : "Distance Attenuation" : "0.0" : "Distance where lensflare will be invisible. 0.0 if not attenuation with distance."
-	flaretype(choices) : "Flare Type" : 0 : "Normal: normal lens flare (Pitch,Yaw,Roll not used)    ------     Sun Flare: set the same Pitch,Yaw,Roll that the one from the light_environment. That will define the position of the sun, the actual position of this entity is not used." =
+	flaretype(choices) : "Flare Type" : 0 : "Normal - normal lens flare (pitch, yaw, roll not used). Sun Flare -  set the same pitch, yaw, roll that the one from the light_environment, that will define the position of the sun, the actual position of this entity is not used." =
 		[
 		0: "Normal"
 		1: "Sun Flare"
@@ -6528,7 +6529,7 @@
 	overlaysize(integer) : "Overlay Size" : -1 : "A value of -1 means the overlay will act the old way."
 	material(sprite) : "Material Name" : "sprites/light_glow02_add_noz" : "Material of the inner glow."
 	overlaymaterial(sprite) : "Overlay Material Name" : "sprites/light_glow02_add_noz" : "Material of the overlay glow."
-	hdrcolorscale(float) : "HDR color scale." : "0.5" : "float value to multiply sprite color by when running in HDR mode."
+	hdrcolorscale(float) readonly : "HDR color scale." : "0" : "We urge you not to use this entity in Black Mesa as if you look at its center it will disappear and flicker. Instead of this use env_lensflare and newLight_Dir, both do not have this horrible bug and look much more modern. Float value to multiply sprite color by when running in HDR mode. 0 value to prevent sun appear."
 
 	// Inputs
 	input TurnOn(void) : "Enable sun rendering."
@@ -6919,7 +6920,7 @@
 		4: "[4] Gib Player" : 0
 		]
 
-	target(target_destination) : "The game_team_master representing the required team."
+	target(target_destination) : "Game Team Master To Use" : "The game_team_master representing the required team."
 
 	// Inputs
 	input Use(void) : "Change the team of the !activator player."
@@ -6955,20 +6956,21 @@
 	iconsprite("editor/ficool2/game_round_win")
 = game_round_win: "Tells the game rules that the round has either been won (if a team is assigned) or (for TF2) enter Sudden Death mode (if no team is assigned)."
 	[
-	team(choices) : "Team" : 0 : "Team" =
+	team(choices) : "Team" : 0 : "Which Team the entity belongs / is assigned to on spawn." =
 		[
 		0: "None"
+		1: "Spectator"
 		2: "Marines (Team-based game modes only)"
 		3: "Scientists (Team-based game modes only)"
 		]
 
-	force_map_reset(choices) : "Force map reset" : 1 : "Force the map to reset during the force respawn after the round is over." =
+	force_map_reset(choices) : "Force Map Reset" : 1 : "Force the map to reset during the force respawn after the round is over." =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	switch_teams(choices) : "Switch teams on map win?" : 0 : "Switch the teams when the game is going to be reset." =
+	switch_teams(choices) : "Switch Teams On Map Win ?" : 0 : "Switch the teams when the game is going to be reset." =
 		[
 		0: "No"
 		1: "Yes"
@@ -6978,6 +6980,9 @@
 	// Inputs
 	input SetTeam(integer) : "Changes the entity's team (this is used to determine which team has won the round (0 = none)."
 	input RoundWin(void) : "Tell the game rules the round is over."
+	
+	// Outputs
+	output OnRoundWin(void) : "Sent when the entity tells the game rules the round is over."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -7252,7 +7257,7 @@
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/info_target.vmt")
-= info_nihilanth_summon: "Nihilanth summon spawn point"
+= info_nihilanth_summon: "Nihilanth summon spawn point."
 	[
 	]
 
@@ -7385,7 +7390,7 @@
 
 @PointClass base(BaseEntityPoint) 
 	studioprop("models/editor/camera.mdl")
-= info_observer_menu: "A position for a menu fade in"
+= info_observer_menu: "A position for a menu fade in."
 	[
 	observerid(integer) : "ID" : 0 : "Corresponds to the index of a loading material for this map."
 	]
@@ -7590,12 +7595,12 @@
 
 @PointClass base(BaseEntityPoint) 
 	color(0 255 0)
-	studio("models/editor/playerstart.mdl")
+	studio("models/editor/playerstart_tf.mdl")
 	sphere(_blocked_dist)
-= info_player_deathmatch: "Generic multiplayer spawn point, used in games which don't have their own."
+= info_player_deathmatch: "Spawn point for deathmatch multiplayer game mode, it is also generic multiplayer spawn point, used in games which don't have their own."
 	[
 	
-	itemstogive(string) : "List of items to spawn the player with."
+	itemstogive(string) : "List Of Items" : "" : "List of items to spawn the player with."
 
 	// Inputs
 	input Enable(void) : "Enable this spawnpoint."
@@ -7605,9 +7610,9 @@
 @PointClass base(BaseEntityPoint) 
 	color(0 255 0)
 	studio("models/humans/marine.mdl")
-= info_player_marine
+= info_player_marine: "Spawn point for marine team in team deathmatch multiplayer game mode."
 	[
-	itemstogive(string) : "List of items to spawn the player with."
+	itemstogive(string) : "List Of Items" : "" : "List of items to spawn the player with."
 
 	// Inputs
 	input Enable(void) : "Enable this spawnpoint."
@@ -7617,9 +7622,9 @@
 @PointClass base(BaseEntityPoint) 
 	color(0 255 0)
 	studio("models/humans/hev_male_xen.mdl")
-= info_player_scientist
+= info_player_scientist: "Spawn point for scientist team in team deathmatch multiplayer game mode."
 	[
-	itemstogive(string) : "List of items to spawn the player with."
+	itemstogive(string) : "List Of Items" : "" : "List of items to spawn the player with."
 
 	// Inputs
 	input Enable(void) : "Enable this spawnpoint."
@@ -7651,29 +7656,6 @@
 	input Activate(void) : "Force the decal to apply itself to the world."
 	]
 
-@PointClass base(BaseEntityPoint, EnableDisable) 
-	iconsprite("editor/vizzys/info_radar_target.vmt")
-	sphere(radius)
-= info_radar_target: "Jalopy Radar Beacon"
-	[
-	radius(float) : "Effective Radius" : 6000 : "How close the Jalopy must be to detect this beacon. If this radius is -1, the range is infinite."
-	type(choices) : "Type of target" : 0 =
-		[
-		0: "Generic Citizen Beacon"
-		1: "Magnussen RDU Beacon"
-		2: "Dog"
-		3: "Ally Installation"
-		4: "Enemy"
-		5: "Large Enemy (striders)"
-		]
-
-	mode(choices) : "Mode" : 0 =
-		[
-		0: "Default"
-		1: "Sticky - once detected, ignore effective radius."
-		]
-
-	]
 
 @PointClass base(BaseEntityPoint) 
 	sphere(radius)
@@ -7727,14 +7709,6 @@
 	iconsprite("editor/vizzys/info_target_helicopter_crash.vmt")
 	studio("models/editor/axis_helper.mdl")
 	halfgridsnap
-= info_target_helicopter_crash: "Helicopter Crash Target"
-	[
-	]
-
-@PointClass base(BaseEntityPoint) 
-	iconsprite("editor/vizzys/info_target_helicopter_crash.vmt")
-	studio("models/editor/axis_helper.mdl")
-	halfgridsnap
 = info_target_helicoptercrash: "Helicopter Crash Target"
 	[
 	]
@@ -7746,17 +7720,6 @@
 	[
 	]
 
-@PointClass base(BaseEntityPoint) 
-	iconsprite("editor/vizzys/info_teleporter_countdown.vmt")
-= info_teleporter_countdown: "Countdown timer for the teleporter. The status of the teleporter will appear on vgui_screen entities whose panel is 'teleport_countdown_screen'."
-	[
-
-	// Inputs
-	input StartCountdown(float) : "Starts the teleporter countdown. Requires an argument which is the number of seconds for the countdown."
-	input StopCountdown(void) : "Stops the countdown permanently"
-	input Disable(void) : "Pauses the countdown due to a temporary malfunction. A warning sign will appear on the linked vgui screens."
-	input Enable(void) : "Restarts the countdown since the malfunction is finished."
-	]
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/info_target.vmt")
@@ -7830,7 +7793,7 @@
 	[
 	target(target_destination) : "Entity to point at" : : "The name of an entity in the map that the dynamic light will point at."
 	_light(color255) : "Light color" : "255 255 255 200"
-	brightness(integer) : "Light brightness" : 0
+	brightness(integer) : "Light brightness" : 5
 	_inner_cone(integer) readonly : "Inner (bright) angle. Broken in  Black Mesa, use 0 to escape bugs." : 0
 	_cone(integer) readonly : "Outer (fading) angle. Broken in  Black Mesa, use 0 to escape bugs." : 0
 	pitch(integer) : "Pitch" : -90
@@ -7902,6 +7865,18 @@
 		]
 
 	]
+
+@PointClass base(BaseEntityPoint)
+	color(128 255 128)
+	iconsprite("editor/multisource.vmt")
+= multisource : "Multisource."
+[
+	target(target_destination) : "Target"
+	globalstate(string) : "Global State Master"
+	
+	// Outputs
+	output OnTrigger(void) : "When Use input is successful."
+]
 
 @PointClass base(BaseEntityPoint, EnableDisable) 
 	iconsprite("editor/vizzys/logic_achievement")
@@ -8851,7 +8826,7 @@
 	iconsprite("editor/light_new.vmt")
 	sphere(range)
 	sphere(NearZ)
-= newLight_Point: "Next Gen Point light"
+= newLight_Point: "Next generation point light. One of deferred lighting entities, also support lightcookies and godrays."
 	[
 	enabled(choices) : "Enabled ?" : 1 : "Is light enabled on spawn ?" =
 		[
@@ -9052,7 +9027,7 @@
 	sphere(range)
 	sphere(NearZ)
 	frustum(phi,NearZ,Range,LightColor,-1)
-= newLight_Spot: "Next Gen Spot light"
+= newLight_Spot: "Next generation spot light. One of deferred lighting entities, also support animated lightcookies."
 	[
 	reversedir(choices) : "Reverse Dir" : 0 : "Reflects Y angle value and applies it. This additionally impacts performance, use it in extremely rare cases. For example if you want your NewLight_Spot to look up and not down, change value of Y angle from positive number to negative number." =
 		[
@@ -9207,7 +9182,7 @@
 	frustum(phi,NearZ,Range,LightColor,-1)
 = newLights_settings: "This entity uses to dynamically change some lighting settings for newLight_Spot and newLight_Point."
 	[
-	targetnewlightentity(target_destination) : "Target New Light Entity" : : "Target new light entity name."
+	targetnewlightentity(target_destination) : "Target Light Entity" : : "Target new light entity name."
 	transitiontime(integer) : "Transition Time" : 0 : "TransitionTime in secs ( 0 for instant ) to transition into new settings. Its a lerp operation A + (B-A)*TimeFactor"
 	lighttype(choices) : "Light Type" : 0 : "Type of light source for which you want to apply settings. Entity will not apply settings for spot lights if selected Point Light and will not apply settings for point lights if selected Spot Light." =
 		[
@@ -9279,9 +9254,9 @@
 	]
 	
 @PointClass base(BaseEntityPoint) 
-= godrays_settings : "This entity uses to dynamically change godrays settings for newLight_Point and newLight_Dir."
+= godrays_settings : "This entity uses to dynamically change godrays settings for point light."
 [
-	TargetGodRays(target_destination) : "Target Light With GodRays Name" : "" : "Target light entity name that support GodRays (newLight_Dir or newLight_Point - newLight_Spot godrays aren't supported)."
+	TargetGodRays(target_destination) : "Target Point Light Entity" : "" : "Target light entity name that support GodRays (point only, directional and spot isn't supported))."
 	TransitionTime(integer) : "Transition Time" : 0 : "TransitionTime in secs ( 0 for instant ) to transition into new settings. Its a lerp operation A + (B-A)*TimeFactor"
 	
 	LightType(Choices) : "Light Type" : 1 : "Type of light source for which you want to apply settings. Entity will not apply settings for newLight_Dir if selected Point Light and will not apply settings for newLight_Point if selected Direction/Sun Light." =
@@ -11903,15 +11878,20 @@
 @SolidClass base(BaseEntityVisBrush) 
 	sphere(fademindist)
 	sphere(fademaxdist)
-= func_conveyor_bms: "BMS Conveyor Belt"
+= func_conveyor_bms: "Conveyor Belt. The main difference between func_conveyor_bms and func_conveyor is that it can interact with VPhysics objects and not only QPhysics objects, it is also have some inputs that allow more slightly control conveyor state."
 	[
+	speed(float) : "Conveyor Speed" : 150
 	movedir(angle) : "Move Direction (Pitch Yaw Roll)" : "0 0 0" : "The direction conveyor moves."
 	spawnflags(flags)  =
 		[
 		1: "[1] Push" : 1
 		]
-
-	speed(float) : "Conveyor Speed" : 150
+		
+	// Inputs
+	input ReverseDirection(void) : "Reverse direction of conveyor."
+	input Activate (void) : "Activate the conveyor."
+	input Deactivate (void) : "Deactivate the conveyor."
+	input Toggle(void) : "Toggle the conveyor current state."
 	]
 
 @SolidClass base(BaseEntityVisBrush) 
@@ -12109,6 +12089,32 @@
 		256: "[256] Aiming Assistance (Player Only)" : 0
 		]
 
+	]
+
+@SolidClass base(BaseTank) 
+	line(255 255 255, targetname, control_volume)
+	line(255 255 255, targetname, TraceFilter)
+	sphere(PlayerBBoxDist)
+	sphere(minrange)
+	sphere(maxrange)
+= func_tank_combine_cannon: "Combine sentry cannon"
+	[
+	ammotype(choices) : "Ammo Type" =
+		[
+		"": "None"
+		"Pistol": "Pistol"
+		"SMG1": "SMG1"
+		"AR2": "AR2"
+		"CombineHeavyCannon": "Combine Heavy Cannon"
+		]
+
+
+	// Inputs
+	input DisableHarrass(void) : "Disable the cannon tracking an unseen player"
+	input EnableHarrass(void) : "Allow the cannon to track and pester a player who is hiding (DEFAULT)"
+
+	// Outputs
+	output OnShotAtPlayer(void) : "Fired everytime the cannon shoots at the player"
 	]
 
 @SolidClass base(BaseTank) 
@@ -13767,22 +13773,22 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_ammo_canister: "Ammo canister"
+= item_ammo_canister: "Canister with ammo."
 	[
-	ammoglock(integer) : "AmmoGlock" : 0 : "AmmoGlock"
-	ammomp5(integer) : "AmmoMp5" : 0 : "AmmoMp5"
-	ammo357(integer) : "Ammo357" : 0 : "Ammo357"
-	ammobolt(integer) : "AmmoBolt" : 0 : "AmmoBolt"
-	ammobuckshot(integer) : "AmmoBuckshot" : 0 : "AmmoBuckshot"
-	ammoenergy(integer) : "AmmoEnergy" : 0 : "AmmoEnergy"
-	ammomp5grenade(integer) : "AmmoMp5Grenade" : 0 : "AmmoMp5Grenade"
-	ammorpg(integer) : "AmmoRPG" : 0 : "AmmoRPG"
-	ammosatchel(integer) : "AmmoSatchel" : 0 : "AmmoSatchel"
-	ammosnark(integer) : "AmmoSnark" : 0 : "AmmoSnark"
-	ammotripmine(integer) : "AmmoTripmine" : 0 : "AmmoTripmine"
-	ammofrag(integer) : "AmmoFrag" : 0 : "AmmoFrag"
+	ammoglock(integer) : "Ammo Glock" : 0 : "How many ammo for glock should this canister give out ?"
+	ammomp5(integer) : "Ammo MP5" : 0 : "How many ammo for MP5 should this canister give out ?"
+	ammo357(integer) : "Ammo 357" : 0 : "How many ammo for revolver .357 should this canister give out ?"
+	ammobolt(integer) : "Ammo Bolt" : 0 : "How many bolts should this canister give out ?"
+	ammobuckshot(integer) : "Ammo Buckshot" : 0 : "How many buckshot should this canister give out ?"
+	ammoenergy(integer) : "Ammo Energy" : 0 : "How many energy should this canister give out ?"
+	ammomp5grenade(integer) : "Ammo Mp5 Grenade" : 0 : "How many grenades for MP5 should this canister give out ?"
+	ammorpg(integer) : "Ammo RPG" : 0 : "How many ammo for RPG should this canister give out ?"
+	ammosatchel(integer) : "Satchels" : 0 : "How many satchels should this canister give out ?"
+	ammosnark(integer) : "Snarks" : 0 : "How many snarks should this canister give out ?"
+	ammotripmine(integer) : "Tripmines" : 0 : "How many tripmines should this canister give out ?"
+	ammofrag(integer) : "Frags" : 0 : "How many frags should this canister give out ?"
 	
-	model(studio) : "Model" : "models/weapons/w_weaponbox.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_weaponbox.mdl" : "Model to use for this canister."
 
 
 	]
@@ -13791,16 +13797,16 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_ammo_crossbow: "Box of Crossbow ammo"
+= item_ammo_crossbow: "Crossbow ammo clip."
 	[
-	model(studio) : "Model" : "models/items/CrossbowRounds.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_crossbow_clip.mdl" : "Model to use for this pickup."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_ammo_energy: "Uranium"
+= item_ammo_energy: "Uranium. Ammo for tau and gluon guns."
 	[
 	model(studio) : "Model" : "models/weapons/w_gaussammo.mdl" : "Model to use for this pickup."
 	]
@@ -13809,7 +13815,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_ammo_glock: "Glock Clip"
+= item_ammo_glock: "Glock clip, also can be used for MP5."
 	[
 	model(studio) : "Model" : "models/weapons/w_9mmclip.mdl" : "Model to use for this pickup."
 	]
@@ -13818,7 +13824,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_ammo_mp5: "MP5 Clip"
+= item_ammo_mp5: "MP5 clip, also can be used for glock."
 	[
 	model(studio) : "Model" : "models/weapons/w_9mmARclip.mdl" : "Model to use for this pickup."
 	]
@@ -13827,7 +13833,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_ammo_shotgun: "Shotgun Shells"
+= item_ammo_shotgun: "Box with shotgun shells."
 	[
 	model(studio) : "Model" : "models/weapons/w_shotbox.mdl" : "Model to use for this pickup."
 	]
@@ -13836,9 +13842,9 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_battery: "HEV battery"
+= item_battery: "HEV battery."
 	[
-	model(studio) : "Model" : "models/weapons/w_battery.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_battery.mdl" : "Model to use for this battery."
 	]
 
 @PointClass base(BasePropPhysics, DamageFilter) 
@@ -13849,23 +13855,23 @@
 	model(studio) : "Model" : "models/items/item_item_crate.mdl" : "Model to use for the crate."
 	scriptpreset(choices) : "Script preset" : : "Spawn entities using a section from /scripts/proplist.txt" =
 		[
-		"canteen": "canteen"
-		"joke": "joke"
-		"junk": "junk"
-		"lab": "lab"
-		"lab2": "lab2"
-		"military": "military"
-		"military_big": "military_big"
-		"office": "office"
-		"tech": "tech"
-		"tech2": "tech2"
-		"cleaning_products": "cleaning_products"
-		"paint_supplies": "paint_supplies"
-		"books_small": "books_small"
-		"books_large": "books_large"
-		"snacks": "snacks"
-		"computer_supplies": "computer_supplies"
-		"tools": "tools"
+		"canteen": "Canteen"
+		"joke": "Joke"
+		"junk": "Junk"
+		"lab": "Lab. Version 1"
+		"lab2": "Lab. Version 2"
+		"military": "Military"
+		"military_big": "Military Big"
+		"office": "Office"
+		"tech": "Tech. Version 1"
+		"tech2": "Tech. Version 2"
+		"cleaning_products": "Cleaning Products"
+		"paint_supplies": "Paint Supplies"
+		"books_small": "Books Small"
+		"books_large": "Books Large"
+		"snacks": "Snacks"
+		"computer_supplies": "Compute Supplies"
+		"tools": "Tools"
 		]
 
 	spawnonbreak(string) : "Spawn on break" : : "Spawn entities using a comma separated list."
@@ -13875,7 +13881,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_grenade_mp5: "MP5 Grenades"
+= item_grenade_mp5: "Grenades for MP5."
 	[
 	model(studio) : "Model" : "models/weapons/w_argrenade.mdl" : "Model to use for this pickup."
 	]
@@ -13884,7 +13890,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_grenade_rpg: "RPG Round"
+= item_grenade_rpg: "RPG round."
 	[
 	model(studio) : "Model" : "models/weapons/w_rpgammo.mdl" : "Model to use for this pickup."
 	]
@@ -13893,7 +13899,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_healthkit: "Small Health Kit"
+= item_healthkit: "Small health kit."
 	[
 	model(studio) : "Model" : "models/weapons/w_medkit.mdl" : "Model to use for the medkit."
 	]
@@ -13902,7 +13908,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_syringe : "Scientist syringe. Probably must be used when scientist with syringe die, however nothing like this in game. Can be respawn, but with no effects and sound. Requaried model fixes."
+= item_syringe : "Scientist syringe. Probably must be used when scientist with syringe die, however nothing like this in the game. Can be respawn, but with no effects and sound. Requaried model fixes."
 	[
 	model(studio) : "Model" : "models/humans/props/scientist_syringe.mdl" : "Model to use for the syringe."
 	]
@@ -13911,27 +13917,27 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_healthvial: "Personal Health Kit"
+= item_healthvial: "Personal health kit."
 	[
-	model(studio) : "Model" : "models/healthvial.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/healthvial.mdl" : "Model to use for this health."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_longjump: "Longjump Module"
+= item_longjump: "Longjump Module."
 	[
-	model(studio) : "Model" : "models/weapons/w_longjump.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_longjump.mdl" : "Model to use for this longjump module."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_suit: "HEV Suit"
+= item_suit: "HEV Suit."
 	[
-	model(studio) : "Model" : "models/props_am/hev_suit.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/props_am/hev_suit.mdl" : "Model to use for this HEV suit.."
 	
 	spawnflags(flags)  =
 		[
@@ -13944,126 +13950,126 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_tow_missile: "TOW Missile"
+= item_tow_missile: "TOW missile."
 	[
-	model(studio) : "Model" : "models/props_marines/tow_missile_projectile.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/props_marines/tow_missile_projectile.mdl" : "Model to use for this TOW missile."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_357: "357 Revolver"
+= item_weapon_357: "357 revolver."
 	[
-	model(studio) : "Model" : "models/weapons/w_357.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_357.mdl" : "Model to use for this 357 revolver."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_crossbow: "Crossbow"
+= item_weapon_crossbow: "Crossbow."
 	[
-	model(studio) : "Model" : "models/weapons/w_crossbow.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_crossbow.mdl" : "Model to use for this crossbow."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_crowbar: "Crowbar"
+= item_weapon_crowbar: "Crowbar."
 	[
-	model(studio) : "Model" : "models/weapons/w_crowbar.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_crowbar.mdl" : "Model to use for this crowbar."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_frag: "Frag Grenade"
+= item_weapon_frag: "Frag grenade."
 	[
-	model(studio) : "Model" : "models/weapons/w_grenade.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_grenade.mdl" : "Model to use for this frag grenade."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_glock: "Glock-18 Handgun"
+= item_weapon_glock: "Glock-18 handgun."
 	[
-	model(studio) : "Model" : "models/weapons/w_glock.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_glock.mdl" : "Model to use for this glock."
 	]
 	
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_assassin_glock: "Assassin's Glock-18 Handgun"
+= item_weapon_assassin_glock: "Assassin's glock-18 handgun. "
 	[
-	model(studio) : "Model" : "models/weapons/w_glock.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_glock.mdl" : "Model to use for this assassin's glock."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_gluon: "Gluon Gun"
+= item_weapon_gluon: "Gluon gun."
 	[
-	model(studio) : "Model" : "models/weapons/w_egon_pickup.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_egon_pickup.mdl" : "Model to use for this gluon gun."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_hivehand: "Hivearm"
+= item_weapon_hivehand: "Hivearm."
 	[
-	model(studio) : "Model" : "models/weapons/w_hgun.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_hgun.mdl" : "Model to use for this hivearm."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_mp5: "MP5 Submachinegun"
+= item_weapon_mp5: "MP5 submachinegun."
 	[
-	model(studio) : "Model" : "models/weapons/w_mp5.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_mp5.mdl" : "Model to use for this MP5."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_rpg: "RPG"
+= item_weapon_rpg: "RPG."
 	[
-	model(studio) : "Model" : "models/weapons/w_rpg.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_rpg.mdl" : "Model to use for this RPG."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_satchel: "Satchel Charge"
+= item_weapon_satchel: "Satchel charge."
 	[
-	model(studio) : "Model" : "models/weapons/w_satchel.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_satchel.mdl" : "Model to use for this satchel."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_shotgun: "SPAS-12 Shotgun"
+= item_weapon_shotgun: "SPAS-12 shotgun."
 	[
-	model(studio) : "Model" : "models/weapons/w_shotgun.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_shotgun.mdl" : "Model to use for this shotgun."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_snark: "Snarks"
+= item_weapon_snark: "Nest with snarks."
 	[
-	model(studio) : "Model" : "models/xenians/snarknest.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/xenians/snarknest.mdl" : "Model to use for this nest."
 	health(integer) : "Health" : 10 : "Number of points of damage to take before breaking. 10 is default value."
 	]
 
@@ -14071,18 +14077,18 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_tau: "Tau Cannon"
+= item_weapon_tau: "Tau cannon."
 	[
-	model(studio) : "Model" : "models/weapons/w_gauss.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_gauss.mdl" : "Model to use for this tau cannon."
 	]
 
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_tripmine: "Tripmine"
+= item_weapon_tripmine: "Tripmine."
 	[
-	model(studio) : "Model" : "models/weapons/w_tripmine.mdl" : "Model to use for this pickup."
+	model(studio) : "Model" : "models/weapons/w_tripmine.mdl" : "Model to use for this tripmine."
 	]
 
 @NpcClass base(prop_dynamic_base) 
@@ -15087,7 +15093,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_357.mdl")
-= weapon_357: "357"
+= weapon_357: "357 revolver. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
 	]
 
@@ -15096,7 +15102,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_crossbow.mdl")
-= weapon_crossbow: "Crossbow"
+= weapon_crossbow: "Crossbow. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
 	]
 
@@ -15105,7 +15111,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_crowbar.mdl")
-= weapon_crowbar: "Crowbar"
+= weapon_crowbar: "Crowbar. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
 	]
 
@@ -15114,7 +15120,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_grenade.mdl")
-= weapon_frag: "Frag Grenade"
+= weapon_frag: "Frag grenade. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
 	]
 
@@ -15123,7 +15129,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_rpg.mdl")
-= weapon_rpg: "RPG"
+= weapon_rpg: "RPG. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
 	]
 
@@ -15132,7 +15138,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_shotgun.mdl")
-= weapon_shotgun: "Shotgun"
+= weapon_shotgun: "Shotgun. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
 	]
 	
@@ -15150,7 +15156,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_egon_pickup.mdl")
-= weapon_gluon: "Gluon"
+= weapon_gluon: "Gluon gun. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
 	]
 
@@ -15159,7 +15165,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_gauss.mdl")
-= weapon_tau: "Tau"
+= weapon_tau: "Tau cannon. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
 	]
 
@@ -15168,7 +15174,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_glock.mdl")
-= weapon_glock: "Glock"
+= weapon_glock: "Glock. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
 	]
 	
@@ -15177,7 +15183,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_glock.mdl")
-= weapon_assassin_glock: "Assassin's Glock"
+= weapon_assassin_glock: "Assassin's glock. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
 	]
 	
@@ -15186,7 +15192,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_mp5.mdl")
-= weapon_mp5: "Mp5"
+= weapon_mp5: "MP5. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
 	]
 	
@@ -15194,8 +15200,17 @@
 	color(0 0 200)
 	sphere(fademindist)
 	sphere(fademaxdist)
-	studioprop("models/weapons/w_snark.mdl")
-= weapon_snark: "Snarks"
+	studioprop("models/xenians/snarknest.mdl")
+= weapon_snark: "Nest with snarks. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
+	[
+	]
+
+@PointClass base(Weapon) 
+	color(0 0 200)
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studioprop("models/weapons/w_satchel.mdl")
+= weapon_satchel: "Satchel. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
 	]
 	
@@ -15204,7 +15219,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_tripmine.mdl")
-= weapon_tripmine: "Tripmine"
+= weapon_tripmine: "Tripmine. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
 	]
 
@@ -15423,7 +15438,7 @@
 
 @BaseClass base(BaseNPC) = RappelNPC
 	[
-	waitingtorappel(choices) : "Waiting to Rappel?" : 0 : "If yes, this NPC spawns suspended in air and awaits a BeginRappel input. It will then spawn a zipline and slide down. When it hits the ground, NPC will cut away the line and try to move forward a few feet to make room for the next NPC. The NPC will not attempt to clear its landing space if it cannot do so by taking a few steps forward" =
+	waitingtorappel(choices) : "Waiting to Rappel?" : 0 : "If yes, this NPC spawns suspended in air and awaits a BeginRappel input. It will then spawn a zipline and slide down. When it hits the ground, NPC will cut away the line and try to move forward a few feet to make room for the next NPC. The NPC will not attempt to clear its landing space if it cannot do so by taking a few steps forward." =
 		[
 		0: "No"
 		1: "Yes"
@@ -15431,10 +15446,10 @@
 
 
 	// Inputs
-	input BeginRappel(void) : "BeginRappel"
+	input BeginRappel(void) : "Begin rappel."
 
 	// Outputs
-	output OnRappelTouchdown(void) : "Fires when done rappeling"
+	output OnRappelTouchdown(void) : "Fires when done rappeling."
 	]
 
 @BaseClass base(BaseNPC) = TalkNPC
@@ -15472,9 +15487,9 @@
 	sphere(fademaxdist)
 	color(0 200 200)
 	studio()
-= cycler_actor: "Actor Cycler"
+= cycler_actor: "Actor cycler."
 	[
-	sentence(string) : "Sentence Group"
+	sentence(string) : "Sentence group."
 	]
 
 @SolidClass base(func_breakable) 
@@ -15483,37 +15498,55 @@
 	sphere(exploderadius)
 	quadbounds()
 = func_breakable_surf: "A breakable surface, for partially breakable glass / tile / etc. All faces but the desired visible one must be marked as NODRAW and that face must be 4 sided. The material applied to the visible face must be set up to be breakable."
+//	[
+//	spawnflags(flags)  =
+//		[
+//		1: "[1] Physics damage decals" : 0
+//		2: "[2] Take damage from held objects" : 0
+//		4: "[4] Play break sound" : 0
+//		]
+//
+//	health(integer) : "Health" : 5 : "The amount of damage the surface takes before breaking."
+//	fragility(integer) : "Fragility" : 100 : "If the 'Surface Type' is set to Glass, this value sets how fragile the glass pieces are after the surface has been broken. Lower values make glass pieces tend to stay more."
+//	surfacetype(choices) : "Surface Type" : 0 : "Sets the behaviour of the brush. Glass shatters in multiple sizes, and easily breaks. Tile only breaks along edges, and is still strong after being shattered." =
+//		[
+//		0: "Glass"
+//		1: "Tile"
+//		]
+//
+//	lowerleft(vecline) readonly : "Lower Left Corner (readonly)" : : "This is set automatically by Hammer when saving."
+//	lowerright(vecline) readonly : "Lower Right Corner (readonly)" : : "This is set automatically by Hammer when saving."
+//	upperleft(vecline) readonly : "Upper Left Corner (readonly)" : : "This is set automatically by Hammer when saving."
+//	upperright(vecline) readonly : "Upper Right Corner (readonly)" : : "This is set automatically by Hammer when saving."
+//	error(choices) readonly : "Face Error" : 0 : "Set by Hammer to indicate an invalid glass/tile surface." =
+//		[
+//		0: "No Error"
+//		1: "Multiple Textured Faces"
+//		2: "Non-Square Face"
+//		]
+//
+//
+//	// Inputs
+//	input Shatter(vector) : "Shatter the window. Input a vector. First two coordinates are the X,Y center of the shattering (as values from from 0-1). The third coordinate is the radius of the shatter, in units."
+//	]
+
+[
+	spawnflags(Flags) = 
 	[
-	spawnflags(flags)  =
-		[
-		1: "[1] Physics damage decals" : 0
-		2: "[2] Take damage from held objects" : 0
-		4: "[4] Play break sound" : 0
-		]
-
+		1 : "Physics damage decals" : 0
+		2 : "Take damage from held objects" : 0
+	]
 	health(integer) : "Health" : 5 : "The amount of damage the surface takes before breaking."
-	fragility(integer) : "Fragility" : 100 : "If the 'Surface Type' is set to Glass, this value sets how fragile the glass pieces are after the surface has been broken. Lower values make glass pieces tend to stay more."
-	surfacetype(choices) : "Surface Type" : 0 : "Sets the behaviour of the brush. Glass shatters in multiple sizes, and easily breaks. Tile only breaks along edges, and is still strong after being shattered." =
-		[
-		0: "Glass"
-		1: "Tile"
-		]
-
-	lowerleft(vecline) readonly : "Lower Left Corner (readonly)" : : "This is set automatically by Hammer when saving."
-	lowerright(vecline) readonly : "Lower Right Corner (readonly)" : : "This is set automatically by Hammer when saving."
-	upperleft(vecline) readonly : "Upper Left Corner (readonly)" : : "This is set automatically by Hammer when saving."
-	upperright(vecline) readonly : "Upper Right Corner (readonly)" : : "This is set automatically by Hammer when saving."
-	error(choices) readonly : "Face Error" : 0 : "Set by Hammer to indicate an invalid glass/tile surface." =
-		[
-		0: "No Error"
-		1: "Multiple Textured Faces"
-		2: "Non-Square Face"
-		]
-
+	fragility(integer) : "Fragility" : 100 : "If the 'Surface Type' is set to Glass, this value sets how fragile the glass pieces are after the surface has been broken."
+	surfacetype(choices) : "Surface Type" : 0 = 
+	[
+		0 : "Glass"
+		1 : "Tile"
+	]
 
 	// Inputs
-	input Shatter(vector) : "Shatter the window. Input a vector. First two coordinates are the X,Y center of the shattering (as values from from 0-1). The third coordinate is the radius of the shatter, in units."
-	]
+	input Shatter(vector) : "Shatter the window. Input a vector. First two coordinates are the X,Y center of the shattering (as values from from 0-1). The third coordinate is the radius of the shatter, in inches."
+]
 
 @SolidClass base(func_breakable) 
 	sphere(fademindist)
