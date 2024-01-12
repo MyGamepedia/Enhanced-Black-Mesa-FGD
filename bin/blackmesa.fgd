@@ -1564,7 +1564,6 @@
 		0: "Non-solid"
 		]
 
-	origin(origin) readonly : "Origin" : : "If offset, this breaks."
 	startdisabled(choices) : "Start Disabled" : 0 =
 		[
 		0: "No"
@@ -2029,8 +2028,8 @@
 	size(choices) : "Portal Size" : 80 =
 		[
 		80: "Default"
-		20: "Small HeadCrab"
-		40: "HeadCrab"
+		20: "Small Headcrab"
+		40: "Headcrab"
 		80: "Alien Slave"
 		90: "Houndeye"
 		100: "Alien Grunt"
@@ -2433,6 +2432,23 @@
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	globalname(string) : "Global Entity Name" : : "Name by which this entity is linked to another entity in a different map. When the player transitions to a new map, entities in the new map with globalnames matching entities in the previous map will have the previous map's state copied over their state."
 	origin(origin) : "Origin (X Y Z)" : : "The position of this brush entity's center in the world. Rotating entities typically rotate around their origin."
+	parentname(target_destination) : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	parent_attachment_point(string) : "[HA] Attachment Point" : : "If set, attach to this attachment point on the parent during spawn."
+	linedivider_base(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	linedivider_basebrush(string) readonly : "----------------------------------------------------------------------------------------------------------"
+
+	// Inputs
+	input SetParent(target_destination) : "Changes the entity's parent in the movement hierarchy."
+	input SetParentAttachment(string) : "Change this entity to attach to a specific attachment point on its parent. Entities must be parented before being sent this input. The parameter passed in should be the name of the attachment."
+	input SetParentAttachmentMaintainOffset(string) : "Change this entity to attach to a specific attachment point on it's parent. Entities must be parented before being sent this input. The parameter passed in should be the name of the attachment. The entity will maintain it's position relative to the parent at the time it is attached."
+	input ClearParent(void) : "Removes this entity from the the movement hierarchy, leaving it free to move independently."
+	input Use(void) : "More or less replicates the player interacting with an entity. (+USE)"
+	]
+	
+@BaseClass base(BaseEntityInputs, BaseEntityOutputs) = BaseEntityBrushNoOrigin
+	[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	globalname(string) : "Global Entity Name" : : "Name by which this entity is linked to another entity in a different map. When the player transitions to a new map, entities in the new map with globalnames matching entities in the previous map will have the previous map's state copied over their state."
 	parentname(target_destination) : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	parent_attachment_point(string) : "[HA] Attachment Point" : : "If set, attach to this attachment point on the parent during spawn."
 	linedivider_base(string) readonly : "----------------------------------------------------------------------------------------------------------"
@@ -3660,6 +3676,31 @@
 	]
 
 @BaseClass base(BaseEntityBrush, RenderFields) = BaseEntityVisBrush
+	[
+	vrad_brush_cast_shadows(choices) : "VRAD Shadows" : 0 : "Determines if this entity will cast lightmap shadows." =
+		[
+		0: "Do not cast shadows"
+		1: "Cast shadows"
+		]
+
+	_minlight(float) : "Minimum Light Level" : 0 : "The minimum level of ambient light that hits this brush."
+	disablereceiveshadows(choices) : "Disable Receiving Shadows?" : 0 : "Prevents dynamic shadows (e.g. player and prop shadows) from appearing on this entity." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	linedivider_visbrush(string) readonly : "----------------------------------------------------------------------------------------------------------"
+
+	// Inputs
+	input DisableShadow(void) : "Allows the entity to draw a render target (dynamic) shadow."
+	input EnableShadow(void) : "Prevents the entity from drawing a render target (dynamic) shadow."
+	input EnableDamageForces(void) : "Damaging the entity applies physics forces to it."
+	input DisableDamageForces(void) : "Damaging the entity does not apply physics forces to it."
+	input AlternativeSorting(bool) : "Used to attempt to fix sorting problems when rendering. True activates, false deactivates"
+	]
+	
+@BaseClass base(BaseEntityBrushNoOrigin, RenderFields) = BaseEntityVisBrushNoOrigin
 	[
 	vrad_brush_cast_shadows(choices) : "VRAD Shadows" : 0 : "Determines if this entity will cast lightmap shadows." =
 		[
@@ -6746,7 +6787,7 @@
 	input Disable(void) : "Disable this entity."
 	]
 
-@SolidClass base(BaseEntityBrush, BModelParticleSpawner) 
+@SolidClass base(BaseEntityBrushNoOrigin, BModelParticleSpawner) 
 	sphere(distmax)
 = func_dustcloud: "A brush entity that spawns a translucent dust cloud within its volume."
 	[
@@ -6755,7 +6796,7 @@
 	sizemax(string) : "Maximum Particle Size" : 200
 	]
 
-@SolidClass base(BaseEntityBrush, BModelParticleSpawner) 
+@SolidClass base(BaseEntityBrushNoOrigin, BModelParticleSpawner) 
 	sphere(distmax)
 = func_dustmotes: "A brush entity that spawns sparkling dust motes within its volume."
 	[
@@ -8435,7 +8476,7 @@
 
 @PointClass base(BaseEntityPoint, DamageFilter) 
 	color(200 0 0)
-	iconsprite("editor/logic_playerproxy.vmt")
+	iconsprite("editor/playerproxy.vmt")
 = logic_playerproxy: "An entity that is used to relay inputs/outputs to the player and back to the world."
 	[
 
@@ -8454,8 +8495,10 @@
 	output PlayerHealth(integer) : "The player's current health value, fired in response to RequestPlayerHealth."
 	output PlayerHasAmmo(void) : "Fired by request if the player has any ammo."
 	output PlayerHasNoAmmo(void) : "Fired by request if the player doesn't have any ammo."
-	output OnFlashlightOn(float) : "Fired when the player turns on their flashlight. This output has the value of how much energy the player had when this happened [0..1]."
-	output OnFlashlightOff(float) : "Fired when the player turns off their flashlight. This output has the value of how much energy the player had when this happened [0..1]."
+	output OnFlashlightOn(float) : "Fired when the player turns on his flashlight. This output has the value of how much energy the player had when this happened [0..1]."
+	output OnFlashlightOff(float) : "Fired when the player turns off his flashlight. This output has the value of how much energy the player had when this happened [0..1]."
+	output PlayerDied(void) : "Fires when the player dies."
+	output PlayerMissedAR2AltFire(void)	: "Player fired an AR2 combine ball that didn't kill any enemies."
 	]
 
 @PointClass base(BaseEntityPoint, EnableDisable) 
@@ -9891,11 +9934,13 @@
 
 @PointClass base(BaseEntityPoint, EnableDisable) 
 	color(0 100 250)
+	sphere(h_preview_distance)
 	line(0 100 250, targetname, target)
 	iconsprite("editor/point_proximity_sensor.vmt")
 = point_proximity_sensor: "An entity that detects another entity's proximity to a target position."
 	[
 	target(target_destination) : "Target Entity Name" : : "Name of the entity whose position will be sensed."
+	h_preview_distance(integer) : "[H] Preview Distance" : 0 : "Use this to preview distance."
 	spawnflags(flags)  =
 		[
 		1: "[1] Test the distance as measured along the axis specified by our direction." : 0
@@ -9968,7 +10013,6 @@
 	spotlightlength(integer) : "Spotlight Length" : 500 : "Length of the spotlight beam."
 	spotlightwidth(integer) : "Spotlight Width" : 50 : "Width of the spotlight beam."
 	rendercolor(color255) : "Color (R G B)" : "255 255 255"
-	renderamt(integer) : "Alpha" : 255 : "Amount of alpha to use for the spotlight."
 	hdrcolorscale(float) : "HDR color scale." : "0.7" : "float value to multiply sprite color by when running in HDR mode."
 
 	// Inputs
@@ -10907,7 +10951,7 @@
 	output OnNextPoint(string) : "Fires continuously every frame when the train is moving to its next destination."
 	]
 
-@BaseClass base(BaseEntityVisBrush, _Breakable, DamageFilter) = BreakableBrush
+@BaseClass base(BaseEntityVisBrushNoOrigin, _Breakable, DamageFilter) = BreakableBrush
 	[
 	spawnflags(flags)  =
 		[
@@ -12728,12 +12772,6 @@
 		"weapon_mp5": "MP5"
 		"weapon_shotgun": "Shotgun"
 		"weapon_357": "357"
-		"weapon_pistol": "Pistol"
-		"weapon_ar2": "AR2"
-		"weapon_shotgun": "Shotgun"
-		"weapon_smg1": "SMG1"
-		"weapon_stunstick": "Stun Stick"
-		"weapon_annabelle": "Grigori's Shotgun"
 		0: "Nothing"
 		]
 
@@ -13551,16 +13589,20 @@
 	rotortimevariance(float) : "Time variance" : "0.3" : "The random amount to vary the time it has to be under the rotor before it shoots a gib."
 	]
 
-@PointClass base(npc_maker, XenPortal) 
-	iconsprite("editor/npc_maker.vmt")
+@PointClass base(npc_maker, XenPortal)
+	studio("models/editor/angle_helper.mdl")
+	sphere(jump_distance)
+	iconsprite("editor/mygamepedia/xen_portal.vmt")
 = env_xen_portal
 	[
 	]
 
 @PointClass base(npc_template_maker, XenPortal) 
-	iconsprite("editor/ficool2/npc_template_maker.vmt")
+    studio("models/editor/angle_helper.mdl")
+	iconsprite("editor/mygamepedia/xen_portal.vmt")
 	line(255 255 0, targetname, templatename)
 	sphere(radius)
+	sphere(jump_distance)
 	sphere(minspawndistance)
 	line(255 255 0, targetname, destinationgroup)
 = env_xen_portal_template
@@ -15492,61 +15534,46 @@
 	sentence(string) : "Sentence group."
 	]
 
-@SolidClass base(func_breakable) 
+@SolidClass base(BreakableBrush) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	sphere(exploderadius)
 	quadbounds()
 = func_breakable_surf: "A breakable surface, for partially breakable glass / tile / etc. All faces but the desired visible one must be marked as NODRAW and that face must be 4 sided. The material applied to the visible face must be set up to be breakable."
-//	[
-//	spawnflags(flags)  =
-//		[
-//		1: "[1] Physics damage decals" : 0
-//		2: "[2] Take damage from held objects" : 0
-//		4: "[4] Play break sound" : 0
-//		]
-//
-//	health(integer) : "Health" : 5 : "The amount of damage the surface takes before breaking."
-//	fragility(integer) : "Fragility" : 100 : "If the 'Surface Type' is set to Glass, this value sets how fragile the glass pieces are after the surface has been broken. Lower values make glass pieces tend to stay more."
-//	surfacetype(choices) : "Surface Type" : 0 : "Sets the behaviour of the brush. Glass shatters in multiple sizes, and easily breaks. Tile only breaks along edges, and is still strong after being shattered." =
-//		[
-//		0: "Glass"
-//		1: "Tile"
-//		]
-//
-//	lowerleft(vecline) readonly : "Lower Left Corner (readonly)" : : "This is set automatically by Hammer when saving."
-//	lowerright(vecline) readonly : "Lower Right Corner (readonly)" : : "This is set automatically by Hammer when saving."
-//	upperleft(vecline) readonly : "Upper Left Corner (readonly)" : : "This is set automatically by Hammer when saving."
-//	upperright(vecline) readonly : "Upper Right Corner (readonly)" : : "This is set automatically by Hammer when saving."
-//	error(choices) readonly : "Face Error" : 0 : "Set by Hammer to indicate an invalid glass/tile surface." =
-//		[
-//		0: "No Error"
-//		1: "Multiple Textured Faces"
-//		2: "Non-Square Face"
-//		]
-//
-//
-//	// Inputs
-//	input Shatter(vector) : "Shatter the window. Input a vector. First two coordinates are the X,Y center of the shattering (as values from from 0-1). The third coordinate is the radius of the shatter, in units."
-//	]
+	[
+	spawnflags(flags)  =
+		[
+		1: "[1] Physics damage decals" : 0
+		2: "[2] Take damage from held objects" : 0
+		4: "[4] Play break sound" : 0
+		]
 
-[
-	spawnflags(Flags) = 
-	[
-		1 : "Physics damage decals" : 0
-		2 : "Take damage from held objects" : 0
-	]
 	health(integer) : "Health" : 5 : "The amount of damage the surface takes before breaking."
-	fragility(integer) : "Fragility" : 100 : "If the 'Surface Type' is set to Glass, this value sets how fragile the glass pieces are after the surface has been broken."
-	surfacetype(choices) : "Surface Type" : 0 = 
-	[
-		0 : "Glass"
-		1 : "Tile"
-	]
+	fragility(integer) : "Fragility" : 100 : "If the 'Surface Type' is set to Glass, this value sets how fragile the glass pieces are after the surface has been broken. Lower values make glass pieces tend to stay more."
+	surfacetype(choices) : "Surface Type" : 0 : "Sets the behaviour of the brush. Glass shatters in multiple sizes, and easily breaks. Tile only breaks along edges, and is still strong after being shattered." =
+		[
+		0: "Glass"
+		1: "Tile"
+		]
+
+	lowerleft(vecline) readonly : "Lower Left Corner (readonly)" : : "This is set automatically by Hammer when saving."
+	lowerright(vecline) readonly : "Lower Right Corner (readonly)" : : "This is set automatically by Hammer when saving."
+	upperleft(vecline) readonly : "Upper Left Corner (readonly)" : : "This is set automatically by Hammer when saving."
+	upperright(vecline) readonly : "Upper Right Corner (readonly)" : : "This is set automatically by Hammer when saving."
+	error(choices) readonly : "Face Error" : 0 : "Set by Hammer to indicate an invalid glass/tile surface." =
+		[
+		0: "No Error"
+		1: "Multiple Textured Faces"
+		2: "Non-Square Face"
+		]
+	
+	minhealthdmg(integer) : "Min Damage to Hurt" : 0 : "The prop will ignore any damage events if the damage is less than this amount."
+	physdamagescale(float) : "Physics Impact Damage Scale" : "1.0" : "Scales damage energy when this object is hit by a physics object. NOTE: 0 means this feature is disabled for backwards compatibility.\nSet to 1.0 for materials as strong as flesh, smaller numbers indicate stronger materials."
 
 	// Inputs
-	input Shatter(vector) : "Shatter the window. Input a vector. First two coordinates are the X,Y center of the shattering (as values from from 0-1). The third coordinate is the radius of the shatter, in inches."
-]
+	input Shatter(vector) : "Shatter the window. Input a vector. First two coordinates are the X,Y center of the shattering (as values from from 0-1). The third coordinate is the radius of the shatter, in units."
+	]
+
 
 @SolidClass base(func_breakable) 
 	sphere(fademindist)
