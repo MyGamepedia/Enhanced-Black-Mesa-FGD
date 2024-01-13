@@ -12300,7 +12300,7 @@
 		"bolt": "Bolts"
 		"buckshot": "Buckshot"
 		"energy": "Energy"
-		"grenade_mp5": "Mp5 Grenade"
+		"grenade_mp5": "MP5 Grenade"
 		"grenade_rpg": "RPG"
 		"grenade_frag": "Frag Grenades"
 		"grenade_satchel": "Satchels"
@@ -13788,7 +13788,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio("models/weapons/w_satchel.mdl")
-= grenade_satchel: "Satchel"
+= grenade_satchel: "Satchel."
 	[
 	]
 
@@ -13796,7 +13796,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio("models/weapons/w_tripmine.mdl")
-= grenade_tripmine: "Tripmine"
+= grenade_tripmine: "Tripmine."
 	[
 	// Inputs
 	input TripmineActivate(void) : "Fire to activate the tripmine."
@@ -13806,7 +13806,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_ammo_357: "Box of 357 ammo"
+= item_ammo_357: "Box of 357 ammo."
 	[
 	model(studio) : "Model" : "models/weapons/w_357ammobox.mdl" : "Model to use for this pickup."
 	]
@@ -15718,7 +15718,7 @@
 	sphere(fademaxdist)
 	color(0 200 200)
 	studioprop()
-= generic_actor: "Generic Actor NPC"
+= generic_actor: "Generic actor NPC."
 	[
 	hull_name(choices) : "Hull type" : "HUMAN_HULL" =
 		[
@@ -15762,7 +15762,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/vortigaunt_slave.mdl")
-= npc_xort: "Xortigaunt"
+= npc_xort: "Xortigaunt (xen vortigaunt)."
 	[
 	xortstate(choices) : "Xort Internal State" : 1 =
 		[
@@ -15837,7 +15837,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/props_vehicles/abrams.mdl")
-= npc_abrams: "M1A1 Abrams Tank"
+= npc_abrams: "M1A1 Abrams Tank."
 	[
 	enableminiguns(choices) : "Enable Miniguns" : 1 =
 		[
@@ -15867,7 +15867,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studioprop("models/xenians/controller.mdl")
-= npc_alien_controller: "Controller"
+= npc_alien_controller: "Alien controller."
 	[
 	]
 
@@ -15878,7 +15878,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/agrunt.mdl")
-= npc_alien_grunt: "Alien Grunt"
+= npc_alien_grunt: "Alien grunt."
 	[
 	]
 
@@ -15889,7 +15889,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/agrunt.mdl")
-= npc_alien_grunt_elite: "Elite Alien Grunt"
+= npc_alien_grunt_elite: "Elite alien grunt, the difference is huge size."
 	[
 	]
 
@@ -15900,7 +15900,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/agrunt_unarmored.mdl")
-= npc_alien_grunt_melee: "New Unarmored Alien Grunt"
+= npc_alien_grunt_melee: "New unarmored alien grunt."
 	[
 	]
 
@@ -15911,7 +15911,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/agrunt_unarmored.mdl")
-= npc_alien_grunt_unarmored: "Unarmored Alien Grunt"
+= npc_alien_grunt_unarmored: "Unarmored alien grunt."
 	[
 	]
 
@@ -15924,7 +15924,7 @@
 	studio("models/vortigaunt_slave.mdl")
 	sphere(RangeOuter)
 	sphere(RangeInner)
-= npc_alien_slave: "Vortigaunt"
+= npc_alien_slave: "Vortigaunt."
 	[
 	passive(choices) : "Is Initially Passive" : 0 =
 		[
@@ -15949,7 +15949,7 @@
 	studio("models/vortigaunt_slave.mdl")
 	sphere(RangeOuter)
 	sphere(RangeInner)
-= npc_alien_slave_dummy: "Vortigaunt"
+= npc_alien_slave_dummy: "Vortigaunt."
 	[
 	passive(choices) : "Is Initially Passive" : 0 =
 		[
@@ -15972,7 +15972,7 @@
 	studio("models/Barnacle.mdl")
 	sphere(fademindist)
 	sphere(fademaxdist)
-= npc_barnacle: "Barnacle"
+= npc_barnacle: "Barnacle."
 	[
 	spawnflags(flags)  =
 		[
@@ -15985,8 +15985,8 @@
 	restdist(float) : "Rest Distance" : 16 : "Distance above the ground that the tongue should lie when the barnacle is at rest"
 
 	// Inputs
-	input DropTongue(void) : "Drop tongue"
-	input SetDropTongueSpeed(integer) : "Set Drop Tongue speed"
+	input DropTongue(void) : "Drop tongue."
+	input SetDropTongueSpeed(integer) : "Set drop tongue speed."
 	input LetGo(void) : "Let go of anything I am holding."
 
 	// Outputs
@@ -16001,10 +16001,10 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/barnacle_underwater.mdl")
-= npc_beneathticle: "Beneathticle"
+= npc_beneathticle: "Beneathticle. Underwater xen barnacle."
 	[
-	tonguelength(float) : "Initial tongue length" : 0 : "How long the initial length of the tongue is."
-	tonguepullspeed(float) : "Tongue pull speed" : 0 : "Units per second to pull the prey towards the mouth."
+	tonguelength(float) : "Initial Tongue Length" : 0 : "How long the initial length of the tongue is."
+	tonguepullspeed(float) : "Tongue Pull Speed" : 0 : "Units per second to pull the prey towards the mouth."
 
 	// Inputs
 	input GoToNextHeight(string) : "Moves the tongue to the given z (param 1) over (param 2) seconds."
@@ -16032,7 +16032,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studioprop("models/editor/hassassin.mdl")
-= npc_human_assassin: "Female assassin"
+= npc_human_assassin: "Female assassin."
 	[
 	]
 
@@ -16054,7 +16054,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/props_vehicles/lav.mdl")
-= npc_lav: "LAV-25 Infantry Vehicle"
+= npc_lav: "LAV-25 infantry vehicle."
 	[
 
 	// Inputs
@@ -16068,7 +16068,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/nihilanth.mdl")
-= npc_nihilanth: "Nihilanth"
+= npc_nihilanth: "Nihilanth."
 	[
 	m_tnhstate(integer) : "Nihilant State" : 0 : "Set the starting state of the Nihilanth."
 
@@ -16106,7 +16106,7 @@
 	line(255 255 255, targetname, target)
 	studio("models/props_xen/xen_protractinglight.mdl")
 	sphere(range)
-= npc_plantlight: "Xen PlantLight"
+= npc_plantlight: "Xen plantlight. Small plantlight."
 	[
 	planttype(choices) : "Plant Type" : 0 =
 		[
@@ -16114,15 +16114,15 @@
 		1: "Stalker"
 		]
 
-	icantakedamage(choices) : "Can I take damage ?" : 1 =
+	icantakedamage(choices) : "Can I Take Damage ?" : 1 =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	lightcolor(color255) : "Light Color" : "255 223 43 255" : "This is the color of the sunlight."
-	intensity(float) : "Light Intensity" : 1000 : "RGB * Intensity"
-	range(float) : "Range" : 500 : "Range"
+	lightcolor(color255) : "Light Color" : "255 223 43 255" : "This is the color of the light."
+	intensity(float) : "Light Intensity" : 1000 : "Light intensity."
+	range(float) : "Range" : 500 : "Range. How far the light source illuminates. Measured in Hammer Units."
 	]
 
 @NpcClass base(BaseNPC) 
@@ -16133,7 +16133,7 @@
 	line(255 255 255, targetname, target)
 	studio("models/props_xen/xen_plantlightstalker.mdl")
 	sphere(range)
-= npc_plantlight_stalker: "Xen PlantLight Stalker"
+= npc_plantlight_stalker: "Xen plantlight stalker. Big plantlight."
 	[
 	planttype(choices) : "Plant Type" : 1 =
 		[
@@ -16147,9 +16147,9 @@
 		1: "Yes"
 		]
 
-	lightcolor(color255) : "Light Color" : "255 223 43 255" : "This is the color of the sunlight."
-	intensity(float) : "Light Intensity" : 1000 : "RGB * Intensity"
-	range(float) : "Range" : 500 : "Range"
+	lightcolor(color255) : "Light Color" : "255 223 43 255" : "This is the color of the light."
+	intensity(float) : "Light Intensity" : 1000 : "Light intensity."
+	range(float) : "Range" : 500 : "Range. How far the light source illuminates. Measured in Hammer Units."
 	]
 
 @NpcClass base(BaseNPC) 
@@ -16159,7 +16159,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/protozoan.mdl")
-= npc_protozoan: "Protozoan"
+= npc_protozoan: "Protozoan."
 	[
 	]
 
@@ -16172,7 +16172,7 @@
 	studio("models/props_xen/xen_puffballfungus.mdl")
 	sphere(RangeOuter)
 	sphere(RangeInner)
-= npc_puffballfungus: "Xen Puffball Fungus"
+= npc_puffballfungus: "Xen puffball fungus."
 	[
 	rangeinner(float) : "Inner Range" : 250
 	rangeouter(float) : "Outer Range" : 500
@@ -16185,7 +16185,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/snark.mdl")
-= npc_snark: "Armed Snark"
+= npc_snark: "Armed snark."
 	[]
 
 @NpcClass base(BaseNPC) 
@@ -16205,7 +16205,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/combine_soldier.mdl")
-= npc_sniper: "Sniper"
+= npc_sniper: "Marines sniper."
 	[
 	radius(integer) : "Patience Radius" : 0 : "Sniper will hold fire until the target is within this radius. After that, sniper will always attack, even if the target retreats outside of this radius"
 	misses(integer) : "Initial Misses" : 0 : "How many times to miss a target on purpose before beginning to fire accurately."
@@ -16252,7 +16252,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/tentacle.mdl")
-= npc_tentacle: "Tentacle"
+= npc_tentacle: "Tentacle."
 	[
 	]
 
@@ -16280,7 +16280,7 @@
 	line(255 0 0, targetname, target14)
 	line(255 0 0, targetname, target15)
 	line(255 0 0, targetname, target16)
-= npc_xentacle: "Xentacle"
+= npc_xentacle: "Xen version of the tentacle, smarter."
 	[
 	radius(integer) : "Top View Bounding Radius" : 320 : "Helper. Just to let LD know that two Xentacles shouldn't be closer then this radius in Top View."
 	target01(target_destination) : "Target To Hit [Slot 01]" : : "Target or group of targets that have same name to hit when bored or hear danger sound. Slot 01."
@@ -16313,7 +16313,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/props_xen/foliage/hacker_tree.mdl")
-= npc_xentree: "Xen Tree"
+= npc_xentree: "Xen tree."
 	[
 	]
 
@@ -16326,7 +16326,7 @@
 	studio("models/props_xen/xen_turret.mdl")
 	sphere(RangeOuter)
 	sphere(RangeInner)
-= npc_xenturret: "Xen Turret"
+= npc_xenturret: "Xen turret."
 	[
 	rangeouter(float) : "Outer Range" : 999999
 	rangeinner(float) : "Inner Range" : 99999
@@ -16367,7 +16367,7 @@
 	line(255 32 32, targetname, preferred_pawns_group_14)
 	line(255 32 32, targetname, preferred_pawns_group_15)
 	line(255 32 32, targetname, preferred_pawns_group_16)
-= npc_xontroller: "Xen version of the Alien Controller"
+= npc_xontroller: "Xen version of the alien controller, smarter."
 	[
 	mainbehaviortreename(string) : "Main Behavior Tree Name"
 	assaultbehaviortreename(string) : "Assault Behavior Tree Name"
@@ -16468,7 +16468,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/vortigaunt_slave.mdl")
-= npc_xortEB: "Xortigaunt"
+= npc_xortEB: "Xortigaunt (xen vortigaunt) earthbound."
 	[
 	xortstate(choices) : "Xort Internal State" : 1 =
 		[
@@ -16550,7 +16550,7 @@
 	sphere(fademaxdist)
 = prop_physics_override: "A variant of prop_physics which will permit using models that do not have physics data compiled into them, like static or dynamic models. Health and physics data can be overridden on this version, to subsitute for the missing info."
 	[
-	health(integer) : "Health" : 0 : "Number of points of damage to take before breaking.  0 means don't break."
+	health(integer) : "Health" : 0 : "Number of points of damage to take before breaking. 0 means don't break."
 	]
 
 @PointClass base(prop_physics) 
@@ -16658,7 +16658,7 @@
 	line(255 255 255, targetname, target)
 	line(128 128 128, targetname, target)
 	studio("models/props_vehicles/apache.mdl")
-= npc_apache: "Apache Helicopter"
+= npc_apache: "Apache helicopter."
 	[
 	spawnflags(flags)  =
 		[
@@ -16698,7 +16698,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/bullsquid.mdl")
-= npc_bullsquid: "Bullsquid"
+= npc_bullsquid: "Bullsquid."
 	[
 	]
 
@@ -16718,7 +16718,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/crow.mdl")
-= npc_crow: "Crow"
+= npc_crow: "Crow."
 	[
 	]
 
@@ -16770,7 +16770,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/gonarch.mdl")
-= npc_gonarch: "npc_gonarch"
+= npc_gonarch: "Gonarch."
 	[
 	model(studio) : "World model" : "models/xenians/gonarch.mdl"
 	spawnflags(flags)  =
@@ -16878,7 +16878,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/Headcrabclassic.mdl")
-= npc_headcrab: "Headcrab"
+= npc_headcrab: "Headcrab."
 	[
 	]
 
@@ -16886,7 +16886,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/bebcrab.mdl")
-= npc_headcrab_baby: "Baby Headcrab"
+= npc_headcrab_baby: "Small gonarch."
 	[
 	]
 
@@ -16894,7 +16894,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/Headcrabblack.mdl")
-= npc_headcrab_black: "Black Poison Headcrab"
+= npc_headcrab_black: "Black poison headcrab."
 	[
 	]
 
@@ -16902,7 +16902,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/Headcrab.mdl")
-= npc_headcrab_fast: "Fast Headcrab"
+= npc_headcrab_fast: "Fast headcrab."
 	[
 	]
 
@@ -16913,7 +16913,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studioprop("models/xenians/houndeye.mdl")
-= npc_houndeye: "Houndeye"
+= npc_houndeye: "Houndeye."
 	[
 	m_benablememoryupdateeveryframe(choices) : "Enable Memory Update Every Frame" : 0 =
 		[
@@ -16934,7 +16934,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/humans/scientist.mdl")
-= npc_human_scientist: "Male Scientist"
+= npc_human_scientist: "Male scientist."
 	[
 	]
 
@@ -16945,7 +16945,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/humans/scientist_eli.mdl")
-= npc_human_scientist_eli: "Eli Vance"
+= npc_human_scientist_eli: "Eli Vance."
 	[
 	]
 
@@ -16956,7 +16956,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/humans/scientist_female.mdl")
-= npc_human_scientist_female: "Female Scientist"
+= npc_human_scientist_female: "Female scientist."
 	[
 	]
 
@@ -16967,7 +16967,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/humans/scientist_kliener.mdl")
-= npc_human_scientist_kleiner: "Dr. Kleiner"
+= npc_human_scientist_kleiner: "Dr. Kleiner."
 	[
 	]
 
@@ -16978,7 +16978,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/humans/guard.mdl")
-= npc_human_security: "Security Guard"
+= npc_human_security: "Security guard."
 	[
 	spawnflags(flags)  =
 		[
@@ -17032,7 +17032,7 @@
 	line(255 255 255, targetname, NPCTemplate6)
 	line(255 255 255, targetname, NPCTemplate7)
 	line(255 255 255, targetname, NPCTemplate8)
-= npc_osprey: "Osprey Helicopter"
+= npc_osprey: "Osprey helicopter."
 	[
 	npctemplate1(target_destination) : "Name of Template NPC 1"
 	npctemplate2(target_destination) : "Name of Template NPC 2"
@@ -17059,7 +17059,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/pigeon.mdl")
-= npc_pigeon: "Pigeon"
+= npc_pigeon: "Pigeon."
 	[
 	]
 
@@ -17067,7 +17067,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studioprop("models/seagull.mdl")
-= npc_seagull: "Seagull"
+= npc_seagull: "Seagull."
 	[
 	]
 
@@ -17078,7 +17078,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/npcs/sentry_ceiling.mdl")
-= npc_sentry_ceiling: "Ceiling Sentry"
+= npc_sentry_ceiling: "Ceiling sentry turret from the Black Mesa Research Facility."
 	[
 	]
 
@@ -17089,7 +17089,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/npcs/sentry_ground.mdl")
-= npc_sentry_ground: "Ground Sentry"
+= npc_sentry_ground: "Marines ground sentry turret."
 	[
 	]
 
@@ -17120,7 +17120,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/vortigaunt_slave.mdl")
-= npc_vortigaunt: "Xortigaunt"
+= npc_vortigaunt: "Vortigaunt, copy of alien slave."
 	[
 	xortstate(choices) : "Xort Internal State" : 1 =
 		[
@@ -17142,27 +17142,27 @@
 	m_fdamagecallradius(float) : "Damage Call Radius" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
 	m_nalertcalleveryone(integer) : "Alert Call Everyone" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
 	m_falertcallradius(float) : "Alert Call Radius" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
-	fearnodesgroupname(string) : "FearNodesGroupName" : : "Node Group name to be used while searching for fear nodes"
-	healnodesgroupname(string) : "HealNodesGroupName" : : "Node Group name to be used while searching for heal nodes"
+	fearnodesgroupname(string) : "Fear Nodes Group Name" : : "Node Group name to be used while searching for fear nodes"
+	healnodesgroupname(string) : "Heal Nodes Group Name" : : "Node Group name to be used while searching for heal nodes"
 	bplayteleportanimonspawn(choices) : "Play Teleport Anim On Spawn" : 0 =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	bdisablespells(choices) : "bDisableSpells" : 0 =
+	bdisablespells(choices) : "Disable Spells" : 0 =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	canusehealingnodes(choices) : "CanUseHealingNodes" : 0 =
+	canusehealingnodes(choices) : "Can Use Healing Nodes ?" : 0 =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	canusefearnodes(choices) : "CanUseFearNodes" : 0 =
+	canusefearnodes(choices) : "Can Use Fear Nodes ?" : 0 =
 		[
 		0: "No"
 		1: "Yes"
@@ -17170,14 +17170,14 @@
 
 
 	// Inputs
-	input XortEnableHealing(void) : "Enable Healing"
-	input XortDisableHealing(void) : "Disable healing"
-	input XortChangeState(integer) : "Change xort State 1: Neutral 2: Evil 3: Evil_Possessed"
+	input XortEnableHealing(void) : "Enable healing."
+	input XortDisableHealing(void) : "Disable healing."
+	input XortChangeState(integer) : "Change xort State 1: Neutral 2: Evil 3: Evil_Possessed."
 	input StartScriptedFearSchedule(void) : "Activated scripted Fear behaviour. They will try to run to fear nodes. If that fails they will just try to run away or run to cover."
-	input InputAddFearPoints(integer) : "Add/Subtract Fear Points to change fear level"
+	input InputAddFearPoints(integer) : "Add/Subtract Fear Points to change fear level."
 
 	// Outputs
-	output OnKilledByPlayer(void) : "OnKilledByPlayer"
+	output OnKilledByPlayer(void) : "Fire on killed by player."
 	]
 
 @NpcClass base(BaseNPCAssault) 
@@ -17187,7 +17187,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/agrunt.mdl")
-= npc_xen_grunt: "Xen Grunt"
+= npc_xen_grunt: "Xen Grunt. Smart version of alien grunt."
 	[
 	mainbehaviortreename(string) : "Main Behavior Tree Name"
 	assaultbehaviortreename(string) : "Assault Behavior Tree Name"
@@ -17204,7 +17204,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/Zombies/zombie_grunt.mdl")
-= npc_zombie_grunt: "Zombie Grunt"
+= npc_zombie_grunt: "Zombie grunt."
 	[
 	]
 
@@ -17215,7 +17215,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/Zombies/zombie_grunt_torso.mdl")
-= npc_zombie_grunt_torso: "Zombie Grunt Torso"
+= npc_zombie_grunt_torso: "Zombie grunt torso."
 	[
 	]
 
@@ -17226,7 +17226,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/zombies/zombie_hev.mdl")
-= npc_zombie_hev: "Zombie HEV"
+= npc_zombie_hev: "Zombie HEV."
 	[
 	flashlight_status(choices) : "Start with Flashlight" : 1 : "Should the zombie start with flashlight enabled." =
 		[
@@ -17242,7 +17242,7 @@
 
 
 	// Inputs
-	input SetFlashLightState(bool) : "Set FlashLight State"
+	input SetFlashLightState(bool) : "Sets flashlight state, 1 - enabled, 0 - disabled."
 	]
 
 @NpcClass base(BaseZombie) 
@@ -17252,7 +17252,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/Zombies/zombie_sci.mdl")
-= npc_zombie_scientist: "Zombie Scientist"
+= npc_zombie_scientist: "Zombie scientist."
 	[
 	]
 
@@ -17263,7 +17263,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/Zombies/zombie_sci_torso.mdl")
-= npc_zombie_scientist_torso: "Zombie Scientist Torso"
+= npc_zombie_scientist_torso: "Zombie scientist torso."
 	[
 	]
 
@@ -17274,7 +17274,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/Zombies/zombie_guard.mdl")
-= npc_zombie_security: "Zombie Guard"
+= npc_zombie_security: "Zombie guard."
 	[
 	]
 
@@ -17288,7 +17288,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/Headcrabblack.mdl")
-= npc_headcrab_poison: "Black Poison Headcrab"
+= npc_headcrab_poison: "Black poison headcrab."
 	[
 	]
 
@@ -17299,7 +17299,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studioprop("models/xenians/houndeye_knockback.mdl")
-= npc_houndeye_knockback: "Houndeye (Knockback)"
+= npc_houndeye_knockback: "Big houndeye that knockbacks with no damage."
 	[
 	]
 
@@ -17310,7 +17310,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studioprop("models/xenians/houndeye_suicide.mdl")
-= npc_houndeye_suicide: "Houndeye (Suicide)"
+= npc_houndeye_suicide: "Small houndeye that comes close to player and explodes."
 	[
 	]
 
@@ -17318,7 +17318,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studioprop("models/humans/marine.mdl")
-= npc_human_commander: "Human Commander"
+= npc_human_commander: "Marines commander. The only marine who can use MP5 grenades."
 	[
 	]
 
@@ -17326,7 +17326,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studioprop("models/humans/marine.mdl")
-= npc_human_grenadier: "Human Grenadier"
+= npc_human_grenadier: "Marines grenadier. Uses RPG once and then uses his standard weapon. Note - he never drops RPG when he dies."
 	[
 	]
 
@@ -17334,7 +17334,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studioprop("models/humans/marine.mdl")
-= npc_human_grunt: "Human Grunt"
+= npc_human_grunt: "Marines grunt. Standard soldier."
 	[
 	]
 
@@ -17342,6 +17342,6 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studioprop("models/humans/marine.mdl")
-= npc_human_medic: "Human Medic"
+= npc_human_medic: "Marines medic. Heals other marines with medkits."
 	[
 	]
