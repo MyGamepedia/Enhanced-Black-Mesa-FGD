@@ -540,7 +540,7 @@
 		"env_xen_healshower"
 		"nihilanth_pylon"
 		"nihiportalsbase"
-		"nihiportalsbase_teleprops"
+		"nihiportals_teleprops"
 		"physics_cannister"
 		"prop_barrel_cactus"
 		"prop_barrel_cactus_adolescent"
@@ -963,8 +963,8 @@
 	]
 	"Tentacles"
 	[
-	"npc_tentacle"
-	"npc_xentacle"
+		"npc_tentacle"
+		"npc_xentacle"
 	]
 	"Alien Grunts"
 		[
@@ -1403,7 +1403,7 @@
 		"env_xen_healshower"
 		"nihilanth_pylon"
 		"nihiportalsbase"
-		"nihiportalsbase_teleprops"
+		"nihiportals_teleprops"
 		"physics_cannister"
 		"prop_detail"
 		"prop_detail_sprite"
@@ -1505,7 +1505,7 @@
 		[
 		"nihilanth_pylon"
 		"nihiportalsbase"
-		"nihiportalsbase_teleprops"
+		"nihiportals_teleprops"
 		"prop_nihi_shield"
 		]
 	"Physicsç"
@@ -5068,7 +5068,7 @@
 	]
 
 @PointClass base(BaseEntityPoint, EnableDisable) 
-	iconsprite("editor/env_cascade_light.vmt")
+	iconsprite("editor/mygamepedia/env_cascade_light.vmt")
 	studio("models/editor/spot.mdl")
 = env_cascade_light: "An entity to control the sunlight that casts cascaded shadows in the map."
 	[
@@ -5560,7 +5560,10 @@
 	input SetFallDamageScale(float) : "Set sv_falldamagescale to specific amount. (1 to default, 0 to nothing)"
 	]
 
-@PointClass base(BaseEntityPoint, EnableDisable) = env_gunfire: "Gunfire Effect"
+@PointClass base(BaseEntityPoint, EnableDisable)
+	color(200 200 0)
+	iconsprite("editor/ficool2/env_gunfire.vmt")
+= env_gunfire: "Gunfire Effect"
 	[
 	target(target_destination) : "Target" : : "Shoot at this target. REMEMBER - this is an effect only! It does not do damage!"
 	minburstsize(integer) : "Min Burst Size" : 2 : "Minimum number of rounds in a burst."
@@ -5665,7 +5668,8 @@
 		4: "Fast strobe"
 		9: "Slow strobe"
 		]
-
+    
+	scale(float) : "[HA] Scale" : "0.25" : "testthing."
 	glowproxysize(float) : "Size of Glow Proxy Geometry." : "2.0" : "Size of the glow to be rendered for visibility testing. Must be larger than the distance from the sprite center to empty space.  So if this glow is inside geometry (like a light bulb), set this value to be bigger than the bulb's radius. Any time a sphere of this radius would be visible (poking through any nearby geometry), the glow will be rendered. - Richard's note : I noticed that value more than ~100 wont work correctly"
 	flare01_texture(material) : "Flare 01 texture" : : "Image of the lens - if empty the flare doesn't exist."
 	flare01_params(string) : "Flare 01 parameters" : : "Parameters of the lens - example : DISK 1.0 10 10. Avaible parameters (where x - a float number): DISK x x x, BOW x, CLA x x x, DISKH x x x x, RAY x x."
@@ -6638,6 +6642,7 @@
 	]
 
 @PointClass base(BaseEntityPoint) 
+	iconsprite("editor/ficool2/env_tracer.vmt")
 	line(255 255 255, targetname, target)
 = env_tracer: "An entity that fires a tracer between itself and a specified target, with a configurable delay."
 	[
@@ -7835,8 +7840,8 @@
 	target(target_destination) : "Entity to point at" : : "The name of an entity in the map that the dynamic light will point at."
 	_light(color255) : "Light color" : "255 255 255 200"
 	brightness(integer) : "Light brightness" : 5
-	_inner_cone(integer) readonly : "Inner (bright) angle. Broken in  Black Mesa, use 0 to escape bugs." : 0
-	_cone(integer) readonly : "Outer (fading) angle. Broken in  Black Mesa, use 0 to escape bugs." : 0
+	_inner_cone(integer) readonly : "Inner" : 0 : "Inner (bright) angle. Broken in  Black Mesa, use 0 to escape bugs."
+	_cone(integer) readonly : "Outer" : 0 : "Outer (fading) angle. Broken in  Black Mesa, use 0 to escape bugs."
 	pitch(integer) : "Pitch" : -90
 	distance(float) : "Maximum distance" : 120 : "This is the distance that light is allowed to cast, in units."
 	spotlight_radius(float) : "Spotlight end radius" : 80 : "This is the radius of the light, in units, at the object that it is hitting."
@@ -8503,7 +8508,7 @@
 
 @PointClass base(BaseEntityPoint, EnableDisable) 
 	color(0 100 250)
-	iconsprite("editor/logic_register_activator")
+	iconsprite("editor/logic_register_activator.vmt")
 = logic_register_activator: "Stores an entity and sends messages with it as the activator\nUseful for keeping track of entities with mangled names due to template spawners and instances."
 	[
 
@@ -9299,15 +9304,10 @@
 @PointClass base(BaseEntityPoint) 
 = godrays_settings : "This entity uses to dynamically change godrays settings for point light."
 [
-	TargetGodRays(target_destination) : "Target Point Light Entity" : "" : "Target light entity name that support GodRays (point only, directional and spot isn't supported))."
+	TargetGodRays(target_destination) : "Target Point Light Entity" : "" : "Target light entity name that support GodRays (point only, directional and spot isn't supported)."
 	TransitionTime(integer) : "Transition Time" : 0 : "TransitionTime in secs ( 0 for instant ) to transition into new settings. Its a lerp operation A + (B-A)*TimeFactor"
 	
-	LightType(Choices) : "Light Type" : 1 : "Type of light source for which you want to apply settings. Entity will not apply settings for newLight_Dir if selected Point Light and will not apply settings for newLight_Point if selected Direction/Sun Light." =
-		[
-		0 : "Direction/Sun Light"
-		1 : "Point Light"
-		]
-	
+	LightType(integer) readonly: "Light Type" : 1 : "Type of light source for which you want to apply settings, 1 - point light, 0 - direction/sun light. Don't change, direction/sun light will not work because of code mistake."
 	EnableGodRays(integer) : "Enable GodRays" : 1 : "Determines if the light rays turns on or turns off. 1 - turns on, 0 - turns off."
 	Density(float) : "Density" : "1.0" : "Density Controls the length of rays/volumetric shadows. 1.0 should work in 99% cases. Good value range is 0.5 to 1.5"	
 	Weight(float) : "Weight" : "1.0" : "Weight Controls the intensity of volumetric shadow. Blocking of rays by geometry. good values 0.1 - 10.0"	
@@ -10827,6 +10827,7 @@
 		2097152: "[2097152] No Collisions" : 0
 		4194304: "[4194304] Gib" : 0
 		]
+	
 
 	minhealthdmg(integer) : "Min Damage to Hurt" : 0 : "The prop will ignore any damage events if the damage is less than this amount."
 	shadowcastdist(integer) : "Shadow Cast Distance" : 0 : "Use this to override how far this object casts shadows. 0 = default distance."
@@ -11195,7 +11196,7 @@
 
 @PointClass base(BaseActBusy) 
 	line(255 255 255, targetname, actor)
-	size(-8 -8 -8, 8 8 8)
+	iconsprite("editor/ficool2/ai_goal_actbusy_queue.vmt")
 = ai_goal_actbusy_queue: "AI Goal Act Busy Queue"
 	[
 	node_exit(target_destination) : "Exit Node" : : "The name of the node the first NPC in the queue should move to when they leaves the head of the queue."
@@ -11661,7 +11662,7 @@
 
 @FilterClass base(filter_base) 
 	color(0 255 0)
-	iconsprite("editor/filter_activator_class.vmt")
+	iconsprite("editor/filter_activator_flag.vmt")
 = filter_activator_flag: "Filters by the entity flags of the activator"
 	[
 	flag(choices) : "Flag" : 0 =
@@ -12381,6 +12382,7 @@
 @PointClass base(BaseEntityAnimating) 
 	sphere(fademindist)
 	sphere(fademaxdist)
+	studio()
 = misc_dead_hev: "Dead HEV Scientist"
 	[
 	spawnflags(flags)  =
@@ -12730,7 +12732,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop()
-= nihiportalsbase_teleprops: "nihiportalsbase_teleprops"
+= nihiportals_teleprops: "nihiportals_teleprops"
 	[
 	model(studio) : "World Model" : "models/props_xen/c4a4/nihilanth_portalquad_02.mdl"
 	m_ftimetoactivate(float) : "Time To Activate" : 0
@@ -13122,7 +13124,7 @@
 	output OnCommentaryStopped(void) : "Triggered when the commentary stops. If viewposition is set, this triggers after the player's returns to their regular view."
 	]
 
-@PointClass base(BaseEntityAnimating) 
+@BaseClass base(BaseEntityAnimating) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	sphere(radius)
@@ -13892,6 +13894,7 @@
 @PointClass base(BasePropPhysics, DamageFilter) 
 	sphere(fademindist)
 	sphere(fademaxdist)
+	studio()
 = item_crate: "Item Grate"
 	[
 	model(studio) : "Model" : "models/items/item_item_crate.mdl" : "Model to use for the crate."
@@ -17103,12 +17106,12 @@
 	iconsprite("editor/ts2do/npc_vehicledriver")
 = npc_vehicledriver: "NPC used to drive a target vehicle."
 	[
-	drivermaxspeed(float) : "Maxspeed (percentage of vehicle's maxspeed)." : 1
-	driverminspeed(float) : "MinSpeed (percentage of vehicle's maxspeed)." : 0
+	drivermaxspeed(float) : "Max Speed (percentage of vehicle's maxspeed)." : 1 : "Max speed (percentage of vehicle's maxspeed)."
+	driverminspeed(float) : "Min Speed (percentage of vehicle's maxspeed)." : 0 : "Min speed (percentage of vehicle's maxspeed)."
 
 	// Inputs
-	input SetDriversMaxSpeed(float) : "Set the Maxspeed (percentage of vehicle's maxspeed)."
-	input SetDriversMinSpeed(float) : "Set the Minspeed (percentage of vehicle's maxspeed)."
+	input SetDriversMaxSpeed(float) : "Set the max speed (percentage of vehicle's maxspeed)."
+	input SetDriversMinSpeed(float) : "Set the min speed (percentage of vehicle's maxspeed)."
 	input StartForward(void) : "Tell the driver to start driving."
 	input Stop(void) : "Tell the driver to stop driving."
 	]
@@ -17228,7 +17231,7 @@
 	studio("models/zombies/zombie_hev.mdl")
 = npc_zombie_hev: "Zombie HEV."
 	[
-	flashlight_status(choices) : "Start with Flashlight" : 1 : "Should the zombie start with flashlight enabled." =
+	flashlight_status(choices) : "Start with Flashlight" : 1 : "Should the zombie start with flashlight enabled ?" =
 		[
 		0: "No"
 		1: "Yes"
