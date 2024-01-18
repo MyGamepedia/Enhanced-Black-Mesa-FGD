@@ -1,6 +1,6 @@
 "Sprite"
 {
-	$baseTexture "editor/cwthsr/env_cascade_light"
+	$baseTexture "editor/mygamepedia/env_cascade_light"
 	$spriteorientation "vp_parallel"
 	$spriteorigin "[ 0.50 1.25 ]"  // Place above the model.
 	$spriterendermode 2
