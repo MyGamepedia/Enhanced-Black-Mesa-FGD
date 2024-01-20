@@ -3611,9 +3611,11 @@
 	solid(choices) : "Collisions" : 6 : "Method of collision for this entity. Can be changed at runtime with AddOutput." =
 		[
 		0: "None"
+		1: "BSP (QPhysics)"
 		2: "Bounding Box"
 		3: "Oriented Bounding Box"
 		4: "Oriented Bounding Box, constrained to Yaw only"
+		4: "Custom/Test (Usually no collision with anything)"
 		6: "VPhysics"
 		]
 
@@ -8098,19 +8100,10 @@
 
 	globalstate(choices) : "Global State to Read" : : "If set, this specifies a global state to check before firing. The OnMapSpawn output will only fire if the global state is set." =
 		[
-		"": "--- None ---"
-		"is_console": "Game is running on a console"
-		"is_pc": "Game is running on a PC"
-		"gordon_precriminal": "Gordon pre-criminal"
-		"antlion_allied": "Antlions are player allies"
-		"suit_no_sprint": "Suit sprint function not yet enabled"
-		"super_phys_gun": "Super phys gun is enabled"
-		"friendly_encounter": "Friendly encounter sequence (lower weapons, etc.)"
-		"gordon_invulnerable": "Gordon is invulnerable"
-		"no_seagulls_on_jeep": "Don't spawn seagulls on the jeep"
-		"is_console": "Game is running on a console"
+		"" : "--- None ---"
+		"predisaster" : "Pre-Disaster"
 		]
-
+		
 
 	// Outputs
 	output OnMapSpawn(void) : "Fired when the map is loaded for any reason."
@@ -9065,8 +9058,8 @@
 	input Toggle(void) : "Toggle the light on/off."
 	input TurnOnGodRays(void) : "Turn the Godrays on."
 	input TurnOffGodRays(void) : "Turn the Godrays off."
-	input SetIntensityForLight(float) : "Change Light's intensity value. Doesnt effect the godrays"
-	input SetColorLight(color255) : "Change Light's Color value. Doesnt effect the godrays"
+	input SetIntensityForLight(float) : "Change intensity value for this light. Doesnt effect the godrays."
+	input SetColorLight(color255) : "Change color fo this light. Doesnt effect the godrays."
 	]
 
 @PointClass base(BaseEntityPoint, Angles) 
@@ -10808,26 +10801,24 @@
 	[
 	spawnflags(flags)  =
 		[
-		4194304: "[4194304] Attempt to override gib with the character gib system" : 0
-		1: "[1] Start Asleep" : 0
-		2: "[2] Don't take physics damage" : 0
-		4: "[4] Debris - Don't collide with the player or other debris" : 0
+		4194304: "[4194304] Attempt to override gib with the character gib system." : 0
+		1: "[1] Start asleep." : 0
+		2: "[2] Don't take physics damage." : 0
+		4: "[4] Debris - don't collide with the player or other debris and use client-side logic." : 0
 		8: "[8] Motion Disabled" : 0
-		64: "[64] Enable motion on Physcannon grab" : 0
-		128: "[128] Not affected by rotor wash" : 0
-		256: "[256] Generate output on +USE " : 1
-		512: "[512] Prevent pickup" : 0
-		1024: "[1024] Prevent motion enable on player bump" : 0
-		2048: "[2048] Has Attached Ragdolls" : 0
-		4096: "[4096] Debris with trigger interaction" : 0
-		8192: "[8192] Force server-side (Multiplayer only)" : 0
-		16384: "[16384] Radius Pickup" : 0
-		32768: "[32768] Autoaim target" : 0
-		1048576: "[1048576] Physgun can ALWAYS pick up. No matter what." : 0
-		2097152: "[2097152] No Collisions" : 0
-		4194304: "[4194304] Gib" : 0
-		]
-	
+		64: "[64] Enable motion on player grab." : 0
+		128: "[128] Not affected by rotor wash." : 0
+		256: "[256] Generate output on +USE." : 1
+		512: "[512] Prevent pickup." : 0
+		1024: "[1024] Prevent motion enable on player bump." : 0
+		2048: "[2048] Has attached ragdolls." : 0
+		4096: "[4096] Debris with trigger interaction." : 0
+		8192: "[8192] Force server-side (multiplayer only)." : 0
+		16384: "[16384] Radius pickup." : 0
+		32768: "[32768] Autoaim target." : 0
+		2097152: "[2097152] No collisions." : 0
+		4194304: "[4194304] Gib." : 0
+		]	
 
 	minhealthdmg(integer) : "Min Damage to Hurt" : 0 : "The prop will ignore any damage events if the damage is less than this amount."
 	shadowcastdist(integer) : "Shadow Cast Distance" : 0 : "Use this to override how far this object casts shadows. 0 = default distance."
@@ -11026,28 +11017,9 @@
 	gibmodel(string) : "Gib Group" : : "Specify a custom gib group to break into, overriding the 'Material Type'. These are names in propdata.txt like MetalChunks."
 	spawnobject(choices) : "Spawn On Break" : 0 : "When broken, an entity of the selected type will be created." =
 		[
-		1: "item_battery"
-		2: "item_healthkit"
-		3: "item_ammo_pistol"
-		4: "item_ammo_pistol_large"
-		5: "item_ammo_smg1"
-		6: "item_ammo_smg1_large"
-		7: "item_ammo_ar2"
-		8: "item_ammo_ar2_large"
-		9: "item_box_buckshot"
-		10: "item_flare_round"
-		11: "item_box_flare_rounds"
-		12: "item_ml_grenade"
-		13: "item_smg1_grenade"
-		14: "item_box_sniper_rounds"
-		16: "weapon_stunstick"
-		18: "weapon_ar2"
-		20: "weapon_ml"
-		21: "weapon_smg1"
-		22: "weapon_smg2"
-		23: "weapon_slam"
-		24: "weapon_shotgun"
-		26: "item_dynamic_resupply"
+		1: "Battery"
+		2: "Healthkit"
+		24: "Shotgun"
 		]
 
 
@@ -15591,12 +15563,9 @@
 		16384: "[16384] Debris - Don't collide with the player or other debris" : 0
 		32768: "[32768] Motion Disabled" : 0
 		65536: "[65536] Use Preferred Carry Angles" : 0
-		131072: "[131072] Enable motion on Physcannon grab" : 0
+		131072: "[131072] Enable motion on player grab" : 0
 		262144: "[262144] Not affected by rotor wash" : 0
 		524288: "[524288] Generate output on +USE " : 1
-		1048576: "[1048576] Physgun can ALWAYS pick up. No matter what." : 0
-		2097152: "[2097152] Physgun is NOT allowed to pick this up." : 0
-		4194304: "[4194304] Physgun is NOT allowed to punt this object." : 0
 		8388608: "[8388608] Prevent motion enable on player bump" : 0
 		]
     disableshadows(choices) : "Disable Shadows" : 0 =
@@ -15991,10 +15960,11 @@
 	input DropTongue(void) : "Drop tongue."
 	input SetDropTongueSpeed(integer) : "Set drop tongue speed."
 	input LetGo(void) : "Let go of anything I am holding."
-
+	input TongueTipUpdated(void) : "Cause tongue tip update, using every 0.01 second on barnacle spawn."
+	
 	// Outputs
-	output OnGrab(string) : "When I attach my tongue to something"
-	output OnRelease(string) : "When I let go of something"
+	output OnGrab(string) : "When I attach my tongue to something."
+	output OnRelease(string) : "When I let go of something."
 	]
 
 @NpcClass base(BaseNPC) 
