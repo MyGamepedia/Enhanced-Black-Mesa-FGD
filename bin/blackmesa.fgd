@@ -207,7 +207,6 @@
 		"npc_alien_grunt"
 		"npc_alien_grunt_elite"
 		"npc_alien_grunt_melee"
-		"npc_alien_grunt_unarmored"
 		"npc_alien_slave"
 		"npc_alien_slave_dummy"
 		"npc_apache"
@@ -971,7 +970,6 @@
 		"npc_alien_grunt"
 		"npc_alien_grunt_elite"
 		"npc_alien_grunt_melee"
-		"npc_alien_grunt_unarmored"
 		"npc_xen_grunt"
 		]
 	"Alien Controllers"
@@ -9345,7 +9343,7 @@
 		2: "2: CubeGradTexture"
 		]
 
-	texname(string) : "Texture name Grad Texture" : : "Texture name Grad Texture"
+	texname(material) : "Texture name Grad Texture" : : "Texture name Grad Texture"
 	colortop(color255) : "colorTop" : "255 0 0 255"
 	colorbottom(color255) : "colorBottom" : "0 255 0 255"
 	diststart(float) : "distStart" : 50 : "distStart"
@@ -11898,7 +11896,7 @@
 = func_conveyor_bms: "Conveyor Belt. The main difference between func_conveyor_bms and func_conveyor is that it can interact with VPhysics objects and not only QPhysics objects, it is also have some inputs that allow more slightly control conveyor state."
 	[
 	speed(float) : "Conveyor Speed" : 150
-	movedir(angle) : "Move Direction (Pitch Yaw Roll)" : "0 0 0" : "The direction conveyor moves."
+	direction(angle) : "Move Direction (Pitch Yaw Roll)" : "0 0 0" : "The direction conveyor moves."
 	spawnflags(flags)  =
 		[
 		1: "[1] Push" : 1
@@ -12627,13 +12625,13 @@
 	line(255 255 255, targetname, filtername)
 = newxog_volume
 	[
-	enabled(choices) : "Enabled" : 1 : "Enable/Disable this Entity" =
+	enabled(choices) : "Enabled" : 1 : "Is this entity enabled on spawn ?" =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	xogtype(choices) : "Shape Type" : 0 =
+	xogtype(choices) : "Shape Type" : 0 : "0 - BBOX to render xog, 1 - Ellipsoid(sphere) to render xog." =
 		[
 		0: "0: LocalVolume BBOX"
 		1: "1: LocalVolume Ellipsoid"
@@ -13227,7 +13225,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop()
-= prop_ragdoll_original: "A prop that physically simulates and can be articulated with internal joints. The joint constraints are part of the physics model.This is the original real prop_ragdoll, not remapped breakable one."
+= prop_ragdoll_original: "A prop that physically simulates and can be articulated with internal joints. The joint constraints are part of the physics model. This is the original real prop_ragdoll, not remapped breakable one."
 	[
 	spawnflags(flags)  =
 		[
@@ -13695,7 +13693,7 @@
 @SolidClass base(func_brush) 
 	sphere(fademindist)
 	sphere(fademaxdist)
-= func_reflective_glass: "Used to produce perfectly reflective glass that renders world + entities. Typically, you want your glass brush to have nodraw on all non-reflective surfaces and you want to use a shader like lightmappedreflective in your material applied to the non-nodraw surfaces. See hl2/materials/glass/reflectiveglass001.vmt for an example. NOTE: currently, you cannot use reflective glass in scenes with water, and you can only have 1 reflective glass in your view frustum ( + pvs ) at a time. Players will not see their own reflection unless they are in thirdperson mode."
+= func_reflective_glass: "Allows to create mirror surfaces. In Black Mesa LightmappedReflective shader (that requires this entity) is missed (show wireframe instead of surface), however this entity still can be used for other things.
 	[
 	]
 
@@ -13954,7 +13952,7 @@
 	studio()
 = item_suit: "HEV Suit."
 	[
-	model(studio) : "Model" : "models/props_am/hev_suit.mdl" : "Model to use for this HEV suit.."
+	model(studio) : "Model" : "models/props_am/hev_suit.mdl" : "Model to use for this HEV suit."
 	
 	spawnflags(flags)  =
 		[
@@ -14021,7 +14019,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_assassin_glock: "Assassin's glock-18 handgun. "
+= item_weapon_assassin_glock: "Assassin's glock-18 handgun."
 	[
 	model(studio) : "Model" : "models/weapons/w_glock.mdl" : "Model to use for this assassin's glock."
 	]
@@ -15386,7 +15384,7 @@
 
 
 	// Inputs
-	input BecomeTorso(void) : "BecomeTorso"
+	input BecomeTorso(void) : "Become torso."
 	]
 
 @BaseClass base(BaseNPC) = PlayerCompanion
@@ -15882,17 +15880,6 @@
 	line(255 0 0, targetname, enemyfilter)
 	color(0 200 200)
 	line(255 255 255, targetname, target)
-	studio("models/xenians/agrunt_unarmored.mdl")
-= npc_alien_grunt_unarmored: "Unarmored alien grunt."
-	[
-	]
-
-@NpcClass base(BaseNPC) 
-	sphere(fademindist)
-	sphere(fademaxdist)
-	line(255 0 0, targetname, enemyfilter)
-	color(0 200 200)
-	line(255 255 255, targetname, target)
 	studio("models/vortigaunt_slave.mdl")
 	sphere(RangeOuter)
 	sphere(RangeInner)
@@ -15921,7 +15908,7 @@
 	studio("models/vortigaunt_slave.mdl")
 	sphere(RangeOuter)
 	sphere(RangeInner)
-= npc_alien_slave_dummy: "Vortigaunt."
+= npc_alien_slave_dummy: "Legacy version of npc_alien_slave from old versions of the game."
 	[
 	passive(choices) : "Is Initially Passive" : 0 =
 		[
@@ -16564,7 +16551,7 @@
 
 @BaseClass base(BaseNPC, RappelNPC) = BaseMarine
 	[
-	numgrenades(choices) : "Number of Grenades" : 5 =
+	numgrenades(choices) : "Number of Grenades" : 5 : "Number of grenades that will have marine. This is hardcorded, you can't use your own numbers." =
 		[
 		0: "None"
 		1: "1"
@@ -17093,7 +17080,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/vortigaunt_slave.mdl")
-= npc_vortigaunt: "Vortigaunt, copy of alien slave."
+= npc_vortigaunt: "Vortigaunt, copy of npc_alien_slave."
 	[
 	xortstate(choices) : "Xort Internal State" : 1 =
 		[
