@@ -13693,7 +13693,7 @@
 @SolidClass base(func_brush) 
 	sphere(fademindist)
 	sphere(fademaxdist)
-= func_reflective_glass: "Allows to create mirror surfaces. In Black Mesa LightmappedReflective shader (that requires this entity) is missed (show wireframe instead of surface), however this entity still can be used for other things.
+= func_reflective_glass: "Allows to create mirror surfaces. In Black Mesa LightmappedReflective shader (that requires this entity) is missed (show wireframe instead of surface), however this entity still can be used for other things."
 	[
 	]
 
