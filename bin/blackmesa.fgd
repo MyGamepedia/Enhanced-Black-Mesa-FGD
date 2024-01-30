@@ -7821,6 +7821,7 @@
 	color(255 255 0)
 	light()
 	iconsprite("editor/light.vmt")
+	studio("models/editor/axis_helper_white.mdl")
 = light: "An invisible omnidirectional lightsource."
 	[
 	spawnflags(flags)  =
@@ -7832,6 +7833,7 @@
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/ficool2/light_dynamic.vmt")
+	studio("models/editor/axis_helper_white.mdl")
 	sphere(distance)
 	lightcone()
 	line(255 255 255, targetname, target)
@@ -7895,6 +7897,7 @@
 	sphere(_zero_percent_distance)
 	sphere(_distance)
 	color(255 255 0)
+	iconsprite("editor/light.vmt")
 	lightprop("models/editor/spot.mdl")
 	lightcone()
 	line(255 255 255, targetname, target)
@@ -11602,7 +11605,7 @@
 	line(255 255 255, targetname, target)
 = env_xen_pushpad
 	[
-	snextjumpdelta(float) : "Next Jump Delta" : "0.5"
+	nextjumpdelta(float) : "Next Jump Delta" : "0.5"
 	target(target_destination) : "Jump Target Name"
 	height(float) : "Height Offset" : 512
 	disableshadows(choices) : "Disable Shadows" : 0 =
@@ -12623,7 +12626,7 @@
 
 @SolidClass base(TriggerOnce) 
 	line(255 255 255, targetname, filtername)
-= newxog_volume
+= newxog_volume: "This is volumetric xog (Xen Fog) brush entity that creates a fog transition, making spaces appear deeper than they are."
 	[
 	enabled(choices) : "Enabled" : 1 : "Is this entity enabled on spawn ?" =
 		[
@@ -12631,10 +12634,10 @@
 		1: "Yes"
 		]
 
-	xogtype(choices) : "Shape Type" : 0 : "0 - BBOX to render xog, 1 - Ellipsoid(sphere) to render xog." =
+	xogtype(choices) : "Shape Type" : 0 : "0 - BBOX, 1 - Ellipsoid(sphere)." =
 		[
-		0: "0: LocalVolume BBOX"
-		1: "1: LocalVolume Ellipsoid"
+		0: "LocalVolume BBOX"
+		1: "LocalVolume Ellipsoid"
 		]
 
 	colormode(choices) : "colorMode" : 0 : "0:StaticColor 1:1DGradTexture  2: CubeGradTexture" =
@@ -12645,24 +12648,24 @@
 		]
 
 	texname(string) : "Texture name Grad Texture" : : "Texture name Grad Texture"
-	colortop(color255) : "colorTop" : "255 0 0 255"
-	colorbottom(color255) : "colorBottom" : "0 255 0 255"
-	diststart(float) : "distStart" : 50 : "distStart"
-	distend(float) : "distEnd" : 2000 : "distEnd"
-	distdensity(float) : "distDensity" : "1.0" : "distDensity"
-	opacityoffsettop(float) : "opacityOffsetTop" : 0 : "opacityOffsetTop"
-	opacityoffsetbottom(float) : "opacityOffsetBottom" : 0 : "opacityOffsetBottom"
-	htzstart(float) : "htZStart" : 0 : "htZStart"
-	htzend(float) : "htZEnd" : 400 : "htZEnd"
-	htzcolstart(float) : "htZColStart" : 0 : "htZColStart"
-	htzcolend(float) : "htZColEnd" : 400 : "htZColEnd"
-	noise1scrollspeed(vector) : "noise1ScrollSpeed" : "0.01095 0.00855 -0.02265 0.0"
-	noise1tiling(vector) : "noise1Tiling" : "1.32 1.32 1.32 0.0"
-	noise2scrollspeed(vector) : "noise2ScrollSpeed" : "0.00525 0.00495 -0.0075 0.0"
-	noise2tiling(vector) : "noise2Tiling" : "0.96 0.96 0.96 0.0"
-	noisecontrast(float) : "noiseContrast" : "1.0"
-	noisemultiplier(float) : "noiseMultiplier" : "1.0"
-	enablevol_height(choices) : "Enable Height Blend" : 0 : "Enable/Disable this heightbased xog" =
+	colortop(color255) : "Color Top" : "255 0 0 255" : "Xog top color. This is the main color of xog that uses if 'Enable Height Blend' keyvalue is disabled."
+	colorbottom(color255) : "Color Bottom" : "0 255 0 255" : "Xog bottom color. Requires enabled 'Enable Height Blend' keyvalue to be working."
+	diststart(float) : "Start Fog Distance" : 50 : "Xog start draw distance."
+	distend(float) : "End Fog Distance" : 2000 : "Xog end draw distance."
+	distdensity(float) : "Density Fog Distance" : "1.0" : "Density of xog entity, only values from 0 to 1 works."
+	opacityoffsettop(float) : "Opacity Offset Top" : 0 : "Offsets top color of xog."
+	opacityoffsetbottom(float) : "Opacity Offset Bottom" : 0 : "Offsets bottom color of xog."
+	htzstart(float) : "Height Start" : 0 : "Height that xog starts rendering at."
+	htzend(float) : "Height End" : 400 : "Height that xog stops rendering at."
+	htzcolstart(float) : "Height Color Start" : 0 : "Height that xog color starts rendering at. Results depend on 'Height Color End' value."
+	htzcolend(float) : "Height Color End" : 400 : "Height that xog color stops rendering at. Results depend on 'Height Color Start' value."
+	noise1scrollspeed(vector) : "Noise 1 Scroll Speed" : "0.01095 0.00855 -0.02265 0.0" : "Layer one, speed at which noise moves trough xog volume (X Y Z)."
+	noise1tiling(vector) : "Noise 1 Tiling" : "1.32 1.32 1.32 0.0" : "Layer one, tiling speed at which noise moves trough xog volume (X Y Z)."
+	noise2scrollspeed(vector) : "Noise 2 Tiling" : "0.00525 0.00495 -0.0075 0.0" : "Layer two, speed at which noise moves trough xog volume (X Y Z)."
+	noise2tiling(vector) : "Noise 2 Tiling" : "0.96 0.96 0.96 0.0" : "Layer two, tiling speed at which noise moves trough xog volume (X Y Z)."
+	noisecontrast(float) : "Noise Contrast" : "1.0" : "Contrast of xog."
+	noisemultiplier(float) : "Noise Multiplier" : "1.0" : "Multiplier of xog."
+	enablevol_height(choices) : "Enable Height Blend" : 0 : "Enable or disable heightbased xog ?" =
 		[
 		0: "No"
 		1: "Yes"
@@ -12670,9 +12673,9 @@
 
 
 	// Inputs
-	input TurnOn(void) : "Turn the light on."
-	input TurnOff(void) : "Turn the light off."
-	input Toggle(void) : "Toggle the light on/off."
+	input TurnOn(void) : "Turn the xog on."
+	input TurnOff(void) : "Turn the xog off."
+	input Toggle(void) : "Toggle the xog between on and off stages."
 	]
 
 @PointClass base(BaseEntityAnimating) 
@@ -15170,6 +15173,15 @@
 	color(0 0 200)
 	sphere(fademindist)
 	sphere(fademaxdist)
+	studioprop("models/weapons/v_hgun.mdl")
+= weapon_hivehand: "Hivearm. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
+	[
+	]
+	
+@PointClass base(Weapon) 
+	color(0 0 200)
+	sphere(fademindist)
+	sphere(fademaxdist)
 	studioprop("models/weapons/w_egon_pickup.mdl")
 = weapon_gluon: "Gluon gun. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only)."
 	[
@@ -16146,7 +16158,8 @@
 	line(255 255 255, targetname, target)
 	studio("models/xenians/snark.mdl")
 = npc_snark: "Armed snark."
-	[]
+	[
+	]
 
 @NpcClass base(BaseNPC) 
 	sphere(fademindist)
@@ -16156,7 +16169,8 @@
 	line(255 255 255, targetname, target)
 	studio("models/leech.mdl")
 = npc_leech: "Leech. Non-functional, because of the Half-Life: 2 model have no required animations. Half-Life: Source model works pretty fine."
-	[]
+	[
+	]
 
 @NpcClass base(BaseNPC) 
 	sphere(fademindist)
@@ -17073,7 +17087,7 @@
 	input Stop(void) : "Tell the driver to stop driving."
 	]
 
-@NpcClass base(BaseNPC) 
+@NpcClass base(npc_alien_slave) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	line(255 0 0, targetname, enemyfilter)
@@ -17082,62 +17096,6 @@
 	studio("models/vortigaunt_slave.mdl")
 = npc_vortigaunt: "Vortigaunt, copy of npc_alien_slave."
 	[
-	xortstate(choices) : "Xort Internal State" : 1 =
-		[
-		0: "Neutral"
-		1: "Evil"
-		2: "Evil & Possessed"
-		]
-
-	m_nfearlevel(choices) : "FearLevels" : 0 =
-		[
-		-2: "Brave To THE MAX"
-		-1: "Brave Level 1"
-		0: "Normal"
-		1: "Afraid Level 1"
-		2: "Afraid To THE MAX"
-		]
-
-	m_ndamagecalleveryone(integer) : "Damage Call All Xorts In Radius Enabled" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
-	m_fdamagecallradius(float) : "Damage Call Radius" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
-	m_nalertcalleveryone(integer) : "Alert Call Everyone" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
-	m_falertcallradius(float) : "Alert Call Radius" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
-	fearnodesgroupname(string) : "Fear Nodes Group Name" : : "Node Group name to be used while searching for fear nodes"
-	healnodesgroupname(string) : "Heal Nodes Group Name" : : "Node Group name to be used while searching for heal nodes"
-	bplayteleportanimonspawn(choices) : "Play Teleport Anim On Spawn" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	bdisablespells(choices) : "Disable Spells" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	canusehealingnodes(choices) : "Can Use Healing Nodes ?" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	canusefearnodes(choices) : "Can Use Fear Nodes ?" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-
-	// Inputs
-	input XortEnableHealing(void) : "Enable healing."
-	input XortDisableHealing(void) : "Disable healing."
-	input XortChangeState(integer) : "Change xort State 1: Neutral 2: Evil 3: Evil_Possessed."
-	input StartScriptedFearSchedule(void) : "Activated scripted Fear behaviour. They will try to run to fear nodes. If that fails they will just try to run away or run to cover."
-	input InputAddFearPoints(integer) : "Add/Subtract Fear Points to change fear level."
-
-	// Outputs
-	output OnKilledByPlayer(void) : "Fire on killed by player."
 	]
 
 @NpcClass base(BaseNPCAssault) 
@@ -17164,7 +17122,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/Zombies/zombie_grunt.mdl")
-= npc_zombie_grunt: "Zombie grunt."
+= npc_zombie_grunt: "Zombie grunt, a. k. a. ZECU."
 	[
 	]
 
@@ -17186,7 +17144,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/zombies/zombie_hev.mdl")
-= npc_zombie_hev: "Zombie HEV."
+= npc_zombie_hev: "Zombie in HEV suit, a. k. a. ZEV."
 	[
 	flashlight_status(choices) : "Start with Flashlight" : 1 : "Should the zombie start with flashlight enabled ?" =
 		[
