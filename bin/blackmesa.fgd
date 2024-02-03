@@ -5106,6 +5106,15 @@
 	input SetCSMVolumeToSceneBounds(void) : "Set csm Volume to scene bounds."
 	input SetCSMVolumeViaCSMVolumeEntity(target_destination) : "Set csm Volume to csm volumne entity."
 	]
+	
+@PointClass base(BaseEntityPoint)
+	iconsprite("editor/shadow_control.vmt")
+= env_cascade_volume: "An entity to control the CSM volume"
+	[
+	 RadiusX(float) : "RadiusX" : "100" : "Radius along world X Axis"
+	 RadiusY(float) : "RadiusY" : "100" : "Radius along world Y Axis"
+	 RadiusZ(float) : "RadiusZ" : "100" : "Radius along world Z Axis"
+	]
 
 
 @PointClass base(BaseEntityPoint) 
@@ -6778,7 +6787,7 @@
 	input SetFadeEndDistance(integer) : "Set fade end distance. If set to zero, this will force the window closed."
 	]
 
-@SolidClass base(BaseEntityBrush) = func_clip_vphysics: "A brush entity that's considered solid to vphysics."
+@SolidClass base(BaseEntityBrush, EnableDisable) = func_clip_vphysics: "A brush entity that's considered solid to vphysics."
 	[
 	spawnflags(flags)  =
 		[
@@ -6786,10 +6795,6 @@
 		]
 
 	filtername(filterclass) : "Filter Name" : : "Filter to use to see if activator collides with me. See filter_activator_name for more explanation. Allow means 'Allow to Block' for this entity."
-
-	// Inputs
-	input Enable(void) : "Enable this entity."
-	input Disable(void) : "Disable this entity."
 	]
 
 @SolidClass base(BaseEntityBrushNoOrigin, BModelParticleSpawner) 
@@ -9322,6 +9327,8 @@
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/xog_global.vmt")
+	sphere(diststart)
+	sphere(distend)
 = newxog_global: "Next Gen XOG"
 	[
 	enabled(choices) : "Enabled" : 1 : "Enable/Disable this Entity" =
@@ -9346,7 +9353,7 @@
 		2: "2: CubeGradTexture"
 		]
 
-	texname(material) : "Texture name Grad Texture" : : "Texture name Grad Texture"
+	texname(material) : "Grad Texture" : : "Texture name Grad Texture"
 	colortop(color255) : "colorTop" : "255 0 0 255"
 	colorbottom(color255) : "colorBottom" : "0 255 0 255"
 	diststart(float) : "distStart" : 50 : "distStart"
@@ -12626,28 +12633,30 @@
 
 @SolidClass base(TriggerOnce) 
 	line(255 255 255, targetname, filtername)
+	sphere(diststart)
+	sphere(distend)
 = newxog_volume: "This is volumetric xog (Xen Fog) brush entity that creates a fog transition, making spaces appear deeper than they are."
 	[
-	enabled(choices) : "Enabled" : 1 : "Is this entity enabled on spawn ?" =
+	enabled(choices) : "Enabled ?" : 1 : "Is this entity turned off on spawn ?" =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	xogtype(choices) : "Shape Type" : 0 : "0 - BBOX, 1 - Ellipsoid(sphere)." =
+	xogtype(choices) : "Shape Type" : 0 : "Determines shape type that use xog volume, BBOX or Ellipsoid." =
 		[
-		0: "LocalVolume BBOX"
-		1: "LocalVolume Ellipsoid"
+		0: "BBOX"
+		1: "Ellipsoid"
 		]
 
-	colormode(choices) : "colorMode" : 0 : "0:StaticColor 1:1DGradTexture  2: CubeGradTexture" =
+	colormode(choices) : "Color Mode" : 0 : "0:StaticColor 1:1DGradTexture  2: CubeGradTexture" =
 		[
-		0: "0: StaticColor"
-		1: "1: 1DGradTexture"
-		2: "2: CubeGradTexture"
+		0: "StaticColor"
+		1: "1DGradTexture"
+		2: "CubeGradTexture"
 		]
 
-	texname(string) : "Texture name Grad Texture" : : "Texture name Grad Texture"
+	texname(material) : "Grad Texture" : : "Texture name Grad Texture"
 	colortop(color255) : "Color Top" : "255 0 0 255" : "Xog top color. This is the main color of xog that uses if 'Enable Height Blend' keyvalue is disabled."
 	colorbottom(color255) : "Color Bottom" : "0 255 0 255" : "Xog bottom color. Requires enabled 'Enable Height Blend' keyvalue to be working."
 	diststart(float) : "Start Fog Distance" : 50 : "Xog start draw distance."
