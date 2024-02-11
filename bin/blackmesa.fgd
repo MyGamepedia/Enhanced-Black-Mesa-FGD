@@ -2054,7 +2054,9 @@
 		1048576: "[1048576] Spawn flying crap" : 0
 		]
 
-
+	// Inputs
+	input StartPortal(void) : "Start portal."	
+	
 	// Outputs
 	output OnStartPortal(void) : "Portal FX is started"
 	output OnFinishPortal(void) : "Portal FX is finished"
@@ -6621,7 +6623,7 @@
 		1 : "Yes"
 	]
 	
-	fCusBloomNG_Threshold(float)	: "Custom NG Bloom Threshold": 0 : "Threshold for bright pass filter. Determines the influence of tonemapping; with high values, only brightest parts of frame will be bloomed."
+	fCusBloomNG_Threshold(float)	: "Custom NG Bloom Threshold": "0.1"	: "Threshold for bright pass filter. Determines the influence of tonemapping; with high values, only brightest parts of frame will be bloomed."
 	
 	bUseCusBloomNG_tintExponent(choices) : "Use Custom NG Bloom Tint Exponent ?" : 0 = 
 	[
@@ -9385,7 +9387,7 @@
 	iconsprite("editor/xog_settings.vmt")
 = newxog_settings: "Next Gen XOG Settings entity"
 	[
-	targetnewlightentity(string) : "TargetNewXOGEntity_Name" : : "Target Light Entity name"
+	targetnewlightentity(target_destination) : "TargetNewXOGEntity_Name" : : "Target Light Entity name"
 	transitiontime(integer) : "TransitionTime" : 0 : "TransitionTime in secs ( 0 for instant ) to transition into new settings. Its a lerp operation A + (B-A)*TimeFactor"
 	enabled(choices) : "Enabled" : 1 : "Light Enabled or Disabled" =
 		[
@@ -9999,7 +10001,7 @@
 	input Command(string) : "Command to execute."
 	]
 
-@PointClass base(BaseEntityPoint, RenderFields) 
+@PointClass base(BaseEntityPoint) 
 	studio("models/editor/cone_helper.mdl")
 	sphere(spotlightlength)
 	sphere(spotlightwidth)
@@ -10009,6 +10011,45 @@
 		[
 		1: "[1] Start On" : 1
 		2: "[2] No Dynamic Light" : 1
+		]
+
+		rendermode(choices) : "Render Mode" : 0 : "Used to set a non-standard rendering mode on this entity. See also 'FX Amount' and 'FX Color'. \n* Color & Texture = src*a+dest*(1-a)\n* Glow = src*a + dest, fixed on screen for sprites\n* Solid = Performs alphatest transparency\n* Additive = src*a + dest\n* Additive FF = blend between sprite nimation frames\n* Alpha Add = src + dest*(1-a)\n* World Space Glow = src*a + dest" =
+		[
+		0: "Normal"
+		1: "Color"
+		2: "Texture"
+		3: "Glow"
+		4: "Solid"
+		5: "Additive"
+		7: "Additive Fractional Frame"
+		8: "Additive Alpha"
+		9: "World Space Glow"
+		10: "Don't Render"
+		]
+
+	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "A color to mix with the model/sprite."
+	renderfx(choices) : "Render FX" : 0 : "Various somewhat legacy alpha effects. Material Proxies are more customisable, but these are quick to set. Fade in/out are applied whenever the FX is changed. Different entities automatically get slight offsets to avoid synchronisation." =
+		[
+		0: "Normal"
+		1: "Pulse +-16, 1.5 sec period"
+		2: "Pulse +-16, 0.4 sec period"
+		3: "Pulse +-64, 1.5 sec period"
+		4: "Pulse +-64, 0.4 sec period"
+		9: "Strobe every 0.8 sec"
+		10: "Strobe every 0.2 sec"
+		11: "Strobe every 0.09 sec"
+		12: "Slow Flicker (1.5 sec, 0.18 sec)"
+		13: "Fast Flicker (0.2 sec, 0.14 sec)"
+		5: "Slow Fade Out (-1 per frame)"
+		6: "Fast Fade Out (-4 per frame)"
+		7: "Slow Fade In (+1 per frame)"
+		8: "Fast Fade In (+4 per frame)"
+		14: "Constant Glow"
+		15: "Distort"
+		16: "Hologram (Distort + dist fade)"
+		23: "Cull By Distance (TEST)"
+		24: "Spotlight FX"
+		26: "Fade Near"
 		]
 
 	spotlightlength(integer) : "Spotlight Length" : 500 : "Length of the spotlight beam."
@@ -10023,6 +10064,8 @@
 	// Outputs
 	output OnLightOn(void) : "Fires when light turns on."
 	output OnLightOff(void) : "Fires when light turns off."
+	input Alpha(integer) : "Set the entity's alpha (0 - 255)."
+	input Color(color255) : "Set the entity's color (R G B)."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -13161,6 +13204,12 @@
 
 	defaultanim(string) : "Default Animation" : : "The name of the idle animation that this prop will revert to whenever it finishes a random or forced animation."
 	randomanimation(choices) : "Randomly Animate" : 0 : "If set, this prop will randomly choose and play animations, based upon the times specified in 'Min/Max Random Anim Time'. Inbetween the random animations, it will revert to playing the 'Default Animation'." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+		
+	ignorenpccollisions(choices) : "Ignore NPC Collisions" : 0 =
 		[
 		0: "No"
 		1: "Yes"
@@ -17153,7 +17202,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/zombies/zombie_hev.mdl")
-= npc_zombie_hev: "Zombie in HEV suit, a. k. a. ZEV."
+= npc_zombie_hev: "Zombie in HEV suit, a. k. a. HEZ."
 	[
 	flashlight_status(choices) : "Start with Flashlight" : 1 : "Should the zombie start with flashlight enabled ?" =
 		[
