@@ -2783,15 +2783,16 @@
 	input HandleMapEvent(string) : "Generic hook for triggering game/mod-specific events like achievements for a player."
 	input SetSuppressAttacks(bool) : "Prevent or re-allow the player from being able to use weapons."
 	input DisableFlashlight(void) : "Disable the player's flashlight."
-	input EnableFlashlight(void) : "Disable the player's flashlight."
+	input EnableFlashlight(void) : "Enable the player's flashlight."
 	input ForceDropPhysObjects(void) : "Force the player to drop any physics objects they're carrying"
 	input SetBodyGroup(integer) : "HACK: Sets this player's body group (from 0 - n). You'd better know what you are doing!"
-	input Ignite(void) : "Ignite, burst into flames"
+	input Ignite(void) : "Ignite, burst into flames."
 	input IgniteLifetime(float) : "Ignite, with a parameter lifetime."
 	input IgniteNumHitboxFires(integer) : "Ignite, with a parameter number of hitbox fires."
 	input IgniteHitboxFireScalev(float) : "Ignite, with a parameter hitbox fire scale."
 	input GiveWeapon(string) : "Gives the player a weapon of the specified class name."
 	input DropWeapon(string) : "Causes the player to drop its current weapon in front of them."
+	input PerformForcedWeaponDeploy(string) : "Forces the player to use specified weapon with pickup animation."
 	]
 
 @BaseClass base(SetSkin) = SetModel
