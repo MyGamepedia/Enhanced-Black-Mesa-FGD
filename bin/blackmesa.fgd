@@ -3436,15 +3436,7 @@
 		]
 
 	lightingorigin(target_destination) : "Lighting Origin" : : "Select an info_lighting to specify a location to sample lighting from, instead of using this entity's origin."
-	linedivider_lmap(string) readonly : "----------------------------------------------------------------------------------------------------------"
-	generatelightmaps(choices) : "Use lightmaps for this static prop" : 0 : "Generate (and use) lightmaps for this static prop" =
-		[
-		0: "No"
-		1: "Yes"
-		]
 
-	lightmapresolutionx(integer) : "Lightmap Resolution X" : 32 : "The resolution of the generated lightmap in the X (or U) direction (only used if Generate Lightmaps is Yes) "
-	lightmapresolutiony(integer) : "Lightmap Resolution Y" : 32 : "The resolution of the generated lightmap in the Y (or V) direction (only used if Generate Lightmaps is Yes) "
 	linedivider_fade(string) readonly : "----------------------------------------------------------------------------------------------------------"
 	screenspacefade(choices) : "Screen Space Fade" : 0 : "The method by which the fading distance should be determined. If 'No', the fade distances is the distance from the player's view to the object, in inches. If 'Yes', the fade distance is the size of the object onscreen, in pixels." =
 		[
@@ -13275,8 +13267,10 @@
 	mimicname(string) : "Character Manifest Mimic Name" : : "Choose a name or a classname from the character manifest to dress the ragdoll."
 	health(integer) : "Health" : 100 : "The amount of damage the ragdoll takes before gibbing."
 	angleoverride(string) : "Override Animation" : : "Filled in by the engine via hammer_update_entity, do not edit by hand except to clear."
+	budy(integer) : "Body" : 0 : "Specifies which body group should be used."
 
 	// Inputs
+	input AllowBloodPool(void) : "Ñorpse once will create pool of blood (particle effect) if it is placed on brush."
 	input StartRagdollBoogie(float) : "Begins ragdoll boogie effect. Parameter override = number of seconds to boogie."
 	input EnableMotion(void) : "Enable physics motion/collision response."
 	input DisableMotion(void) : "Disable physics motion/collision response."
@@ -13300,6 +13294,7 @@
 
 	mimicname(string) : "Character Manifest Mimic Name" : : "Choose a name or a classname from the character manifest to dress the ragdoll."
 	angleoverride(string) : "Override Animation" : : "Filled in by the engine via hammer_update_entity, do not edit by hand except to clear."
+	budy(integer) : "Body" : 0 : "Specifies which body group should be used."
 
 	// Inputs
 	input StartRagdollBoogie(float) : "Begins ragdoll boogie effect. Parameter override = number of seconds to boogie."
