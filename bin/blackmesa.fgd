@@ -11436,7 +11436,7 @@
 
 @PointClass base(BaseEntityAnimating) 
 	studio("models/props_am/am_ams_bottom_base.mdl")
-= entity_player_base: "Player base from Zombie Survival mode. If this entity is not placed - it will spawn at map center. Requires model changes to be aible to be breaked."
+= entity_player_base: "Player base from Elimination game mode. If this entity is not placed - it will spawn at map center."
 	[
 	]
 
