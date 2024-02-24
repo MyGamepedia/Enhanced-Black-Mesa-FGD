@@ -7890,6 +7890,10 @@
 	_ambienthdr(color255) : "AmbientHDR" : "-1 -1 -1 1"
 	_ambientscalehdr(float) : "AmbientScaleHDR" : 1 : "Amount to scale the ambient light by when compiling for hdr."
 	sunspreadangle(float) : "SunSpreadAngle" : 5 : "The angular extent of the sun for casting soft shadows. Higher numbers are more diffuse. 5 is a good starting value."
+		spawnflags(flags)  =
+		[
+		1: "[1] Initially dark" : 0
+		]
 	]
 
 @PointClass base(BaseEntityPoint, BaseLight, LightPattern) 
@@ -8482,13 +8486,9 @@
 	// Inputs
 	input RequestPlayerHealth(void) : "Requests the current player's health from the proxy. This will fire the PlayerHealth output with the value."
 	input RequestAmmoState(void) : "Request the ammo state of the player. It will fire PlayerHasAmmo or PlayerHasNoAmmo outputs."
-	input SetFlashlightSlowDrain(void) : "Puts the player's flashlight in slow-power-drain mode (for Episodic darkness)"
-	input SetFlashlightNormalDrain(void) : "Puts the player's flashlight to default power drain"
 	input SetPlayerHealth(integer) : "Sets the player's health to this value."
-	input LowerWeapon(void) : "Lowers the players weapon."
 	input EnableCappedPhysicsDamage(void) : "Cause player to take less damage from physics objects, and never more than 30 points from any individual strike."
-	input DisableCappedPhysicsDamage(void) : "Undo effects of EnableCappedPhysicsDamage"
-	input SetLocatorTargetEntity(string) : "Set the entity that the HUD locator should track. (Usually a vehicle)"
+	input DisableCappedPhysicsDamage(void) : "Undo effects of EnableCappedPhysicsDamage."
 
 	// Outputs
 	output PlayerHealth(integer) : "The player's current health value, fired in response to RequestPlayerHealth."
@@ -8498,6 +8498,9 @@
 	output OnFlashlightOff(float) : "Fired when the player turns off his flashlight. This output has the value of how much energy the player had when this happened [0..1]."
 	output PlayerDied(void) : "Fires when the player dies."
 	output PlayerMissedAR2AltFire(void)	: "Player fired an AR2 combine ball that didn't kill any enemies."
+	output OnJump(void)	: "Fired when a player jumps. Don't work."
+	output OnDuck(void)	: "Fired when a player starts to duck. Don't work."
+	output OnUnDuck(void)	: "Fired when a player releases the duck button. Don't work."
 	]
 
 @PointClass base(BaseEntityPoint, EnableDisable) 
@@ -11431,6 +11434,12 @@
 	output OnSeqEnd(void) : "Fired once all delayed outputs are complete."
 	]
 
+@PointClass base(BaseEntityAnimating) 
+	studio("models/props_am/am_ams_bottom_base.mdl")
+= entity_player_base: "Player base from Zombie Survival mode. If this entity is not placed - it will spawn at map center. Requires model changes to be aible to be breaked."
+	[
+	]
+
 @PointClass base(BaseBeam) 
 	line(255 255 255, targetname, LightningStart, targetname, LightningEnd)
 	cylinder(255 255 255, targetname, LightningStart, Radius, targetname, LightningEnd, Radius)
@@ -13270,7 +13279,7 @@
 	budy(integer) : "Body" : 0 : "Specifies which body group should be used."
 
 	// Inputs
-	input AllowBloodPool(void) : "Ñorpse once will create pool of blood (particle effect) if it is placed on brush."
+	input AllowBloodPool(void) : "Corpse once will create pool of blood (particle effect) if it is placed on brush."
 	input StartRagdollBoogie(float) : "Begins ragdoll boogie effect. Parameter override = number of seconds to boogie."
 	input EnableMotion(void) : "Enable physics motion/collision response."
 	input DisableMotion(void) : "Disable physics motion/collision response."
@@ -15925,7 +15934,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/xenians/agrunt.mdl")
-= npc_alien_grunt_elite: "Elite alien grunt, the difference is huge size."
+= npc_alien_grunt_elite: "A larger Alien Grunt intended to be featured in a section of Interloper, set between the conveyor belt and elevator sections, which was cut from the final game. It has slightly more health than the standard Alien Grunt, is twice its size, and has the ability to throw Snark nests towards the player which explode and release Snarks on impact. Its model has less armor on the backside and some missing geometry on the crotch area."
 	[
 	]
 
@@ -16198,7 +16207,7 @@
 	studio("models/props_xen/xen_puffballfungus.mdl")
 	sphere(RangeOuter)
 	sphere(RangeInner)
-= npc_puffballfungus: "Xen puffball fungus."
+= npc_puffballfungus: "Xen puffball fungus. Intended for a ''maze'' segment of the chapter Xen which was eventually replaced with the big tree section. A poisonous plant that explodes on proximity or damage and lowers player health to one point, with a slow recovery (similar to Poison Headcrabs). It has a non-functioning ability to pulse as a warning if the player enters its ''outer radius'' (the RangeOuter parameter set in the editor)."
 	[
 	rangeinner(float) : "Inner Range" : 250
 	rangeouter(float) : "Outer Range" : 500
