@@ -1358,7 +1358,6 @@
 	"Ent Destruction"
 		[
 		"trigger_remove"
-		"trigger_weapon_dissolve"
 		"trigger_weapon_strip"
 		]
 	"Force Triggers"
@@ -5046,12 +5045,51 @@
 	[
 	density(integer) : "Bubble density" : 2
 	frequency(integer) : "Bubble frequency" : 2
-	current(integer) : "Speed of Current" : 0 : "The speed of the water current in the volume, used to move the bubbles."
+	current(integer) : "Speed of Current" : 0 : "The speed of the water current in the volume, used to move the bubbles."	
+	rendermode(choices) : "Render Mode" : 10 : "Used to set a non-standard rendering mode on this entity. See also 'FX Amount' and 'FX Color'. \n* Color & Texture = src*a+dest*(1-a)\n* Glow = src*a + dest, fixed on screen for sprites\n* Solid = Performs alphatest transparency\n* Additive = src*a + dest\n* Additive FF = blend between sprite nimation frames\n* Alpha Add = src + dest*(1-a)\n* World Space Glow = src*a + dest" =
+		[
+		0: "Normal"
+		1: "Color"
+		2: "Texture"
+		3: "Glow"
+		4: "Solid"
+		5: "Additive"
+		7: "Additive Fractional Frame"
+		8: "Additive Alpha"
+		9: "World Space Glow"
+		10: "Don't Render"
+		]
+
+	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "A color to mix with the model/sprite."
+	renderamt(integer) : "FX Alpha (0 - 255)" : 255 : "Transparency amount, requires a Render Mode other than Normal. 0 is invisible, 255 is fully visible."
+	renderfx(choices) : "Render FX" : 0 : "Various somewhat legacy alpha effects. Material Proxies are more customisable, but these are quick to set. Fade in/out are applied whenever the FX is changed. Different entities automatically get slight offsets to avoid synchronisation." =
+		[
+		0: "Normal"
+		1: "Pulse +-16, 1.5 sec period"
+		2: "Pulse +-16, 0.4 sec period"
+		3: "Pulse +-64, 1.5 sec period"
+		4: "Pulse +-64, 0.4 sec period"
+		9: "Strobe every 0.8 sec"
+		10: "Strobe every 0.2 sec"
+		11: "Strobe every 0.09 sec"
+		12: "Slow Flicker (1.5 sec, 0.18 sec)"
+		13: "Fast Flicker (0.2 sec, 0.14 sec)"
+		5: "Slow Fade Out (-1 per frame)"
+		6: "Fast Fade Out (-4 per frame)"
+		7: "Slow Fade In (+1 per frame)"
+		8: "Fast Fade In (+4 per frame)"
+		14: "Constant Glow"
+		15: "Distort"
+		16: "Hologram (Distort + dist fade)"
+		23: "Cull By Distance (TEST)"
+		24: "Spotlight FX"
+		26: "Fade Near"
+		]
+	
 	spawnflags(flags)  =
 		[
 		1: "[1] Start Off" : 0
 		]
-
 
 	// Inputs
 	input Activate(void) : "Activates the bubbles."
@@ -11435,7 +11473,7 @@
 	]
 
 @PointClass base(BaseEntityAnimating) 
-	studio("models/props_am/am_ams_bottom_base.mdl")
+	studio("models/editor/entity_player_base.mdl")
 = entity_player_base: "Player base from Elimination game mode. If this entity is not placed - it will spawn at map center."
 	[
 	]
@@ -15145,7 +15183,7 @@
 
 @SolidClass base(Trigger) 
 	line(255 255 255, targetname, filtername)
-= trigger_weapon_strip: "A volumetric trigger that strips combat characters of all weapons"
+= trigger_weapon_strip: "A volumetric trigger that strips combat characters of all weapons."
 	[
 	killweapons(choices) : "Kill Weapons" : 0 : "If No, then the player will drop and be prevented from picking up their weapon. If Yes the weapon will be killed." =
 		[
@@ -16032,6 +16070,7 @@
 @NpcClass base(BaseNPC) 
 	sphere(fademindist)
 	sphere(fademaxdist)
+	sphere(tonguelength)
 	line(255 0 0, targetname, enemyfilter)
 	color(0 200 200)
 	line(255 255 255, targetname, target)
