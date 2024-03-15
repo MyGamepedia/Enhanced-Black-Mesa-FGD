@@ -17,6 +17,6 @@ Yes, you can.
 
 Do you want to report an issue ? Feels free! Report any issues, even if it is really small.
 
-Do you want to create icons for entities ? Feels free!
+Do you want to create icons for entities ? Feels free! However, it is important that the style of the icons matches the Valve style or Crowbar Collective style. 
 
 Do you want to suggest something ? Feels free! Use issue tracker for it.
