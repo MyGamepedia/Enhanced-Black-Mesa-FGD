@@ -12445,8 +12445,9 @@
 @PointClass base(BaseEntityAnimating) 
 	sphere(fademindist)
 	sphere(fademaxdist)
+	sphere(lightradius)
 	studio()
-= misc_dead_hev: "Dead HEV Scientist"
+= misc_dead_hev: "Dead HEV Scientist."
 	[
 	spawnflags(flags)  =
 		[
@@ -12457,11 +12458,12 @@
 		65536: "[65536] Start asleep" : 0
 		]
 
+	mimicname(string) : "Character Manifest Mimic Name" : : "Choose a name or a classname from the character manifest to dress the ragdoll."
 	model(studio) : "World Model" : "models/player/mp_scientist_hev.mdl"
-	spritecolor(color255) : "Ping Sprite/Glow Color" : "255 0 0 200"
-	lightcolor(color255) : "Ping Light Color" : "255 0 0 4"
-	lightradius(integer) : "Ping Light Radius" : 64
-	attachmentname(string) : "Ping Light Attachment Name" : "eyes"
+	spritecolor(color255) : "Ping Sprite/Glow Color" : "255 0 0 200" : "The color of ping sprite. The default value is 255 0 0 (red)."
+	lightcolor(color255) : "Ping Light Color" : "255 0 0 4" : "Ping light color. Doesn't work."
+	lightradius(integer) : "Ping Light Radius" : 64 : "The radius at which the ping sprite will never be displayed."
+	attachmentname(string) : "Ping Light Attachment Name" : "eyes" : "Defines attachment in which ping sprite will appear."
 	health(integer) : "Health" : 100 : "The amount of damage the ragdoll takes before gibbing."
 
 	// Inputs
