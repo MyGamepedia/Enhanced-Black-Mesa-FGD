@@ -2080,6 +2080,12 @@
 	health(integer) : "Health" : 0 : "Number of points of damage to take before breaking. 0 means don't break."
 	physdamagescale(float) : "Physics Impact Damage Scale" : "1.0" : "Scales damage energy when this object is hit by a physics object. Set to 1.0 for materials as strong as flesh, smaller numbers indicate stronger materials."
 	physicsdamagelimit(float) : "Physics Impact Damage Limit" : "0"
+		
+	teleporttarget(choices) : "Teleport Target To Me" : 0 : "Move the found entity to the location of this entity or that of the reference." =
+		[
+		0: "No"
+		1: "Yes"
+		]
 
 	// Inputs
 	input Break(void) : "Breaks the breakable."
@@ -5158,6 +5164,7 @@
 	// Inputs
 	input RollCredits(void) : "Start the intro credits rolling."
 	input RollOutroCredits(void) : "Start the outro credits rolling."
+	input RollEndCredits(void) : "Start the end credits rolling."
 	input ShowLogo(void) : "Show the HL2 logo."
 	input SetLogoLength(float) : "Sets the amount of time the logo is displayed. Default is 5.0."
 
@@ -5967,11 +5974,7 @@
 	line(128 128 255, targetname, target)
 = env_particle_beam
 	[
-	particlebeam(choices) : "Particle Beam Name" : "Lc Beam" =
-		[
-		"lc_beam": "Lc Beam"
-		]
-
+	particlebeam(particlesystem) : "Particle Beam Name"
 	target(target_destination) : "Beam Target"
 	damage(float) : "Damage" : 1
 	damagetick(float) : "Damage Tick" : "0.1"
@@ -8859,7 +8862,6 @@
 
 	// Inputs
 	input Play(void) : "Starts the music track."
-	input Stop(void) : "Stops the music track."
 	input Fade(void) : "Fades the music track out over the given number of seconds."
 	input Next(void) : "Plays the next track when the BPM lines up."
 	]
@@ -11102,6 +11104,7 @@
 	gibmodel(string) : "Gib Group" : : "Specify a custom gib group to break into, overriding the 'Material Type'. These are names in propdata.txt like MetalChunks."
 	spawnobject(choices) : "Spawn On Break" : 0 : "When broken, an entity of the selected type will be created." =
 		[
+		0: "Nothing"
 		1: "Battery"
 		2: "Healthkit"
 		24: "Shotgun"
@@ -14276,6 +14279,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	sphere(ExplodeRadius)
+	sphere(lightradius)
 	studioprop()
 = prop_barrel_cactus: "Cactus Barrel"
 	[
@@ -14310,7 +14314,7 @@
 		1: "Yes"
 		]
 
-	lightradius(float) : "lightRadius" : 400 : "Radius of light"
+	lightradius(float) : "lightRadius" : 400 : "Radius of light."
 
 	// Outputs
 	output OnCactusExplode(void) : "OnCactusExplode"
@@ -14321,6 +14325,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	sphere(ExplodeRadius)
+	sphere(lightradius)
 	studioprop()
 = prop_barrel_cactus_adolescent: "Adolescent Cactus Barrel"
 	[
@@ -14366,6 +14371,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	sphere(ExplodeRadius)
+	sphere(lightradius)
 	studioprop()
 = prop_barrel_cactus_exploder: "Exploder Cactus Barrel"
 	[
@@ -14411,6 +14417,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	sphere(ExplodeRadius)
+	sphere(lightradius)
 	studioprop()
 = prop_barrel_cactus_infant: "Infant Cactus Barrel"
 	[
@@ -14456,6 +14463,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	sphere(ExplodeRadius)
+	sphere(lightradius)
 	studioprop()
 = prop_barrel_cactus_semilarge: "Semilarge Cactus Barrel"
 	[
