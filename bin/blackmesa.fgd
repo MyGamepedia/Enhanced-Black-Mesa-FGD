@@ -1407,6 +1407,7 @@
 		"prop_dynamic"
 		"prop_dynamic_ornament"
 		"prop_dynamic_override"
+		"prop_dynamic_playertouch"
 		"prop_nihi_shield"
 		"prop_physics"
 		"prop_physics_multiplayer"
@@ -1493,6 +1494,7 @@
 		"prop_dynamic"
 		"prop_dynamic_ornament"
 		"prop_dynamic_override"
+		"prop_dynamic_playertouch"
 		"prop_retinalscanner"
 		"prop_scalable"
 		"prop_train_apprehension"
@@ -8884,7 +8886,7 @@
 @PointClass base(BaseEntityPoint) 
 	lightprop("models/editor/spot.mdl")
 	iconsprite("editor/light_new.vmt")
-= newLight_Dir: "Next generation directional light. Draw GodRays in sky, also include disk to imitate sun."
+= newlight_dir: "Next generation directional light. Draw GodRays in sky, also include disk to imitate sun."
 	[
 	lightenvenabled(choices) : "Use Light_Environment Angles ?" : 1 : "Do we want to use light_environment angles or manual angles ?" =
 		[
@@ -8926,7 +8928,7 @@
 	iconsprite("editor/light_new.vmt")
 	sphere(range)
 	sphere(NearZ)
-= newLight_Point: "Next generation point light. One of deferred lighting entities, also support lightcookies and godrays."
+= newlight_point: "Next generation point light. One of deferred lighting entities, also support lightcookies and godrays."
 	[
 	enabled(choices) : "Enabled ?" : 1 : "Is light enabled on spawn ?" =
 		[
@@ -9127,7 +9129,7 @@
 	sphere(range)
 	sphere(NearZ)
 	frustum(phi,NearZ,Range,LightColor,-1)
-= newLight_Spot: "Next generation spot light. One of deferred lighting entities, also support animated lightcookies."
+= newlight_spot: "Next generation spot light. One of deferred lighting entities, also support animated lightcookies."
 	[
 	reversedir(choices) : "Reverse Dir" : 0 : "Reflects Y angle value and applies it. This additionally impacts performance, use it in extremely rare cases. For example if you want your NewLight_Spot to look up and not down, change value of Y angle from positive number to negative number." =
 		[
@@ -9249,7 +9251,7 @@
 	input InputFixRotBugDueToTram(void) : "Input fix rotating bug due to tram."
 	]
 
-@PointClass base(BaseEntityPoint) = newLights_Spawner: "This entity creates client side new lights over a given area when it appears and also after loading save. Created new lights removes if this entity is removed from level. Initially created to test new lighting system"
+@PointClass base(BaseEntityPoint) = newlights_spawner: "This entity creates client side new lights over a given area when it appears and also after loading save. Created new lights removes if this entity is removed from level. Initially created to test new lighting system"
 	[
 	lighttype(choices) : "Light Type" : 0 : "What light type do we want to spawn ?"=
 		[
@@ -9280,7 +9282,7 @@
 	sphere(range)
 	sphere(NearZ)
 	frustum(phi,NearZ,Range,LightColor,-1)
-= newLights_settings: "This entity uses to dynamically change some lighting settings for newLight_Spot and newLight_Point."
+= newlights_settings: "This entity uses to dynamically change some lighting settings for newLight_Spot and newLight_Point."
 	[
 	targetnewlightentity(target_destination) : "Target Light Entity" : : "Target new light entity name."
 	transitiontime(integer) : "Transition Time" : 0 : "TransitionTime in secs ( 0 for instant ) to transition into new settings. Its a lerp operation A + (B-A)*TimeFactor"
@@ -12465,6 +12467,7 @@
 	sphere(fademaxdist)
 	sphere(lightradius)
 	studio()
+	ragdoll()
 = misc_dead_hev: "Dead HEV Scientist."
 	[
 	spawnflags(flags)  =
@@ -13348,6 +13351,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop()
+	ragdoll()
 = prop_ragdoll_original: "A prop that physically simulates and can be articulated with internal joints. The joint constraints are part of the physics model. This is the original real prop_ragdoll, not remapped breakable one."
 	[
 	spawnflags(flags)  =
@@ -14727,6 +14731,29 @@
 = prop_dynamic_override: "A variant of prop_dynamic that permits the use of any model, including those designed to be used as prop_dynamic/prop_static."
 	[
 	health(integer) : "Health" : 0 : "Number of points of damage to take before breaking.  0 means don't break."
+	]
+	
+@PointClass base(prop_dynamic_base, EnableDisable)
+	sphere(exploderadius)
+	studioprop()
+	sphere(fademindist)
+	sphere(fademaxdist)
+= prop_dynamic_playertouch : "A prop that can be placed in hierarchy and can play animations. It can also be configured to break when it takes enough damage. Note that the health of the object will be overridden by the health inside the model, to ensure consistent health game-wide. If the model used by the prop is configured to be used as a prop_physics (i.e. it should be physically simulated) then it CANNOT be used as a prop_dynamic. Upon level load it will display a warning in the console and remove itself. Use a prop_physics instead."
+	[
+	IgnoreNPCCollisions(choices) : "Ignore NPC Collisions" : 0 =
+	[
+		0: "No"
+		1: "Yes"
+	]
+	
+	health(integer) : "Health" : 0 : "Number of points of damage to take before breaking.  0 means don't break."	
+	m_szParticlesOnBreak(particlesystem) : "ParticlesOnBreak" : "" : ""	
+	m_szSoundOnBreak(sound) : "SoundOnBreak" : "" : ""	
+	m_FDamageToPlayerOnTouch(float) : "DamageToPlayerOnTouch" : "20" : "DamageToPlayerOnTouch"	
+	fGluonDmgMultiplier(float) : "fGluonDmgMultiplier" : "1.0" : "fGluonDmgMultiplier"	
+
+	// Inputs	
+	input InputChangePlayerTouchDamge(float) : "InputChangePlayerTouchDamge"
 	]
 
 @PointClass base(BasePropPhysics, DamageFilter) 
