@@ -9282,6 +9282,7 @@
 	sphere(range)
 	sphere(NearZ)
 	frustum(phi,NearZ,Range,LightColor,-1)
+	line(255 255 255, targetname, targetnewlightentity)
 = newlights_settings: "This entity uses to dynamically change some lighting settings for newLight_Spot and newLight_Point."
 	[
 	targetnewlightentity(target_destination) : "Target Light Entity" : : "Target new light entity name."
@@ -9384,61 +9385,59 @@
 	iconsprite("editor/xog_global.vmt")
 	sphere(diststart)
 	sphere(distend)
-= newxog_global: "Next Gen XOG"
+= newxog_global: "New screen space xen fog (xog for short)."
 	[
-	enabled(choices) : "Enabled" : 1 : "Enable/Disable this Entity" =
+	enabled(choices) : "Enabled" : 1 : "Is this entity turned off on spawn ?" =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	xogtype(choices) : "Xog Type" : 0 : "0:Global 1:GlobalWithSky 2:SkyOnly 3:LocalVolume 4:LocalVolume Mesh" =
+	xogtype(choices) : "Xog Type" : 0 : "Determines xog type. Global - render xog in world space only. GlobalWithSky - render xog in world space and add third layer for skybox (without color blending, uses skyColor instead). SkyOnly - xog will be applied to skybox with color blending, skyBlendFactor will not work, decreased intensity will show a ''black void'' instead of skybox." =
 		[
 		0: "0: Global"
 		1: "1: GlobalWithSky"
 		2: "2: SkyOnly"
 		]
 
-	skycolor(color255) : "skyColor" : "0 0 255 255"
-	skyblendfactor(float) : "skyBlendFactor" : "0.4"
-	colormode(choices) : "Color Mode" : 0 : "0:StaticColor 1:1DGradTexture  2: CubeGradTexture" =
+	skycolor(color255) : "Sky Color" : "0 0 255 255" : "Xog color in 2D skybox."
+	skyblendfactor(float) : "Sky Blend Factor" : "0.4" : "Xog intensity in skybox. This is a float value from 0.0 to 1.0."
+	colormode(choices) : "Color Mode" : 0 : "Determines color mode. With StaticColor it will use color from colorBottom and colorTop, doesn't affects color in skybox. With 1DGradTexture, color will depends on texture from Grad Texture, doesn't affects color in skybox." =
 		[
 		0: "0: StaticColor"
 		1: "1: 1DGradTexture"
 		2: "2: CubeGradTexture"
 		]
 
-	texname(material) : "Grad Texture" : : "Texture name Grad Texture"
-	colortop(color255) : "colorTop" : "255 0 0 255"
-	colorbottom(color255) : "colorBottom" : "0 255 0 255"
-	diststart(float) : "distStart" : 50 : "distStart"
-	distend(float) : "distEnd" : 2000 : "distEnd"
-	distdensity(float) : "distDensity" : "1.0" : "distDensity"
-	opacityoffsettop(float) : "opacityOffsetTop" : 0 : "opacityOffsetTop"
-	opacityoffsetbottom(float) : "opacityOffsetBottom" : 0 : "opacityOffsetBottom"
-	htzstart(float) : "htZStart" : 0 : "htZStart"
-	htzend(float) : "htZEnd" : 400 : "htZEnd"
-	htzcolstart(float) : "htZColStart" : 0 : "htZColStart"
-	htzcolend(float) : "htZColEnd" : 400 : "htZColEnd"
-	noise1scrollspeed(vector) : "noise1ScrollSpeed" : "0.007 0.006, -0.01 0.0"
-	noise1tiling(vector) : "noise1Tiling" : "0.34 0.34 0.34 0.0"
-	noise2scrollspeed(vector) : "noise2ScrollSpeed" : "0.0035, 0.003, -0.005 0.0"
-	noise2tiling(vector) : "noise2Tiling" : "0.24 0.24 0.24 0.0"
-	noisecontrast(float) : "noiseContrast" : "1.0"
-	noisemultiplier(float) : "noiseMultiplier" : "1.0"
-	radiusx(float) : "RadiusX" : 0 : "RadiusX"
-	radiusy(float) : "RadiusY" : 0 : "RadiusY"
-	radiusz(float) : "RadiusZ" : 0 : "RadiusZ"
+	texname(material) : "Grad Texture" : : "Grad texture to use."
+	colortop(color255) : "Color Top" : "255 0 0 255" : "Xog top color. This is the main color of xog that uses if 'Enable Height Blend' keyvalue is disabled."
+	colorbottom(color255) : "Color Bottom" : "0 255 0 255" : "Xog bottom color. Requires enabled 'Enable Height Blend' keyvalue to be working."
+	diststart(float) : "Start Fog Distance" : 50 : "Xog start draw distance."
+	distend(float) : "End Fog Distance" : 2000 : "Xog end draw distance."
+	distdensity(float) : "Density Fog Distance" : "1.0" : "Density of xog entity, only values from 0 to 1 works."
+	opacityoffsettop(float) : "Opacity Offset Top" : 0 : "Offsets top color of xog."
+	opacityoffsetbottom(float) : "Opacity Offset Bottom" : 0 : "Offsets bottom color of xog."
+	htzstart(float) : "Height Start" : 0 : "Height that xog starts rendering at."
+	htzend(float) : "Height End" : 400 : "Height that xog stops rendering at."
+	htzcolstart(float) : "Height Color Start" : 0 : "Height that xog color starts rendering at. Results depend on 'Height Color End' value."
+	htzcolend(float) : "Height Color End" : 400 : "Height that xog color stops rendering at. Results depend on 'Height Color Start' value."
+	noise1scrollspeed(vector) : "Noise 1 Scroll Speed" : "0.01095 0.00855 -0.02265 0.0" : "Layer one, speed at which noise moves trough xog volume (X Y Z)."
+	noise1tiling(vector) : "Noise 1 Tiling" : "1.32 1.32 1.32 0.0" : "Layer one, tiling speed at which noise moves trough xog volume (X Y Z)."
+	noise2scrollspeed(vector) : "Noise 2 Scroll Speed" : "0.00525 0.00495 -0.0075 0.0" : "Layer two, speed at which noise moves trough xog volume (X Y Z)."
+	noise2tiling(vector) : "Noise 2 Tiling" : "0.96 0.96 0.96 0.0" : "Layer two, tiling speed at which noise moves trough xog volume (X Y Z)."
+	noisecontrast(float) : "Noise Contrast" : "1.0" : "Contrast of xog."
+	noisemultiplier(float) : "Noise Multiplier" : "1.0" : "Multiplier of xog."
 
 	// Inputs
-	input TurnOn(void) : "Turn the light on."
-	input TurnOff(void) : "Turn the light off."
-	input Toggle(void) : "Toggle the light on/off."
+	input TurnOn(void) : "Turn the xog on."
+	input TurnOff(void) : "Turn the xog off."
+	input Toggle(void) : "Toggle the xog current state."
 	]
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/xog_settings.vmt")
-= newxog_settings: "Next Gen XOG Settings entity"
+	line(255 255 255, targetname, targetnewlightentity)
+= newxog_settings: "This entity allows dynamically change some parameters for newxog_global and newxog_volume entities."
 	[
 	targetnewlightentity(target_destination) : "TargetNewXOGEntity_Name" : : "Target Light Entity name"
 	transitiontime(integer) : "TransitionTime" : 0 : "TransitionTime in secs ( 0 for instant ) to transition into new settings. Its a lerp operation A + (B-A)*TimeFactor"
@@ -9448,29 +9447,28 @@
 		1: "Yes"
 		]
 
-	skycolortop(color255) : "skyColorTop" : "112 104 255 255"
-	skyblendtype(integer) : "skyBlendType" : 0 : "NOT Being used atm"
-	skyblendfactor(float) : "skyBlendFactor" : "0.25"
-	colortop(color255) : "colorTop" : "61 255 235 255"
-	colorbottom(color255) : "colorBottom" : "255 62 235 255"
-	diststart(float) : "distStart" : 50 : "distStart"
-	distend(float) : "distEnd" : 2000 : "distEnd"
-	distdensity(float) : "distDensity" : "1.0" : "distDensity"
-	opacityoffsettop(float) : "opacityOffsetTop" : 0 : "opacityOffsetTop"
-	opacityoffsetbottom(float) : "opacityOffsetBottom" : 0 : "opacityOffsetBottom"
-	htzstart(float) : "htZStart" : 0 : "htZStart"
-	htzend(float) : "htZEnd" : 2000 : "htZEnd"
-	htzcolstart(float) : "htZColStart" : 0 : "htZColStart"
-	htzcolend(float) : "htZColEnd" : 400 : "htZColEnd"
-	noise1scrollspeed(vector) : "noise1ScrollSpeed" : "0.007 0.006 -0.01 0.0"
-	noise1tiling(vector) : "noise1Tiling" : "0.34 0.34 0.34 0.0"
-	noise2scrollspeed(vector) : "noise2ScrollSpeed" : "0.0035 0.003 -0.005 0.0"
-	noise2tiling(vector) : "noise2Tiling" : "0.24 0.24 0.24 0.0"
-	noisecontrast(float) : "noiseContrast" : "1.0"
-	noisemultiplier(float) : "noiseMultiplier" : "1.0"
+	skycolor(color255) : "Sky Color" : "112 104 255 255" : "Xog color in 2D skybox."
+	skyblendfactor(float) : "Sky Blend Factor" : "0.25" : "Xog intensity in skybox. This is a float value from 0.0 to 1.0."
+	colortop(color255) : "Color Top" : "61 255 235 255" : "Xog top color. This is the main color of xog that uses if 'Enable Height Blend' keyvalue is disabled."
+	colorbottom(color255) : "Color Bottom" : "255 62 235 255" : "Xog bottom color. Requires enabled 'Enable Height Blend' keyvalue to be working."
+	diststart(float) : "Start Fog Distance" : 50 : "Xog start draw distance."
+	distend(float) : "End Fog Distance" : 2000 : "Xog end draw distance."
+	distdensity(float) : "Density Fog Distance" : "1.0" : "Density of xog entity, only values from 0 to 1 works."
+	opacityoffsettop(float) : "Opacity Offset Top" : 0 : "Offsets top color of xog."
+	opacityoffsetbottom(float) : "Opacity Offset Bottom" : 0 : "Offsets bottom color of xog."
+	htzstart(float) : "Height Start" : 0 : "Height that xog starts rendering at."
+	htzend(float) : "Height End" : 2000 : "Height that xog stops rendering at."
+	htzcolstart(float) : "Height Color Start" : 0 : "Height that xog color starts rendering at. Results depend on 'Height Color End' value."
+	htzcolend(float) : "Height Color End" : 400 : "Height that xog color stops rendering at. Results depend on 'Height Color Start' value."
+	noise1scrollspeed(vector) : "Noise 1 Scroll Speed" : "0.007 0.006 -0.01 0.0" : "Layer one, speed at which noise moves trough xog volume (X Y Z)."
+	noise1tiling(vector) : "Noise 1 Tiling" : "0.34 0.34 0.34 0.0" : "Layer one, tiling speed at which noise moves trough xog volume (X Y Z)."
+	noise2scrollspeed(vector) : "Noise 2 Scroll Speed" : "0.0035 0.003 -0.005 0.0" : "Layer two, speed at which noise moves trough xog volume (X Y Z)."
+	noise2tiling(vector) : "Noise 2 Tiling" : "0.24 0.24 0.24 0.0" : "Layer two, tiling speed at which noise moves trough xog volume (X Y Z)."
+	noisecontrast(float) : "Noise Contrast" : "1.0" : "Contrast of xog."
+	noisemultiplier(float) : "Noise Multiplier" : "1.0" : "Multiplier of xog."
 
 	// Inputs
-	input InputApplySettings(void) : "InputApplySettings Trigger to apply settings"
+	input InputApplySettings(void) : "Trigger to apply settings."
 	]
 
 
@@ -14738,7 +14736,7 @@
 	studioprop()
 	sphere(fademindist)
 	sphere(fademaxdist)
-= prop_dynamic_playertouch : "A prop that can be placed in hierarchy and can play animations. It can also be configured to break when it takes enough damage. Note that the health of the object will be overridden by the health inside the model, to ensure consistent health game-wide. If the model used by the prop is configured to be used as a prop_physics (i.e. it should be physically simulated) then it CANNOT be used as a prop_dynamic. Upon level load it will display a warning in the console and remove itself. Use a prop_physics instead."
+= prop_dynamic_playertouch : "This is a copy of prop_dynamic_override that breaks when touched by player. It is also have some additional options. NPCs and physics props can't break this prop by touching it."
 	[
 	IgnoreNPCCollisions(choices) : "Ignore NPC Collisions" : 0 =
 	[
@@ -14747,13 +14745,13 @@
 	]
 	
 	health(integer) : "Health" : 0 : "Number of points of damage to take before breaking.  0 means don't break."	
-	m_szParticlesOnBreak(particlesystem) : "ParticlesOnBreak" : "" : ""	
-	m_szSoundOnBreak(sound) : "SoundOnBreak" : "" : ""	
-	m_FDamageToPlayerOnTouch(float) : "DamageToPlayerOnTouch" : "20" : "DamageToPlayerOnTouch"	
-	fGluonDmgMultiplier(float) : "fGluonDmgMultiplier" : "1.0" : "fGluonDmgMultiplier"	
+	m_szParticlesOnBreak(particlesystem) : "Particles To Make On Break" : "" : "When this entity breaks it will create the specified particle system."	
+	m_szSoundOnBreak(sound) : "Sound To Make On Break" : "" : "When this entity breaks it will play the specified sound. Support sound name and direct file names."	
+	m_FDamageToPlayerOnTouch(float) : "Player Touch Damage" : "20" : "Amount of damage that player will take when this entity breaks on player touch."	
+	fGluonDmgMultiplier(float) : "Gluon Gun Damage Multiplier" : "1.0" : "Determines how much damage this prop will take from the gluon gun. 1.0 is value from the cvar."	
 
 	// Inputs	
-	input InputChangePlayerTouchDamge(float) : "InputChangePlayerTouchDamge"
+	input InputChangePlayerTouchDamge(float) : "Changes DamageToPlayerOnTouch value."
 	]
 
 @PointClass base(BasePropPhysics, DamageFilter) 
@@ -16596,7 +16594,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/vortigaunt_slave.mdl")
-= npc_xortEB: "Xortigaunt (xen vortigaunt) earthbound."
+= npc_xorteb: "Xortigaunt (xen vortigaunt) earthbound."
 	[
 	xortstate(choices) : "Xort Internal State" : 1 =
 		[
