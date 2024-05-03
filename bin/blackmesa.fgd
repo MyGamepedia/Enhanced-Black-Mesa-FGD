@@ -5150,7 +5150,7 @@
 	
 @PointClass base(BaseEntityPoint)
 	iconsprite("editor/shadow_control.vmt")
-= env_cascade_volume: "An entity to control the CSM volume"
+= env_cascade_volume: "An entity to control the CSM volume. Deprecated, not being used."
 	[
 	 RadiusX(float) : "RadiusX" : "100" : "Radius along world X Axis"
 	 RadiusY(float) : "RadiusY" : "100" : "Radius along world Y Axis"
@@ -5969,11 +5969,45 @@
 
 @PointClass base(BaseEntityPoint) 
 	line(255 255 255, targetname, MortarLauncher)
+	line(255 255 255, targetname, MortarField)
 	studio("models/props_st/airstrike_map.mdl")
-= env_mortar_controller: "Mortar Controller"
+= env_mortar_controller: "Mortar controller."
 	[
-	mortarlauncher(target_destination) : "Mortar Launcher"
+	mortarlauncher(target_destination) : "Mortar Launcher" : "" : "Env_mortar_launcher to use."
 	]
+
+@PointClass base(BaseEntityPoint)
+	line(255 255 255, targetname, Target)
+	iconsprite("editor/info_target.vmt")
+= env_mortar_launcher : "Mortar launcher."
+[
+	firedelay(integer) : "Fire Delay" : 1
+	rateoffire(float) : "Rate of Fire" : 10
+	radius(float) : "Launcher Spread" : "128"
+	target(target_destination) : "Impact Target" : ""
+
+	grenadeentityname(choices) : "Mortar Type" : "Small" : "Grenade type to use." =
+	[
+		"grenade_mortar_small" : "Small"
+		"grenade_mortar_large" : "Large"
+	]
+
+	apexheightratio(float) : "Apex Height Ratio" : "1"
+	pathoption(choices) : "Path Start" : "Apex" =
+	[
+		"0" : "Origin"
+		"1" : "Apex"
+		"2" : "Free Fall"
+	]
+
+	fireshellscount(integer) : "Default Shell Count" : 1
+	override_damage(float) : "Override Shell Damage" : -1
+	override_damageradius(float) : "Override Shell Damage Radius" : -1
+
+	input LaunchDefault(void) : "Launch default count of shells mortars toward the target within the impact radius."
+	input Launch(integer) : "Launch mortars toward the target within the impact radius."
+	input FireSingle(void) : "Launch single shell."
+]
 
 @PointClass base(BaseEntityPoint) 
 	studio("models/editor/env_muzzleflash.mdl")
@@ -6620,10 +6654,10 @@
 	color(200 0 0)
 	iconsprite("editor/env_sun.vmt")
 	line(255 255 0, targetname, target)
-= env_sun: "An entity to control & draw a sun effect in the sky."
+= env_sun: "An entity to control & draw a sun effect in the sky. Deprecated in  Black Mesa in favor of env_lensflare with newLight_Dir. Centering the player's view perfectly on the sun will render it invisible, even if there is no crosshair."
 	[
 	target(target_destination) : "Viewer entity" : : "Name of an entity used to determine where the sun is in the skybox. The sun should be lined up on a line from this entity to the env_sun entity."
-	use_angles(choices) : "UseAngles" : 0 : "The old way to orient env_sun is to point it at a target. The new way is to specify the angles. If you use the new way, set this property to YES." =
+	use_angles(choices) : "Use Angles" : 0 : "The old way to orient env_sun is to point it at a target. The new way is to specify the angles. If you use the new way, set this property to YES." =
 		[
 		0: "No"
 		1: "Yes"
@@ -6636,7 +6670,7 @@
 	overlaysize(integer) : "Overlay Size" : -1 : "A value of -1 means the overlay will act the old way."
 	material(sprite) : "Material Name" : "sprites/light_glow02_add_noz" : "Material of the inner glow."
 	overlaymaterial(sprite) : "Overlay Material Name" : "sprites/light_glow02_add_noz" : "Material of the overlay glow."
-	hdrcolorscale(float) readonly : "HDR color scale." : "0" : "We urge you not to use this entity in Black Mesa as if you look at its center it will disappear and flicker. Instead of this use env_lensflare and newLight_Dir, both do not have this horrible bug and look much more modern. Float value to multiply sprite color by when running in HDR mode. 0 value to prevent sun appear."
+	hdrcolorscale(float) : "HDR color scale." : "1.0" : "Float value to multiply sprite color by when running in HDR mode. 0 value to prevent sun appear."
 
 	// Inputs
 	input TurnOn(void) : "Enable sun rendering."
@@ -7699,6 +7733,8 @@
 	// Inputs
 	input Start(void) : "Tell the particle system to start emitting."
 	input Stop(void) : "Tell the particle system to stop emitting."
+	input DestroyImmediately(void) : "Particle system disappears immediately instead of fading out."
+	input Reset(void) : "Tell the particle system to restart."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -14947,6 +14983,46 @@
 	// Inputs
 	input ApplyImpulse(void) : "Apply impulse to touching entities"
 	]
+
+@SolidClass base(Trigger) 
+	line(255 255 255, targetname, filtername)
+= trigger_cdaudio: "Trigger CD Audio."
+[
+	health(choices) : "Track #" : -1 =
+		[
+		-1 : "Stop"
+		1 : "Track 1"
+		2 : "Track 2"
+		3 : "Track 3"
+		4 : "Track 4"
+		5 : "Track 5"
+		6 : "Track 6"
+		7 : "Track 7"
+		8 : "Track 8"
+		9 : "Track 9"
+		10 : "Track 10"
+		11 : "Track 11"
+		12 : "Track 12"
+		13 : "Track 13"
+		14 : "Track 14"
+		15 : "Track 15"
+		16 : "Track 16"
+		17 : "Track 17"
+		18 : "Track 18"
+		19 : "Track 19"
+		20 : "Track 20"
+		21 : "Track 21"
+		22 : "Track 22"
+		23 : "Track 23"
+		24 : "Track 24"
+		25 : "Track 25"
+		26 : "Track 26"
+		27 : "Track 27"
+		28 : "Track 28"
+		29 : "Track 29"
+		30 : "Track 30"
+		]
+]
 
 @SolidClass base(Trigger) 
 	line(255 255 255, targetname, filtername)
