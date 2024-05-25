@@ -5726,117 +5726,103 @@
 	flare01_params(string) : "Flare 01 parameters" : : "Parameters of the lens - example : DISK 1.0 10 10. Avaible parameters (where x - a float number): DISK x x x, BOW x, CLA x x x, DISKH x x x x, RAY x x."
 	flare01_intensity(vector) : "Flare 01 intensity" : : "Intensity of the flare - example : 1.0 1.0 1.0. Sets scale of intensity in three independent numbers, used number depends on the player's camera deviation."
 	flare01_sizes(vector) : "Flare 01 sizes" : : "Sizes of the flare - example : 1.0 1.0 1.0. Sets scale of size in three independent numbers, used number depends on the player's camera deviation."
-	flare01_color(color255) : "Flare 01 color" : : "Color of the texture - example : 255 255 255."
+	flare01_color(color255) : "Flare 01 color" : "255 255 255" : "Color of the texture - example : 255 255 255."
 	flare02_texture(material) : "Flare 02 texture" : : "cf. Flare 01 notes"
 	flare02_params(string) : "Flare 02 parameters" : : "cf. Flare 01 notes"
 	flare02_intensity(vector) : "Flare 02 intensity" : : "cf. Flare 01 notes"
 	flare02_sizes(vector) : "Flare 02 sizes" : : "cf. Flare 01 notes"
-	flare02_color(color255) : "Flare 02 color" : : "cf. Flare 01 notes"
-	flaresep2(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare02_color(color255) : "Flare 02 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare03_texture(material) : "Flare 03 texture" : : "cf. Flare 01 notes"
 	flare03_params(string) : "Flare 03 parameters" : : "cf. Flare 01 notes"
 	flare03_intensity(vector) : "Flare 03 intensity" : : "cf. Flare 01 notes"
 	flare03_sizes(vector) : "Flare 03 sizes" : : "cf. Flare 01 notes"
-	flare03_color(color255) : "Flare 03 color" : : "cf. Flare 01 notes"
+	flare03_color(color255) : "Flare 03 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare04_texture(material) : "Flare 04 texture" : : "cf. Flare 01 notes"
 	flare04_params(string) : "Flare 04 parameters" : : "cf. Flare 01 notes"
 	flare04_intensity(vector) : "Flare 04 intensity" : : "cf. Flare 01 notes"
 	flare04_sizes(vector) : "Flare 04 sizes" : : "cf. Flare 01 notes"
-	flare04_color(color255) : "Flare 04 color" : : "cf. Flare 01 notes"
-	flaresep4(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare04_color(color255) : "Flare 04 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare05_texture(material) : "Flare 05 texture" : : "cf. Flare 01 notes"
 	flare05_params(string) : "Flare 05 parameters" : : "cf. Flare 01 notes"
 	flare05_intensity(vector) : "Flare 05 intensity" : : "cf. Flare 01 notes"
 	flare05_sizes(vector) : "Flare 05 sizes" : : "cf. Flare 01 notes"
-	flare05_color(color255) : "Flare 05 color" : : "cf. Flare 01 notes"
+	flare05_color(color255) : "Flare 05 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare06_texture(material) : "Flare 06 texture" : : "cf. Flare 01 notes"
 	flare06_params(string) : "Flare 06 parameters" : : "cf. Flare 01 notes"
 	flare06_intensity(vector) : "Flare 06 intensity" : : "cf. Flare 01 notes"
 	flare06_sizes(vector) : "Flare 06 sizes" : : "cf. Flare 01 notes"
-	flare06_color(color255) : "Flare 06 color" : : "cf. Flare 01 notes"
-	flaresep6(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare06_color(color255) : "Flare 06 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare07_texture(material) : "Flare 07 texture" : : "cf. Flare 01 notes"
 	flare07_params(string) : "Flare 07 parameters" : : "cf. Flare 01 notes"
 	flare07_intensity(vector) : "Flare 07 intensity" : : "cf. Flare 01 notes"
 	flare07_sizes(vector) : "Flare 07 sizes" : : "cf. Flare 01 notes"	
-	flare07_color(color255) : "Flare 07 color" : : "cf. Flare 01 notes"
+	flare07_color(color255) : "Flare 07 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare08_texture(material) : "Flare 08 texture" : : "cf. Flare 01 notes"
 	flare08_params(string) : "Flare 08 parameters" : : "cf. Flare 01 notes"
 	flare08_intensity(vector) : "Flare 08 intensity" : : "cf. Flare 01 notes"
 	flare08_sizes(vector) : "Flare 08 sizes" : : "cf. Flare 01 notes"
-	flare08_color(color255) : "Flare 08 color" : : "cf. Flare 01 notes"
-	flaresep8(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare08_color(color255) : "Flare 08 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare09_texture(material) : "Flare 09 texture" : : "cf. Flare 01 notes"
 	flare09_params(string) : "Flare 09 parameters" : : "cf. Flare 01 notes"
 	flare09_intensity(vector) : "Flare 09 intensity" : : "cf. Flare 01 notes"
 	flare09_sizes(vector) : "Flare 09 sizes" : : "cf. Flare 01 notes"
-	flare09_color(color255) : "Flare 09 color" : : "cf. Flare 01 notes"
-	flaresep9(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare09_color(color255) : "Flare 09 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare10_texture(material) : "Flare 10 texture" : : "cf. Flare 01 notes"
 	flare10_params(string) : "Flare 10 parameters" : : "cf. Flare 01 notes"
 	flare10_intensity(vector) : "Flare 10 intensity" : : "cf. Flare 01 notes"
 	flare10_sizes(vector) : "Flare 10 sizes" : : "cf. Flare 01 notes"
-	flare10_color(color255) : "Flare 10 color" : : "cf. Flare 01 notes"
-	flaresep10(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare10_color(color255) : "Flare 10 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare11_texture(material) : "Flare 11 texture" : : "cf. Flare 01 notes"
 	flare11_params(string) : "Flare 11 parameters" : : "cf. Flare 01 notes"
 	flare11_intensity(vector) : "Flare 11 intensity" : : "cf. Flare 01 notes"
 	flare11_sizes(vector) : "Flare 11 sizes" : : "cf. Flare 01 notes"
-	flare11_color(color255) : "Flare 11 color" : : "cf. Flare 01 notes"
-	flaresep11(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare11_color(color255) : "Flare 11 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare12_texture(material) : "Flare 12 texture" : : "cf. Flare 01 notes"
 	flare12_params(string) : "Flare 12 parameters" : : "cf. Flare 01 notes"
 	flare12_intensity(vector) : "Flare 12 intensity" : : "cf. Flare 01 notes"
 	flare12_sizes(vector) : "Flare 12 sizes" : : "cf. Flare 01 notes"
-	flare12_color(color255) : "Flare 12 color" : : "cf. Flare 01 notes"
-	flaresep12(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare12_color(color255) : "Flare 12 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare13_texture(material) : "Flare 13 texture" : : "cf. Flare 01 notes"
 	flare13_params(string) : "Flare 13 parameters" : : "cf. Flare 01 notes"
 	flare13_intensity(vector) : "Flare 13 intensity" : : "cf. Flare 01 notes"
 	flare13_sizes(vector) : "Flare 13 sizes" : : "cf. Flare 01 notes"
-	flare13_color(color255) : "Flare 13 color" : : "cf. Flare 01 notes"
-	flaresep13(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare13_color(color255) : "Flare 13 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare14_texture(material) : "Flare 14 texture" : : "cf. Flare 01 notes"
 	flare14_params(string) : "Flare 14 parameters" : : "cf. Flare 01 notes"
 	flare14_intensity(vector) : "Flare 14 intensity" : : "cf. Flare 01 notes"
 	flare14_sizes(vector) : "Flare 14 sizes" : : "cf. Flare 01 notes"
-	flare14_color(color255) : "Flare 14 color" : : "cf. Flare 01 notes"
-	flaresep14(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare14_color(color255) : "Flare 14 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare15_texture(material) : "Flare 15 texture" : : "cf. Flare 01 notes"
 	flare15_params(string) : "Flare 15 parameters" : : "cf. Flare 01 notes"
 	flare15_intensity(vector) : "Flare 15 intensity" : : "cf. Flare 01 notes"
 	flare15_sizes(vector) : "Flare 15 sizes" : : "cf. Flare 01 notes"
-	flare15_color(color255) : "Flare 15 color" : : "cf. Flare 01 notes"
-	flaresep15(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare15_color(color255) : "Flare 15 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare16_texture(material) : "Flare 16 texture" : : "cf. Flare 01 notes"
 	flare16_params(string) : "Flare 16 parameters" : : "cf. Flare 01 notes"
 	flare16_intensity(vector) : "Flare 16 intensity" : : "cf. Flare 01 notes"
 	flare16_sizes(vector) : "Flare 16 sizes" : : "cf. Flare 01 notes"
-	flare16_color(color255) : "Flare 16 color" : : "cf. Flare 01 notes"
-	flaresep16(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare16_color(color255) : "Flare 16 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare17_texture(material) : "Flare 17 texture" : : "cf. Flare 01 notes"
 	flare17_params(string) : "Flare 17 parameters" : : "cf. Flare 01 notes"
 	flare17_intensity(vector) : "Flare 17 intensity" : : "cf. Flare 01 notes"
 	flare17_sizes(vector) : "Flare 17 sizes" : : "cf. Flare 01 notes"
-	flare17_color(color255) : "Flare 17 color" : : "cf. Flare 01 notes"
-	flaresep17(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare17_color(color255) : "Flare 17 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare18_texture(material) : "Flare 18 texture" : : "cf. Flare 01 notes"
 	flare18_params(string) : "Flare 18 parameters" : : "cf. Flare 01 notes"
 	flare18_intensity(vector) : "Flare 18 intensity" : : "cf. Flare 01 notes"
 	flare18_sizes(vector) : "Flare 18 sizes" : : "cf. Flare 01 notes"
-	flare18_color(color255) : "Flare 18 color" : : "cf. Flare 01 notes"
-	flaresep18(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare18_color(color255) : "Flare 18 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare19_texture(material) : "Flare 19 texture" : : "cf. Flare 01 notes"
 	flare19_params(string) : "Flare 19 parameters" : : "cf. Flare 01 notes"
 	flare19_intensity(vector) : "Flare 19 intensity" : : "cf. Flare 01 notes"
 	flare19_sizes(vector) : "Flare 19 sizes" : : "cf. Flare 01 notes"
-	flare19_color(color255) : "Flare 19 color" : : "cf. Flare 01 notes"
-	flaresep19(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare19_color(color255) : "Flare 19 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare20_texture(material) : "Flare 20 texture" : : "cf. Flare 01 notes"
 	flare20_params(string) : "Flare 20 parameters" : : "cf. Flare 01 notes"
 	flare20_intensity(vector) : "Flare 20 intensity" : : "cf. Flare 01 notes"
 	flare20_sizes(vector) : "Flare 20 sizes" : : "cf. Flare 01 notes"
-	flare20_color(color255) : "Flare 20 color" : : "cf. Flare 01 notes"
+	flare20_color(color255) : "Flare 20 color" : "255 255 255" : "cf. Flare 01 notes"
+
 
 	// Inputs
 	input ColorRedValue(float) : "Sets the red color channel's value (0 - 255). Does nothing."
@@ -6445,6 +6431,7 @@
 	iconsprite("editor/env_soundscape_proxy.vmt")
 = env_soundscape_proxy: "An entity that acts like a soundscape but gets all of its sound parameters from another env_soundscape entity."
 	[
+	radius(integer) : "Radius" : 128 : "If set to -1, then the player can hear the soundscape as long as they can see it (regardless of distance to it)."
 	mainsoundscapename(target_destination) : "Soundscape Entity" : : "The soundscape to get all sound parameters from."
 	position0(target_destination) : "Sound Position 0" : : "A sound position that will be referenced inside the soundscape text file. Usually used to position a set of sounds within the world."
 	position1(target_destination) : "Sound Position 1" : : "A sound position that will be referenced inside the soundscape text file. Usually used to position a set of sounds within the world."
@@ -7347,12 +7334,12 @@
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/info_target.vmt")
-= info_dlightmap_update: "Does a thing."
+= info_dlightmap_update: "This entity allows or disallows lightmap to be changed while baked lights toggling. If enabled - lightmap can be changed. If disabled - lightmap doesn't change, although models still shows lighting changes."
 	[
 
 	// Inputs
-	input Enable(void) : "Make this do whatever it does."
-	input Disable(void) : "Stop this doing whatever it does."
+	input Enable(void) : "Allows lightmap to be changed."
+	input Disable(void) : "Disallows lightmap to be changed."
 	]
 
 @PointClass base(BaseEntityPoint, HintNode) 
@@ -7531,10 +7518,12 @@
 	]
 
 @PointClass base(BaseEntityPoint) 
+	frustum(fov, 4, _frustum_far, _frustum_color, -1)
 	studioprop("models/editor/camera.mdl")
 = info_observer_menu: "A position for a menu fade in."
 	[
 	observerid(integer) : "ID" : 0 : "Corresponds to the index of a loading material for this map."
+	_frustum_far(integer) readonly : "<Far Plane>" : 1024 : "Ignore, needed to display the view frustum preview."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -7828,11 +7817,11 @@
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/info_target.vmt")
-= info_stopallsounds: "stop them spinnaz"
+= info_stopallsounds: "This entity stops all sounds when activated, similar to how stopsound command works."
 	[
 
 	// Inputs
-	input Activate(void) : "Stops all sounds"
+	input Activate(void) : "Stops all sounds."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -7853,8 +7842,14 @@
 	iconsprite("editor/vizzys/info_target_helicopter_crash.vmt")
 	studio("models/editor/axis_helper.mdl")
 	halfgridsnap
-= info_target_helicoptercrash: "Helicopter Crash Target"
+= info_target_helicoptercrash: "Helicopter crash target."
 	[
+	
+	// Inputs
+	input FireCrashOutput(void) : "Fires OnCrashed output."
+	
+	// Outputs
+	output OnCrashed(void) : "Fires via FireCrashOutput input."
 	]
 
 
@@ -8569,10 +8564,10 @@
 
 
 	// Inputs
-	input ParentEntities(string) : "ParentName ChildName"
+	input ParentEntities(string) : "Sets specified parent for specified object. The syntax is: ''ParentName ChildName''."
 
 	// Outputs
-	output OnFired(void)
+	output OnFired(void) : "Fired when ParentEntities is successfully fired."
 	]
 
 @PointClass base(BaseEntityPoint, DamageFilter) 
@@ -8596,9 +8591,20 @@
 	output OnFlashlightOff(float) : "Fired when the player turns off his flashlight. This output has the value of how much energy the player had when this happened [0..1]."
 	output PlayerDied(void) : "Fires when the player dies."
 	output PlayerMissedAR2AltFire(void)	: "Player fired an AR2 combine ball that didn't kill any enemies."
-	output OnJump(void)	: "Fired when a player jumps. Don't work."
-	output OnDuck(void)	: "Fired when a player starts to duck. Don't work."
-	output OnUnDuck(void)	: "Fired when a player releases the duck button. Don't work."
+	output OnJump(void)	: "Fired when a player jumps. Doesn't work."
+	output OnDuck(void)	: "Fired when a player starts to duck. Doesn't work."
+	output OnUnDuck(void)	: "Fired when a player releases the duck button. Doesn't work."
+	]
+
+@PointClass base(BaseEntityPoint) 
+	color(0 100 250)
+	line(255 255 255, targetname, filtername)
+	line(255 255 255, targetname, measuretarget)
+	sphere(radius)
+= logic_proximity: "Point version of trigger_proximity. Non-functional, use trigger_proximity instead."
+	[
+	measuretarget(target_destination) : "Point to Measure From" : : "The name of a target entity who's origin is the point to measure the player's distance from."
+	radius(float) : "Radius to measure within" : 256 : "The radius to which the distance should be mapped. If the player is outside the radius they will be ignored."
 	]
 
 @PointClass base(BaseEntityPoint, EnableDisable) 
@@ -10310,6 +10316,7 @@
 	speed(float) : "Initial Speed" : 0 : "The starting speed that the camera moves at, if it's on a path track."
 	acceleration(float) : "Acceleration units/sec^2" : 500 : "The speed at which the camera accelerates to path corner's desired speeds."
 	deceleration(float) : "Stop Deceleration units/sec^2" : 500 : "The speed at which the camera decelerates to path corner's desired speeds."
+	interpolatepositiontoplayer(integer) : "Interpolate Position To Player" : : "Gradually interpolate player's position to here on start."
 	dontsetplayerview(choices) : "Don't set player view" : 0 : "Prevents this point_viewcontrol from actually controlling the player's view. FOV, player-affecting spawnflags, etc. may still happen." =
 		[
 		0: "No"
@@ -10324,6 +10331,42 @@
 
 	// Outputs
 	output OnEndFollow(void) : "Fired when the point_viewcontrol deactivates, due to the Disable input being received, the Entity to Look At being destroyed, or the Hold Time expiring."
+	]
+
+@PointClass base(BaseEntityPoint)
+	color(200 0 0) 
+	studioprop("models/editor/camera.mdl") 
+	frustum(fov, _frustum_near, _frustum_far, _frustum_color, -1) 
+	line(255 255 0, targetname, target_entity) 
+= point_viewcontrol_multiplayer: "Multiplayer version of point_viewcontrol which can affect multiple players at once. While it's active, the players will see out of the camera."
+	[
+	fov(float) : "Field of view" : 90 : "Player FOV"
+	fov_rate(float) : "Seconds to reach FOV target" : 1 : "Amount of time it should take to reach the specified FOV"
+	target_entity(target_destination) : "Target Entity" : : "Entity to move to. (End of move will match origin and angles)."
+	interp_time(float) : "Seconds to reach target entity" : 1 : "Amount of time it should take to reach the target entity's origin and angles."
+	target_team(choices) : "Target Team" : -1 : "Which team (or all) to take over the camera for." =
+		[
+		-1: "All players"
+		0: "Singleplayer/Deathmatch"
+		1: "Spectators"
+		2: "Marines (Team-based game modes only)"
+		3: "Scientists (Team-based game modes only)"
+		]
+
+	spawnflags(flags)  =
+		[
+		1: "Disable when move finished" : 1
+		2: "Set FOV" : 0
+		]
+
+	_frustum_far(integer) readonly : "<Far Plane>" : 1024 : "Ignore, needed to display the view frustum preview."
+
+	// Inputs
+	input Enable(void) : "Enable the point_viewcontrol_multiplayer, and start controlling the players' view."
+	input Disable(void) : "Disable the point_viewcontrol_multiplayer, and stop controlling the players' view."
+	input AddPlayer(ehandle) : "Force the !activator player to be controlled by this."
+	input RemovePlayer(ehandle) : "Remove !activator player from being controlled."
+	input StartMovement(void) : "Start the movement to the target entity."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -10661,6 +10704,81 @@
 	newtarget(target_destination) : "New Target Entity" : : "The entity to tell the tanktrain_ai to target."
 	]
 
+@PointClass base(BaseEntityPoint)
+	sphere(radius)
+= target_cdaudio : "CD Audio Target"
+	[
+	health(choices) : "Track #" : -1 =
+		[
+		-1 : "Stop"
+		1 : "Track 1"
+		2 : "Track 2"
+		3 : "Track 3"
+		4 : "Track 4"
+		5 : "Track 5"
+		6 : "Track 6"
+		7 : "Track 7"
+		8 : "Track 8"
+		9 : "Track 9"
+		10 : "Track 10"
+		11 : "Track 11"
+		12 : "Track 12"
+		13 : "Track 13"
+		14 : "Track 14"
+		15 : "Track 15"
+		16 : "Track 16"
+		17 : "Track 17"
+		18 : "Track 18"
+		19 : "Track 19"
+		20 : "Track 20"
+		21 : "Track 21"
+		22 : "Track 22"
+		23 : "Track 23"
+		24 : "Track 24"
+		25 : "Track 25"
+		26 : "Track 26"
+		27 : "Track 27"
+		28 : "Track 28"
+		29 : "Track 29"
+		30 : "Track 30"
+		]
+
+	radius(string) : "Player Radius"
+	
+	// Inputs
+	input ChangeCDTrack(string) : "Change ''Track #'' value."
+	]
+
+@PointClass base(BaseEntityPoint)
+= target_changegravity: "It changes the gravity of the player who activates this entity."
+	[
+	gravity(integer) : "Gravity Multiplier" : : "Gravity multiplier that player (who activated it) will have when ChangeGrav input fire. Value for this property must be an integer, for example: 1, 2, -1, -2, etc. 0 – gravity will be standard, i.e. equals 1."
+	
+	// Inputs
+	input ChangeGrav(void) : "Apply gravity multiplier value to player."
+	input ResetGrav(void) : "Return default gravity value to player."
+	]
+
+@PointClass base(BaseEntityPoint)
+	iconsprite("editor/ficool2/test_effect.vmt")
+= test_effect: "An entity to test the engine's FX abilities, by randomly firing env_beams around this position."
+	[
+	// Inputs
+	input Use(void) : "Restart the effect."
+	]  
+
+@PointClass base(BaseEntityPoint)
+= test_proxytoggle: "A basic entity to test the ability to automatically copy variables to the client."
+	[
+	]   
+	
+@PointClass base(BaseEntityPoint)
+	color(255 255 255)
+	iconsprite("editor/ficool2/test_traceline")
+= test_traceline: "A debugging tool for testing tracelines. Pretty much useless for other people. This spins wildly, tracing lines to the closest brush."
+	[
+	]
+
 @SolidClass base(BaseEntityBrush, EnableDisable) = trigger_brush: "A trigger volume that can be used, and can relay touches to its parent."
 	[
 	spawnflags(flags)  =
@@ -10713,6 +10831,17 @@
 	// Inputs
 	input SetActive(void) : "Make the vgui screen visible."
 	input SetInactive(void) : "Make the vgui screen invisible."
+	]
+	
+@PointClass base(vgui_screen)
+	size(-4 -4 -4, 4 4 4)
+	color(200 200 0)
+	studioprop("models/editor/vgui_arrows.mdl")
+	iconsprite("editor/vizzys/vgui_screen")
+	sphere(width)
+	sphere(height)
+= vgui_screen_team: "Alternate name for vgui_screen."
+	[
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -11375,11 +11504,24 @@
 	iconsprite("editor/ficool2/ai_goal_lead_weapon.vmt")
 = ai_goal_lead_weapon: "AI Goal Lead (Weapon). A version of the ai_goal_lead entity that requires the player to have the specified weapon before the Actor(s) will lead the player to their target."
 	[
-	weaponname(choices) : "Weapon" : "weapon_bugbait" : "The weapon the player must have in order for the actor to begin leading. If the player takes more than 60 seconds, they'll be silently given a Bug Bait." =
+	weaponname(choices) : "Weapon" : "weapon_mp5" : "The weapon the player must have in order for the actor to begin leading. If the player takes more than 60 seconds, they'll be silently given a Bug Bait." =
 		[
-		"weapon_bugbait": "Bugbait"
-		"weapon_smg1": "SMG1"
-		"weapon_ar2": "AR2"
+		"weapon_357": "357"
+		"weapon_assassin_glock": "Assassin Glock"
+		"weapon_crossbow": "Crossbow"
+		"weapon_crowbar": "Crowbar"
+		"weapon_frag": "Frag"
+		"weapon_glock": "Glock"
+		"weapon_gluon": "Gluon"
+		"weapon_headcrab": "Headcrab"
+		"weapon_hivehand": "Hivearm"
+		"weapon_mp5": "Mp5"
+		"weapon_rpg": "RPG"
+		"weapon_satchel": "Satchel"
+		"weapon_shotgun": "Shotgun"
+		"weapon_snark": "Snarks"
+		"weapon_tau": "Tau"
+		"weapon_tripmine": "Tripmine"	
 		]
 
 	missingweaponconceptmodifier(string) : "Missing weapon concept modifier" : : "Appended to the keyvalues passed into the response rules when the 'TLK_LEAD_MISSINGWEAPON' concept is spoken."
@@ -14338,7 +14480,7 @@
 	sphere(ExplodeRadius)
 	sphere(lightradius)
 	studioprop()
-= prop_barrel_cactus: "Cactus Barrel"
+= prop_barrel_cactus: "Cactus barrel."
 	[
 	model(studio) : "World model" : "models/props_xen/foliage/xen_barrel_cactus.mdl"
 	spawnflags(flags)  =
@@ -14365,7 +14507,7 @@
 		1: "Yes"
 		]
 
-	m_bdisablegibs(choices) : "Disable GIBS" : 0 =
+	m_bdisablegibs(choices) : "Disable gibs ?" : 0 =
 		[
 		0: "No"
 		1: "Yes"
@@ -14373,8 +14515,11 @@
 
 	lightradius(float) : "lightRadius" : 400 : "Radius of light."
 
+	// Inputs
+	input BreakNExplode(void) : "Break and explode the barrel."
+
 	// Outputs
-	output OnCactusExplode(void) : "OnCactusExplode"
+	output OnCactusExplode(void) : "Fired when the barrel is exploded."
 	]
 
 @NpcClass base(prop_dynamic_base) 
@@ -14384,7 +14529,7 @@
 	sphere(ExplodeRadius)
 	sphere(lightradius)
 	studioprop()
-= prop_barrel_cactus_adolescent: "Adolescent Cactus Barrel"
+= prop_barrel_cactus_adolescent: "Adolescent cactus barrel."
 	[
 	model(studio) : "World model" : "models/props_xen/foliage/xen_barrel_cactus_adolescent.mdl"
 	spawnflags(flags)  =
@@ -14411,16 +14556,19 @@
 		1: "Yes"
 		]
 
-	m_bdisablegibs(choices) : "Disable GIBS" : 0 =
+	m_bdisablegibs(choices) : "Disable gibs ?" : 0 =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	lightradius(float) : "lightRadius" : 400 : "Radius of light"
+	lightradius(float) : "Light Radius" : 400 : "Radius of light."
+
+	// Inputs
+	input BreakNExplode(void) : "Break and explode the barrel."
 
 	// Outputs
-	output OnCactusExplode(void) : "OnCactusExplode"
+	output OnCactusExplode(void) : "Fired when the barrel is exploded."
 	]
 
 @NpcClass base(prop_dynamic_base) 
@@ -14430,7 +14578,7 @@
 	sphere(ExplodeRadius)
 	sphere(lightradius)
 	studioprop()
-= prop_barrel_cactus_exploder: "Exploder Cactus Barrel"
+= prop_barrel_cactus_exploder: "Exploder cactus barrel."
 	[
 	model(studio) : "World model" : "models/props_xen/foliage/xen_barrel_cactus_exploder.mdl"
 	spawnflags(flags)  =
@@ -14457,16 +14605,19 @@
 		1: "Yes"
 		]
 
-	m_bdisablegibs(choices) : "Disable GIBS" : 0 =
+	m_bdisablegibs(choices) : "Disable gibs ?" : 0 =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	lightradius(float) : "lightRadius" : 400 : "Radius of light"
+	lightradius(float) : "Light Radius" : 400 : "Radius of light."
+
+	// Inputs
+	input BreakNExplode(void) : "Break and explode the barrel."
 
 	// Outputs
-	output OnCactusExplode(void) : "OnCactusExplode"
+	output OnCactusExplode(void) : "Fired when the barrel is exploded."
 	]
 
 @NpcClass base(prop_dynamic_base) 
@@ -14476,7 +14627,7 @@
 	sphere(ExplodeRadius)
 	sphere(lightradius)
 	studioprop()
-= prop_barrel_cactus_infant: "Infant Cactus Barrel"
+= prop_barrel_cactus_infant: "Infant cactus barrel."
 	[
 	model(studio) : "World model" : "models/props_xen/foliage/xen_barrel_cactus_infant.mdl"
 	spawnflags(flags)  =
@@ -14503,16 +14654,19 @@
 		1: "Yes"
 		]
 
-	m_bdisablegibs(choices) : "Disable GIBS" : 0 =
+	m_bdisablegibs(choices) : "Disable gibs ?" : 0 =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	lightradius(float) : "lightRadius" : 400 : "Radius of light"
+	lightradius(float) : "Light Radius" : 400 : "Radius of light."
+
+	// Inputs
+	input BreakNExplode(void) : "Break and explode the barrel."
 
 	// Outputs
-	output OnCactusExplode(void) : "OnCactusExplode"
+	output OnCactusExplode(void) : "Fired when the barrel is exploded."
 	]
 
 @NpcClass base(prop_dynamic_base) 
@@ -14522,7 +14676,7 @@
 	sphere(ExplodeRadius)
 	sphere(lightradius)
 	studioprop()
-= prop_barrel_cactus_semilarge: "Semilarge Cactus Barrel"
+= prop_barrel_cactus_semilarge: "Semilarge cactus barrel."
 	[
 	model(studio) : "World model" : "models/props_xen/foliage/xen_barrel_cactus_semilarge.mdl"
 	spawnflags(flags)  =
@@ -14549,16 +14703,19 @@
 		1: "Yes"
 		]
 
-	m_bdisablegibs(choices) : "Disable GIBS" : 0 =
+	m_bdisablegibs(choices) : "Disable gibs ?" : 0 =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	lightradius(float) : "lightRadius" : 400 : "Radius of light"
+	lightradius(float) : "Light Radius" : 400 : "Radius of light."
+
+	// Inputs
+	input BreakNExplode(void) : "Break and explode the barrel."
 
 	// Outputs
-	output OnCactusExplode(void) : "OnCactusExplode"
+	output OnCactusExplode(void) : "Fired when the barrel is exploded."
 	]
 
 @NpcClass base(prop_dynamic_base) 
@@ -14567,7 +14724,7 @@
 	sphere(fademaxdist)
 	sphere(ExplodeRadius)
 	studioprop()
-= prop_barrel_interloper: "Interloper Barrel"
+= prop_barrel_interloper: "Interloper barrel."
 	[
 	model(studio) : "World model" : "models/props_xen/interloper/int_cyst_large.mdl"
 	spawnflags(flags)  =
@@ -14594,16 +14751,19 @@
 		1: "Yes"
 		]
 
-	m_bdisablegibs(choices) : "Disable GIBS" : 0 =
+	m_bdisablegibs(choices) : "Disable gibs ?" : 0 =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	lightradius(float) : "lightRadius" : 400 : "Radius of light"
+	lightradius(float) : "Light Radius" : 400 : "Radius of light."
+
+	// Inputs
+	input BreakNExplode(void) : "Break and explode the barrel."
 
 	// Outputs
-	output OnCactusExplode(void) : "OnCactusExplode"
+	output OnCactusExplode(void) : "Fired when the barrel is exploded."
 	]
 
 @NpcClass base(prop_dynamic_base) 
@@ -14612,7 +14772,7 @@
 	sphere(fademaxdist)
 	sphere(ExplodeRadius)
 	studioprop()
-= prop_barrel_interloper_small: "Interloper Barrel"
+= prop_barrel_interloper_small: "Interloper barrel small."
 	[
 	model(studio) : "World model" : "models/props_xen/interloper/int_cyst_small.mdl"
 	spawnflags(flags)  =
@@ -14639,16 +14799,19 @@
 		1: "Yes"
 		]
 
-	m_bdisablegibs(choices) : "Disable GIBS" : 0 =
+	m_bdisablegibs(choices) : "Disable gibs ?" : 0 =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	lightradius(float) : "lightRadius" : 400 : "Radius of light"
+	lightradius(float) : "Light Radius" : 400 : "Radius of light."
+	
+	// Inputs
+	input BreakNExplode(void) : "Break and explode the barrel."
 
 	// Outputs
-	output OnCactusExplode(void) : "OnCactusExplode"
+	output OnCactusExplode(void) : "Fired when the barrel is exploded."
 	]
 
 @PointClass base(prop_dynamic_base) 
@@ -14798,7 +14961,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop()
-= prop_flare: "Flare Prop"
+= prop_flare: "Flare prop which replaces deprecated ''create_flare'' physgun interaction."
 	[
 	model(studio) : "Model" : "models/props_junk/flare.mdl" : "Model to use for the flare."
 	spawnflags(flags)  =
@@ -14808,8 +14971,8 @@
 
 
 	// Inputs
-	input TurnOff(void) : "Extinguish flare"
-	input TurnOn(void) : "Ignite flare"
+	input TurnOff(void) : "Extinguish flare."
+	input TurnOn(void) : "Ignite flare."
 
 	// Outputs
 	output OnPlayerUse(void) : "Fired when player instigates +USE."
@@ -14861,7 +15024,7 @@
 	studioprop()
 = prop_radiation_charger: "Xen Radiation Ammo Charger"
 	[
-	model(studio) : "World model" : "models/props_xen/xen_charger_crystal.mdl"
+	model(studio) : "World model" : "models/props_xen/interloper/uranium_crystal_large.mdl"
 	]
 
 @PointClass base(prop_dynamic_base) 
@@ -14973,6 +15136,11 @@
 	[
 	]
 
+@SolidClass base(Trigger)
+	line(255 255 255, targetname, filtername)
+= trigger: "It's is a generic trigger entity. Can be triggered only via I/O."
+	[
+	]
 @SolidClass base(Trigger) 
 	line(255 255 255, targetname, filtername)
 = trigger_apply_impulse: "A trigger that adds impulse to touching entities."
@@ -14982,6 +15150,12 @@
 
 	// Inputs
 	input ApplyImpulse(void) : "Apply impulse to touching entities"
+	]
+	
+@SolidClass base(Trigger) 
+	line(255 255 255, targetname, filtername)
+= trigger_auto_crouch: "Allows players touching the trigger to auto-crouch."
+	[
 	]
 
 @SolidClass base(Trigger) 
@@ -15055,8 +15229,12 @@
 
 @SolidClass base(Trigger) 
 	line(255 255 255, targetname, filtername)
-= trigger_gargantua_shake
+= trigger_gargantua_shake: "It's a trigger volume that creates shakes from gargantua and randomly push away player in its volume. Works with info_node_hint, if Hint Activity uses st_shake_tower value (used in bm_c2a5i), or if Push input fires."
 	[
+	
+	// Inputs
+	input SetgarGantua (target_destination) : "Sets gargantua to make this trigger working. Seems broken because you don't need to have any gargantua for this trigger to work."
+	input Push (float) : "Pushes player and shake camera for a specified amount of seconds."
 	]
 
 @SolidClass base(Trigger) 
@@ -15112,10 +15290,10 @@
 
 @SolidClass base(Trigger) 
 	line(255 255 255, targetname, filtername)
-= trigger_lift
+= trigger_lift: "It's a trigger volume that can lift up player or physics object, if they are touching it. Doesn't work with NPCs."
 	[
-	liftaccel(float) : "Lift Acceleration" : 100 : "Lift Acceleration"
-	clampspeed(float) : "Clamp Speed" : 512 : "Clamp Speed"
+	liftaccel(float) : "Lift Acceleration" : 100 : "This is lift acceleration."
+	clampspeed(float) : "Clamp Speed" : 512 : "This is clamp speed."
 	]
 
 @SolidClass base(Trigger) 
@@ -15154,6 +15332,13 @@
 
 	// Outputs
 	output OnTrigger(void) : "Fired repeatedly whenever the trigger is activated, and the wait time has expired."
+	]
+	
+@SolidClass base(trigger_multiple)
+	line(255 255 255, targetname, childfiltername) 
+= trigger_hierarchy: "A trigger volume that can will check if any of trigger's children pass a secondary filter."
+	[
+	childfiltername(filterclass) : "Child Filter Name" : : "Filter to use to see if activator's children trigger me. See filter_activator_name for more explanation."
 	]
 
 @SolidClass base(Trigger, Angles) 
@@ -15267,6 +15452,15 @@
 		]
 
 	]
+	
+@SolidClass base(Trigger) 
+	line(255 255 255, targetname, filtername)
+	line(255 255 0, targetname, target)
+	line(0 255 0, target, landmark)
+= trigger_teleport_relative: "It's a trigger volume that will teleport entities that touch it. Entities are teleported by Offset from the trigger's world-space center. Useful to get objects out of situations where levels or entities suddenly appear intersecting with them. Teleported entities have their velocity set to zero and their angles untouched."
+	[
+	teleportoffset(vector) : "Offset (X Y Z)" : "0 0 0" : "The offset (in World-Space Coordinates X Y Z) to teleport the entity when the trigger is touched."
+	]
 
 @SolidClass base(Trigger, EnableDisable) 
 	line(255 255 255, targetname, filtername)
@@ -15336,6 +15530,24 @@
 	// Inputs
 	input SetSpeed(integer) : "Set the baseline for how hard the wind blows."
 	]
+
+@PointClass base(Weapon)
+	studio()
+= world_items : "World items. Goldsrc left over." 
+	[
+		type(choices) :"Item Type" : 44 =
+		[
+		44: "Battery"
+		45: "Suit"
+		]
+	
+		model(choices) : "[H] Model" : "models/weapons/w_battery.mdl" :"Set the model displayed in Hammer." =
+		[
+		"models/weapons/w_battery.mdl" : "Battery"
+		"models/props_am/hev_suit.mdl" : "Suit"
+		]
+	]
+
 
 @PointClass base(Weapon) 
 	color(0 0 200)
@@ -17303,8 +17515,8 @@
 	iconsprite("editor/ts2do/npc_vehicledriver")
 = npc_vehicledriver: "NPC used to drive a target vehicle."
 	[
-	drivermaxspeed(float) : "Max Speed (percentage of vehicle's maxspeed)." : 1 : "Max speed (percentage of vehicle's maxspeed)."
-	driverminspeed(float) : "Min Speed (percentage of vehicle's maxspeed)." : 0 : "Min speed (percentage of vehicle's maxspeed)."
+	drivermaxspeed(float) : "Max Speed" : 1 : "Max speed (percentage of vehicle's maxspeed)."
+	driverminspeed(float) : "Min Speed" : 0 : "Min speed (percentage of vehicle's maxspeed)."
 
 	// Inputs
 	input SetDriversMaxSpeed(float) : "Set the max speed (percentage of vehicle's maxspeed)."
