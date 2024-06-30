@@ -2109,6 +2109,27 @@
 	output OnPhysCannonAnimatePostStarted(void) : "Fired when this prop starts playing the Post physcannon-pull activity. Only fired if the ACT_PHYSCANNON_ANIMATE_POST activity is defined in the model this breakable is using."
 	]
 
+@BaseClass = NavBlocker
+	[
+	teamtoblock(choices) : "Team(s) to block" : -1 : "Team(s) this entity should block." =
+		[
+		-1: "All players"
+		0: "Non-Team / Singleplayer"
+		2: "Marines"
+		3: "Scientists"
+		]
+
+	affectsflow(choices) : "Affects Flow ?" : 0 : "Does this func_nav_blocker block flow in the level? Only func_nav_blockers with this enabled will cause flow recomputation on blocking/unblocking." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	// Inputs
+	input BlockNav(string) : "Starts blocking nav areas."
+	input UnblockNav(void) : "Stops blocking nav areas."
+	]
+
 @PointClass 
 	iconsprite("editor/comp_entity_finder")
 	sphere(radius)
@@ -3766,7 +3787,7 @@
 	output OnAllLiveChildrenDead(void) : "Fired when all spawned children have died. This does not mean the spawner is exhausted, so a new child may be spawned any time after this (unless the maker is disabled)."
 	]
 
-@BaseClass base(BaseEntityBrush) = BaseTank
+@BaseClass base(BaseEntityBrush, RenderFields) = BaseTank
 	[
 	spawnflags(flags)  =
 		[
@@ -7240,7 +7261,7 @@
 	output PlayersOutCount(integer) : "Fired after a count, and contains the number of players found outside the zone."
 	]
 
-@BaseClass base(BaseEntityPoint) = gibshooterbase
+@BaseClass base(BaseEntityPoint, RenderFields) = gibshooterbase
 	[
 	angles(angle) : "Gib Direction (Pitch Yaw Roll)" : "0 0 0" : "The direction the gibs will fly."
 	m_igibs(integer) : "Number of Gibs" : 3 : "Total number of gibs to shoot each time it's activated."
@@ -9077,7 +9098,7 @@
 		1: "Yes"
 		]
 
-	lightngodraymode(choices) : "Light And GodRays Mode" : 2 : "Light Only - light only, can't have GodRays. GodRays Only - GodRays only, can't have light. Light and GodRays - both, can have light and GodRays." =
+	lightngodraymode(choices) : "Light And GodRays Mode" : 0 : "Light Only - light only, can't have GodRays. GodRays Only - GodRays only, can't have light. Light and GodRays - both, can have light and GodRays." =
 		[
 		0: "Light Only"
 		1: "Godrays Only"
@@ -11805,7 +11826,9 @@
 	skin(integer) : "Gib Skin" : 0 : "Some models have multiple versions of their textures, called skins. Set this to a number other than 0 to use that skin on all gibs produced by this shooter."
 	spawnflags(flags)  =
 		[
+		1: "[1] Repeatable" : 0
 		2: "[2] On fire" : 0
+		4: "[4] Fade out even when in player's view" : 0
 		]
 
 	nogibshadows(choices) : "Disable Shadows on Gibs" : 0 =
@@ -11829,6 +11852,9 @@
 		0: "No"
 		1: "Yes"
 		]
+
+	gibdamage(float) : "Explode Damage" : "0" : "The amount of damage the gib will do when exploding."
+	gibsound(sound) : "Explode Sound" : "" : "Sound to play when gib exploding."
 
 	]
 
@@ -11925,7 +11951,7 @@
 
 @FilterClass base(filter_base) 
 	color(0 255 0)
-	iconsprite("editor/filter_activator_flag.vmt")
+	iconsprite("editor/filter_activator_class.vmt")
 = filter_activator_flag: "Filters by the entity flags of the activator"
 	[
 	flag(choices) : "Flag" : 0 =
@@ -11987,8 +12013,8 @@
 	filterclass(string) : "Filter Classname" : : "The class name to filter by. If the filter mode is Allow, only entities whose class name matches the given string will pass the filter. If the filter mode is Disallow, all entities EXCEPT those whose class name matches the given string will pass the filter."
 	spawnflags(flags)  =
 		[
-		1: "[1] check against attacker" : 1
-		2: "[2] checks against inflicter" : 0
+		1: "[1] Check against attacker" : 1
+		2: "[2] Checks against inflicter" : 0
 		]
 
 	]
@@ -12278,9 +12304,38 @@
 @SolidClass base(NavCost) = func_nav_avoid: "Influence bots to avoid this region by increasing the pathfinding cost within it."
 	[
 	]
+	
+@SolidClass base(BaseEntityBrush, EnableDisable) 
+= func_nav_avoidance_obstacle: "A brush entity that tells bots to avoid nav areas touching its AABB."
+	[
+	]
+
+@SolidClass base(BaseEntityBrush, NavBlocker) 
+= func_nav_blocker: "A brush entity that can block nav areas touching its AABB."
+	[
+	StartDisabled(choices) : "Start Disabled ?" : 0 : "" =
+		[
+		0: "Yes"
+		1: "No"
+		]
+	]
 
 @SolidClass base(NavCost) = func_nav_prefer: "Influence bots to prefer this region by decreasing the pathfinding cost within it."
 	[
+	]
+
+@SolidClass base(Trigger) 
+= func_nav_prerequisite: "A trigger volume that requires bots to do perform a task before they can move through it."
+	[
+	task(choices) : "Task" : 1 : "What must be done to move through this volume" =
+		[
+		1: "Destroy Entity (Value = max range to attack from. -1 for no range restriction)"
+		2: "Move to Entity"
+		3: "Wait (Value = seconds to wait)"
+		]
+
+	entity(target_destination) : "Task Entity" : : "The subject entity of the Task"
+	value(float) : "Task Value" : 0 : "A Task-specific value"
 	]
 
 @SolidClass base(BaseEntityVisBrush) 
@@ -13889,7 +13944,7 @@
 	[
 	]
 
-@SolidClass base(BreakableBrush) 
+@SolidClass base(BreakableBrush, Origin) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	sphere(exploderadius)
@@ -14902,6 +14957,15 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 = prop_dynamic: "A prop that can be placed in hierarchy and can play animations. It can also be configured to break when it takes enough damage. Note that the health of the object will be overridden by the health inside the model, to ensure consistent health game-wide. If the model used by the prop is configured to be used as a prop_physics (i.e. it should be physically simulated) then it cannot normally  be used as a prop_dynamic. Upon level load it will display a warning in the console and remove itself. Use a prop_dynamic_override instead."
+	[
+	]
+
+@PointClass base(prop_dynamic)
+	sphere(exploderadius)
+	studioprop()
+	sphere(fademindist)
+	sphere(fademaxdist)
+= dynamic_prop : "Alternate name for prop_dynamic."
 	[
 	]
 
@@ -15961,6 +16025,20 @@
 	[
 	sentence(string) : "Sentence group."
 	]
+	
+@PointClass base(cycler_actor) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	color(0 200 200)
+	studio()
+= cycler_flex: "Entity exists only for animation testing purposes."
+	[
+	]
+
+@PointClass base(BaseEntityPoint)
+= entity_blocker: "This is spawned in temporarily to prevent NPCs from pathfinding into spaces like spawn points or movement targets. It's an invisible box solid to certain other objects. Some entities create this automatically in order to keep a certain area clear of things that could block their movement. The entity can be replaced by a simple clip brush."
+	[
+	]   
 
 @SolidClass base(BreakableBrush) 
 	sphere(fademindist)
