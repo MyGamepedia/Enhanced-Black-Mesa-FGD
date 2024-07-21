@@ -2009,6 +2009,7 @@
 @BaseClass = TeamNum
 	[
 	teamnum(integer) : "Team"
+	team(integer) : "Team"
 
 	// Inputs
 	input TeamNum(integer) : "Changes the entity's team num."
@@ -4383,7 +4384,7 @@
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/ai_goal_standoff.vmt")
-= ai_goal_throw_prop: "AI Goal Throw Prop"
+= ai_goal_throw_prop: "Initially, this entity should disable/enable prop throwing for npc_alien_controller. However, this entity doesn't work in any public version of the game (the mod version as well). Besides this, you can control the throwing mechanic via inputs and outputs from npc_xontroller and npc_alien_controller. Used once in bm_c3a2i and does nothing."
 	[
 	actor(target_name_or_class) : "Actor(s) to affect"
 	searchtype(choices) : "Search Type" : 0 : "How to search for the entities using the targetname." =
@@ -4398,7 +4399,7 @@
 		1: "Yes"
 		]
 
-	propname(string) : "Phsyics Prop Name" : : "Name of the physics prop to throw"
+	propname(target_destination) : "Phsyics Prop Name" : : "Name of the physics prop to throw"
 
 	// Inputs
 	input Activate(void) : "Begin contesting position."
@@ -5744,106 +5745,106 @@
     
 	glowproxysize(float) : "Size of Glow Proxy Geometry." : "2.0" : "Size of the glow to be rendered for visibility testing. Must be larger than the distance from the sprite center to empty space.  So if this glow is inside geometry (like a light bulb), set this value to be bigger than the bulb's radius. Any time a sphere of this radius would be visible (poking through any nearby geometry), the glow will be rendered. - Richard's note : I noticed that value more than ~100 wont work correctly"
 	flaresep0(string) readonly : "----------------------------------------------------------------------------------------------------------"
+	flare01_color(color255) : "Flare 01 color" : "255 0 0" : "Color of the texture - example : 255 255 255."
 	flare01_texture(material) : "Flare 01 texture" : : "Image of the lens - if empty the flare doesn't exist."
 	flare01_params(string) : "Flare 01 parameters" : : "Parameters of the lens - example : DISK 1.0 10 10. Avaible parameters (where x - a float number): DISK x x x, BOW x, CLA x x x, DISKH x x x x, RAY x x."
 	flare01_intensity(vector) : "Flare 01 intensity" : : "Intensity of the flare - example : 1.0 1.0 1.0. Sets scale of intensity in three independent numbers, used number depends on the player's camera deviation."
 	flare01_sizes(vector) : "Flare 01 sizes" : : "Sizes of the flare - example : 1.0 1.0 1.0. Sets scale of size in three independent numbers, used number depends on the player's camera deviation."
-	flare01_color(color255) : "Flare 01 color" : "255 255 255" : "Color of the texture - example : 255 255 255."
+	flare02_color(color255) : "Flare 02 color" : "255 155 0" : "cf. Flare 01 notes"
 	flare02_texture(material) : "Flare 02 texture" : : "cf. Flare 01 notes"
 	flare02_params(string) : "Flare 02 parameters" : : "cf. Flare 01 notes"
 	flare02_intensity(vector) : "Flare 02 intensity" : : "cf. Flare 01 notes"
 	flare02_sizes(vector) : "Flare 02 sizes" : : "cf. Flare 01 notes"
-	flare02_color(color255) : "Flare 02 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare03_color(color255) : "Flare 03 color" : "255 228 0" : "cf. Flare 01 notes"
 	flare03_texture(material) : "Flare 03 texture" : : "cf. Flare 01 notes"
 	flare03_params(string) : "Flare 03 parameters" : : "cf. Flare 01 notes"
 	flare03_intensity(vector) : "Flare 03 intensity" : : "cf. Flare 01 notes"
 	flare03_sizes(vector) : "Flare 03 sizes" : : "cf. Flare 01 notes"
-	flare03_color(color255) : "Flare 03 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare04_color(color255) : "Flare 04 color" : "155 255 0" : "cf. Flare 01 notes"
 	flare04_texture(material) : "Flare 04 texture" : : "cf. Flare 01 notes"
 	flare04_params(string) : "Flare 04 parameters" : : "cf. Flare 01 notes"
 	flare04_intensity(vector) : "Flare 04 intensity" : : "cf. Flare 01 notes"
 	flare04_sizes(vector) : "Flare 04 sizes" : : "cf. Flare 01 notes"
-	flare04_color(color255) : "Flare 04 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare05_color(color255) : "Flare 05 color" : "0 255 155" : "cf. Flare 01 notes"
 	flare05_texture(material) : "Flare 05 texture" : : "cf. Flare 01 notes"
 	flare05_params(string) : "Flare 05 parameters" : : "cf. Flare 01 notes"
 	flare05_intensity(vector) : "Flare 05 intensity" : : "cf. Flare 01 notes"
 	flare05_sizes(vector) : "Flare 05 sizes" : : "cf. Flare 01 notes"
-	flare05_color(color255) : "Flare 05 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare06_color(color255) : "Flare 06 color" : "0 255 255" : "cf. Flare 01 notes"
 	flare06_texture(material) : "Flare 06 texture" : : "cf. Flare 01 notes"
 	flare06_params(string) : "Flare 06 parameters" : : "cf. Flare 01 notes"
 	flare06_intensity(vector) : "Flare 06 intensity" : : "cf. Flare 01 notes"
 	flare06_sizes(vector) : "Flare 06 sizes" : : "cf. Flare 01 notes"
-	flare06_color(color255) : "Flare 06 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare07_color(color255) : "Flare 07 color" : "0 155 255" : "cf. Flare 01 notes"
 	flare07_texture(material) : "Flare 07 texture" : : "cf. Flare 01 notes"
 	flare07_params(string) : "Flare 07 parameters" : : "cf. Flare 01 notes"
 	flare07_intensity(vector) : "Flare 07 intensity" : : "cf. Flare 01 notes"
 	flare07_sizes(vector) : "Flare 07 sizes" : : "cf. Flare 01 notes"	
-	flare07_color(color255) : "Flare 07 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare08_color(color255) : "Flare 08 color" : "0 0 255" : "cf. Flare 01 notes"
 	flare08_texture(material) : "Flare 08 texture" : : "cf. Flare 01 notes"
 	flare08_params(string) : "Flare 08 parameters" : : "cf. Flare 01 notes"
 	flare08_intensity(vector) : "Flare 08 intensity" : : "cf. Flare 01 notes"
 	flare08_sizes(vector) : "Flare 08 sizes" : : "cf. Flare 01 notes"
-	flare08_color(color255) : "Flare 08 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare09_color(color255) : "Flare 09 color" : "155 0 255" : "cf. Flare 01 notes"
 	flare09_texture(material) : "Flare 09 texture" : : "cf. Flare 01 notes"
 	flare09_params(string) : "Flare 09 parameters" : : "cf. Flare 01 notes"
 	flare09_intensity(vector) : "Flare 09 intensity" : : "cf. Flare 01 notes"
 	flare09_sizes(vector) : "Flare 09 sizes" : : "cf. Flare 01 notes"
-	flare09_color(color255) : "Flare 09 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare10_color(color255) : "Flare 10 color" : "255 0 255" : "cf. Flare 01 notes"
 	flare10_texture(material) : "Flare 10 texture" : : "cf. Flare 01 notes"
 	flare10_params(string) : "Flare 10 parameters" : : "cf. Flare 01 notes"
 	flare10_intensity(vector) : "Flare 10 intensity" : : "cf. Flare 01 notes"
 	flare10_sizes(vector) : "Flare 10 sizes" : : "cf. Flare 01 notes"
-	flare10_color(color255) : "Flare 10 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare11_color(color255) : "Flare 11 color" : "255 0 155" : "cf. Flare 01 notes"
 	flare11_texture(material) : "Flare 11 texture" : : "cf. Flare 01 notes"
 	flare11_params(string) : "Flare 11 parameters" : : "cf. Flare 01 notes"
 	flare11_intensity(vector) : "Flare 11 intensity" : : "cf. Flare 01 notes"
 	flare11_sizes(vector) : "Flare 11 sizes" : : "cf. Flare 01 notes"
-	flare11_color(color255) : "Flare 11 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare12_color(color255) : "Flare 12 color" : "255 167 167" : "cf. Flare 01 notes"
 	flare12_texture(material) : "Flare 12 texture" : : "cf. Flare 01 notes"
 	flare12_params(string) : "Flare 12 parameters" : : "cf. Flare 01 notes"
 	flare12_intensity(vector) : "Flare 12 intensity" : : "cf. Flare 01 notes"
 	flare12_sizes(vector) : "Flare 12 sizes" : : "cf. Flare 01 notes"
-	flare12_color(color255) : "Flare 12 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare13_color(color255) : "Flare 13 color" : "255 225 167" : "cf. Flare 01 notes"
 	flare13_texture(material) : "Flare 13 texture" : : "cf. Flare 01 notes"
 	flare13_params(string) : "Flare 13 parameters" : : "cf. Flare 01 notes"
 	flare13_intensity(vector) : "Flare 13 intensity" : : "cf. Flare 01 notes"
 	flare13_sizes(vector) : "Flare 13 sizes" : : "cf. Flare 01 notes"
-	flare13_color(color255) : "Flare 13 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare14_color(color255) : "Flare 14 color" : "255 255 167" : "cf. Flare 01 notes"
 	flare14_texture(material) : "Flare 14 texture" : : "cf. Flare 01 notes"
 	flare14_params(string) : "Flare 14 parameters" : : "cf. Flare 01 notes"
 	flare14_intensity(vector) : "Flare 14 intensity" : : "cf. Flare 01 notes"
 	flare14_sizes(vector) : "Flare 14 sizes" : : "cf. Flare 01 notes"
-	flare14_color(color255) : "Flare 14 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare15_color(color255) : "Flare 15 color" : "167 255 167" : "cf. Flare 01 notes"
 	flare15_texture(material) : "Flare 15 texture" : : "cf. Flare 01 notes"
 	flare15_params(string) : "Flare 15 parameters" : : "cf. Flare 01 notes"
 	flare15_intensity(vector) : "Flare 15 intensity" : : "cf. Flare 01 notes"
 	flare15_sizes(vector) : "Flare 15 sizes" : : "cf. Flare 01 notes"
-	flare15_color(color255) : "Flare 15 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare16_color(color255) : "Flare 16 color" : "167 255 255" : "cf. Flare 01 notes"
 	flare16_texture(material) : "Flare 16 texture" : : "cf. Flare 01 notes"
 	flare16_params(string) : "Flare 16 parameters" : : "cf. Flare 01 notes"
 	flare16_intensity(vector) : "Flare 16 intensity" : : "cf. Flare 01 notes"
 	flare16_sizes(vector) : "Flare 16 sizes" : : "cf. Flare 01 notes"
-	flare16_color(color255) : "Flare 16 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare17_color(color255) : "Flare 17 color" : "167 167 255" : "cf. Flare 01 notes"
 	flare17_texture(material) : "Flare 17 texture" : : "cf. Flare 01 notes"
 	flare17_params(string) : "Flare 17 parameters" : : "cf. Flare 01 notes"
 	flare17_intensity(vector) : "Flare 17 intensity" : : "cf. Flare 01 notes"
 	flare17_sizes(vector) : "Flare 17 sizes" : : "cf. Flare 01 notes"
-	flare17_color(color255) : "Flare 17 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare18_color(color255) : "Flare 18 color" : "255 167 255" : "cf. Flare 01 notes"
 	flare18_texture(material) : "Flare 18 texture" : : "cf. Flare 01 notes"
 	flare18_params(string) : "Flare 18 parameters" : : "cf. Flare 01 notes"
 	flare18_intensity(vector) : "Flare 18 intensity" : : "cf. Flare 01 notes"
 	flare18_sizes(vector) : "Flare 18 sizes" : : "cf. Flare 01 notes"
-	flare18_color(color255) : "Flare 18 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare19_color(color255) : "Flare 19 color" : "0 0 0" : "cf. Flare 01 notes"
 	flare19_texture(material) : "Flare 19 texture" : : "cf. Flare 01 notes"
 	flare19_params(string) : "Flare 19 parameters" : : "cf. Flare 01 notes"
 	flare19_intensity(vector) : "Flare 19 intensity" : : "cf. Flare 01 notes"
 	flare19_sizes(vector) : "Flare 19 sizes" : : "cf. Flare 01 notes"
-	flare19_color(color255) : "Flare 19 color" : "255 255 255" : "cf. Flare 01 notes"
+	flare20_color(color255) : "Flare 20 color" : "255 255 255" : "cf. Flare 01 notes"
 	flare20_texture(material) : "Flare 20 texture" : : "cf. Flare 01 notes"
 	flare20_params(string) : "Flare 20 parameters" : : "cf. Flare 01 notes"
 	flare20_intensity(vector) : "Flare 20 intensity" : : "cf. Flare 01 notes"
 	flare20_sizes(vector) : "Flare 20 sizes" : : "cf. Flare 01 notes"
-	flare20_color(color255) : "Flare 20 color" : "255 255 255" : "cf. Flare 01 notes"
 
 
 	// Inputs
@@ -7892,6 +7893,16 @@
 	input RestoreTimescale(void) : "Restores the value of host_timescale back to what it was previously."
 	]
 
+@PointClass base(BaseEntityPoint, TeamNum, EnableDisable) 
+	studio("editor/info_target.vmt")
+= info_vehicle_groundspawn: "DELETE ME!"
+	[
+	
+	// Outputs
+	output OnVehicleSpawn(void) : "OnVehicleSpawn "
+	output OnPlayerSpawn(void) : " OnPlayerSpawn "	
+	]
+
 @PointClass base(BaseEntityPoint) 
 	decal()
 	line(128 128 128, targetname, applyentity)
@@ -8963,28 +8974,32 @@
 		]
 
 	pushbackdist(float) : "Pushback Distance" : 9999999 : "Determines distance from GodRays to player in skybox."
-	enablegodrays(choices) : "Start On ?" : 1 : "Is this entity/GodRays start on ?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
 
-	density(float) : "Density" : "1.0" : "Density Controls the length of rays/volumetric shadows. 1.0 should work in 99% cases. Good value range is 0.5 to 1.5"
-	weight(float) : "Weight" : "1.0" : "Weight Controls the intensity of volumetric shadow. Blocking of rays by geometry. good values 0.1 - 10.0"
-	decay(float) : "Decay" : "1.0" : "Decay NOT being used"
-	exposure(float) : "Exposure" : "2.5" : "Exposure Controls the intensity of Rays during blending pass with main scene. 2.0 is a good start. Good values are 1.0 - 10.0"
-	distfactor(float) : "Dist Factor" : "1.0" : "DistFactor Controls the falloff of rays / length. 1.0f is a good starting value increase or decrease in the increments of 0.1. 0.0 will make the rays dissappear only disk	will be rendererd."
-	diskradius(float) : "Disk Radius" : "0.02" : "DiskRadius Radius of Disk/circle of sun in texturespace. 1.0 will be full screen 0.5 is half screen etc"
-	diskinnersizepercent(float) : "Disk Inner Size Percent" : "0.75" : "Used to control the thickness of circumference. Disk inner circle radius = DiskRadius * DiskInnerSizePercent"
-	colorinner(color255) : "Color Inner" : "128 200 255 255" : "This is the color of the inner circle"
-	colorouter(color255) : "Color Outer" : "255 255 164 255" : "This is the color of the outer circle."
-	colorrays(color255) : "Color Rays" : "200 200 255 255" : "This is the color of the rays."
 	m_busetonemaprays(choices) : "Use ToneMap On Rays" : 1 =
 		[
 		0: "No"
 		1: "Yes"
 		]
-
+		
+	enablegodrays(choices) : "Enable GodRays ?" : 0 : "Are GodRays enabled on spawn ?" =
+		[
+		0: "No"
+		1: "Yes"
+		]
+		
+	linedivider_newlightdir3(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	colorinner(color255) : "Color Inner" : "128 200 255 255" : "This is the color of the inner circle"
+	colorouter(color255) : "Color Outer" : "255 255 164 255" : "This is the color of the outer circle."
+	colorrays(color255) : "Color Rays" : "200 200 255 255" : "This is the color of the rays."
+	linedivider_newlightdir2(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	density(float) : "Density" : "1.0" : "Density Controls the length of rays/volumetric shadows. 1.0 should work in 99% cases. Good value range is 0.5 to 1.5"
+	weight(float) : "Weight" : "1.0" : "Weight Controls the intensity of volumetric shadow. Blocking of rays by geometry. good values 0.1 - 10.0"
+	decay(float) : "Decay" : "1.0" : "Decay NOT being used"
+	exposure(float) : "Exposure" : "2.5" : "Exposure Controls the intensity of Rays during blending pass with main scene. 2.0 is a good start. Good values are 1.0 - 10.0"
+	distfactor(float) : "Dist Factor" : "1.0" : "DistFactor Controls the falloff of rays / length. 1.0f is a good starting value increase or decrease in the increments of 0.1. 0.0 will make the rays dissappear only disk	will be rendererd."
+	linedivider_newlightdir1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	diskradius(float) : "Disk Radius" : "0.02" : "DiskRadius Radius of Disk/circle of sun in texturespace. 1.0 will be full screen 0.5 is half screen etc"
+	diskinnersizepercent(float) : "Disk Inner Size Percent" : "0.75" : "Used to control the thickness of circumference. Disk inner circle radius = DiskRadius * DiskInnerSizePercent"
 
 	// Inputs
 	input TurnOnGodRays(void) : "Turn the Godrays on."
@@ -8998,11 +9013,11 @@
 	sphere(NearZ)
 = newlight_point: "Next generation point light. One of deferred lighting entities, also support lightcookies and godrays."
 	[
-	enabled(choices) : "Enabled ?" : 1 : "Is light enabled on spawn ?" =
-		[
-		0: "Disabled"
-		1: "Enabled"
-		]
+	lightcolor(color255) : "Light Color" : "255 255 255 1" : "This is the color of the light."
+	lightcolorambient(color255) : "Light Ambient Color" : "0 0 0 0" : "This is the shadow color of the light."
+	intensity(float) : "Light Intensity" : 8000 : "Light intensity."
+	specmultiplier(float) : "Specular Intensity" : 1 : "The specular shader intensity."
+	range(float) : "Range" : 50 : "Range. How far the light source illuminates. Measured in Hammer Units."
 
 	style(choices) : "Appearance" : 0 =
 		[
@@ -9019,19 +9034,22 @@
 		4: "Fast strobe"
 		9: "Slow strobe"
 		]
+	
+	enabled(choices) : "Enabled ?" : 1 : "Is light enabled on spawn ?" =
+		[
+		0: "Disabled"
+		1: "Enabled"
+		]
+	
+	linedivider_newlightpoint1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 
-	lightcolorambient(color255) : "Light Ambient Color" : "0 0 0 0" : "This is the shadow color of the light."
-	lightcolor(color255) : "Light Color" : "255 255 255 1" : "This is the color of the light."
-	intensity(float) : "Light Intensity" : 8000 : "Light intensity."
-	specmultiplier(float) : "Specular Intensity" : 1 : "The specular shader intensity."
-	range(float) : "Range" : 1000 : "Range. How far the light source illuminates. Measured in Hammer Units."
 	lighttype(choices) : "Light Type" : 0 : "Static - shadows shadows are cast only by static objects (prop_static, geometry, etc.). Lighting does not update if it has parent (use if part scene has no large moving parts, or shadow accuracy is not important). Stationary - shadows are cast by static and dynamic objects (brushes shadows is still baked), lighting does not update if it has a parent. Dynamic - 2: Dynamic - shadows are cast by static and dynamic objects, lighting updates if it does have a parent. This light is quite expensive, and should only be used for moving light sources, and if your scene have moving geometry." =
 		[
 		0: "Static"
 		1: "Stationary"
 		2: "Dynamic"
 		]
-
+		
 	hasshadow(choices) : "Has Shadows ?" : 0 : "Do You want this light to have shadows ?" =
 		[
 		0: "No"
@@ -9044,7 +9062,9 @@
 		1: "512"
 		2: "1024"
 		]
-
+	
+	shadowradius(float) : "ShadowRadius" : "-1.0" : "Radius of shadow edges for soft shadows. If its value is negetive code will auto assign a value depending on shadowlod. These code based values can be adjusted via convars nr_shadow_rad_High,nr_shadow_rad_Med and nr_shadow_rad_Low"
+	linedivider_newlightpoint2(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	shadowfacex(choices) : "Shadows (+X)" : 1 : "Shadow Enabled for this Face ?" =
 		[
 		0: "No"
@@ -9081,11 +9101,12 @@
 		1: "Yes"
 		]
 
-	nearz(float) : "NearZ" : 2 : "NearZused by shadowmap camera for this light."
+	linedivider_newlightpoint3(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	nearz(float) : "NearZ" : 2 : "NearZ used by shadowmap camera for this light."
+	normalbias(float) : "NormalBias" : "1.0" : " While rendering objects into shadow maps each vertex will be moved along -ve Normal direction, giving it an appearance of shrinking while rendering to shadow maps. this property determines the amount of Units to be moved. Helps with shadow aliasing."
 	depthbias(float) : "DepthBias" : "0.0002" : "DepthBias - Offset added to depth values in shadowmaps."
 	slopedepthbias(float) : "SlopeDepthBias" : "0.2" : "Slope Depth Bias - For surfaces having aliasing due to steep angles with light."
-	normalbias(float) : "NormalBias" : "1.0" : " While rendering objects into shadow maps each vertex will be moved along -ve Normal direction, giving it an appearance of shrinking while rendering to shadow maps. this property determines the amount of Units to be moved. Helps with shadow aliasing."
-	shadowradius(float) : "ShadowRadius" : "-1.0" : "Radius of shadow edges for soft shadows. If its value is negetive code will auto assign a value depending on shadowlod. These code based values can be adjusted via convars nr_shadow_rad_High,nr_shadow_rad_Med and nr_shadow_rad_Low"
+	linedivider_newlightpoint4(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	btexlight(choices) : "Use Texture Light ?" : 0 : "Do we want to use texture for this light ?" =
 		[
 		0: "No"
@@ -9099,6 +9120,7 @@
 		1: "Yes"
 		]
 
+	linedivider_newlightpoint5(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	lightngodraymode(choices) : "Light And GodRays Mode" : 0 : "Light Only - light only, can't have GodRays. GodRays Only - GodRays only, can't have light. Light and GodRays - both, can have light and GodRays." =
 		[
 		0: "Light Only"
@@ -9106,44 +9128,18 @@
 		2: "Light and GodRays"
 		]
 
-	enablegodrays(choices) : "Enable GodRays ?" : 0 : "Is GodRays enabled on spawn ?" =
+	enablegodrays(choices) : "Enable GodRays ?" : 0 : "Are GodRays enabled on spawn ?" =
 		[
 		0: "No"
 		1: "Yes"
 		]
-
-	density(float) : "Density" : "1.0" : "Density Controls the length of rays/volumetric shadows. 1.0 should work in 99% cases. Good value range is 0.5 to 1.5"
-	weight(float) : "Weight" : "1.0" : "Weight Controls the intensity of volumetric shadow. Blocking of rays by geometry. good values 0.1 - 10.0"
-	decay(float) : "Decay" : "1.0" : "Decay NOT being used"
-	exposure(float) : "Exposure" : "2.5" : "Exposure Controls the intensity of Rays during blending pass with main scene. 2.0 is a good start. Good values are 1.0 - 10.0"
-	distfactor(float) : "Dist Factor" : "1.0" : "DistFactor Controls the falloff of rays / length. 1.0f is a good starting value increase or decrease in the increments of 0.1. 0.0 will make the rays dissappear only disk will be rendererd."
-	diskradius(float) : "Disk Radius" : "0.02" : "DiskRadius DiskRadius Radius of Disk/circle of sun in texturespace. 1.0 will be full screen 0.5 is half screen etc"
-	colorinner(color255) : "Color Inner" : "128 200 255 255" : "This is the color of the inner circle"
-	colorrays(color255) : "Color Rays" : "200 200 255 255" : "This is the color of the rays."
-	godraystype(choices) : "GodRays Type" : 0 : "What GodRays type to use ?" =
-		[
-		0: "Normal"
-		1: "Fancy"
-		]
-
-	diskinnersizepercent(float) : "Disk Inner Size Percent" : "0.75" : "Disk inner circle radius = DiskRadius * DiskInnerSizePercent"
-	colorouter(color255) : "ColorOuter" : "255 255 164 1" : "Used only in Fancy Mode. This is the color of the outer circle."
-	ell_fr_consta(float) : "Fancy Rays Disk Disk Size" : "0.9" : "For fancy Godrays disk size."
-	ell_fr_constb(float) : "Fancy Rays Disk Disk Distortion" : "0.1" : "For fancy Godrays disk distortion."
-	ell_sr_consta(float) : "Fance Rays Disk Hole Size" : "0.9" : "For fancy Godrays disk hole size."
-	ell_sr_constb(float) : "Fance Rays Disk Hole Distortion" : "0.1" : "For fancy Godrays disk hole distortion."
-	ell_rrf_consta(float) : "Fance Rays Inner Size" : "0.9" : "For fancy Godrays inner size."
-	ell_rrf_constb(float) : "Fancy Rays Inner Distortion" : "0.1" : "For fancy Godrays inner distortion."
-	rotspeed(float) : "Rotating Speed" : "3.14" : "Rotating speed. For fancy Godrays only."
-	rotpatternfreq(float) : "Rotating Pattern Freq" : "10.0" : "Determines count of fancy rays in frame, with negative number will deny Rotating Speed +/- effect."
+		
 	m_benableworldspace(choices) : "Render In World Space ?" : 1 : "Disables disks if this enabled." =
 		[
 		0: "No"
 		1: "Yes"
 		]
-
-	m_falphadiskinner(float) : "Alpha Disk Inner" : 1
-	m_falphadiskouter(float) : "Alpha Disk Outer" : 1
+	
 	m_busetonemaprays(choices) : "Use ToneMap Rays" : 1 =
 		[
 		0: "No"
@@ -9154,7 +9150,38 @@
 		[
 		0: "No"
 		1: "Yes"
+		]	
+
+	linedivider_newlightpoint8(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	colorinner(color255) : "Color Inner" : "128 200 255 255" : "This is the color of the inner circle"
+	colorrays(color255) : "Color Rays" : "200 200 255 255" : "This is the color of the rays."
+	density(float) : "Density" : "1.0" : "Density Controls the length of rays/volumetric shadows. 1.0 should work in 99% cases. Good value range is 0.5 to 1.5"
+	weight(float) : "Weight" : "1.0" : "Weight Controls the intensity of volumetric shadow. Blocking of rays by geometry. good values 0.1 - 10.0"
+	decay(float) : "Decay" : "1.0" : "Decay NOT being used"
+	exposure(float) : "Exposure" : "2.5" : "Exposure Controls the intensity of Rays during blending pass with main scene. 2.0 is a good start. Good values are 1.0 - 10.0"
+	distfactor(float) : "Dist Factor" : "1.0" : "DistFactor Controls the falloff of rays / length. 1.0f is a good starting value increase or decrease in the increments of 0.1. 0.0 will make the rays dissappear only disk will be rendererd."
+	linedivider_newlightpoint9(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	diskradius(float) : "Disk Radius" : "0.02" : "DiskRadius DiskRadius Radius of Disk/circle of sun in texturespace. 1.0 will be full screen 0.5 is half screen etc"
+	diskinnersizepercent(float) : "Disk Inner Size Percent" : "0.75" : "Disk inner circle radius = DiskRadius * DiskInnerSizePercent"
+	m_falphadiskinner(float) : "Alpha Disk Inner" : 1
+	m_falphadiskouter(float) : "Alpha Disk Outer" : 1	
+	linedivider_newlightpoint6(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	godraystype(choices) : "GodRays Type" : 0 : "What GodRays type to use ?" =
+		[
+		0: "Normal"
+		1: "Fancy"
 		]
+
+	colorouter(color255) : "Color Outer" : "255 255 164 1" : "Used only in Fancy Mode. This is the color of the outer circle."
+	ell_fr_consta(float) : "Fancy Rays Disk Disk Size" : "0.9" : "For fancy Godrays disk size."
+	ell_fr_constb(float) : "Fancy Rays Disk Disk Distortion" : "0.1" : "For fancy Godrays disk distortion."
+	ell_sr_consta(float) : "Fance Rays Disk Hole Size" : "0.9" : "For fancy Godrays disk hole size."
+	ell_sr_constb(float) : "Fance Rays Disk Hole Distortion" : "0.1" : "For fancy Godrays disk hole distortion."
+	ell_rrf_consta(float) : "Fance Rays Inner Size" : "0.9" : "For fancy Godrays inner size."
+	ell_rrf_constb(float) : "Fancy Rays Inner Distortion" : "0.1" : "For fancy Godrays inner distortion."
+	rotspeed(float) : "Rotating Speed" : "3.14" : "Rotating speed. For fancy Godrays only."
+	rotpatternfreq(float) : "Rotating Pattern Freq" : "10.0" : "Determines count of fancy rays in frame, with negative number will deny Rotating Speed +/- effect."
+	linedivider_newlightpoint7(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 
 	m_bsro_brush(choices) : "Enable Brushes In Shadows ?" : 1 : "Do we want to Render Brushes in shadow passes for this light?" =
 		[
@@ -9199,17 +9226,11 @@
 	frustum(phi,NearZ,Range,LightColor,-1)
 = newlight_spot: "Next generation spot light. One of deferred lighting entities, also support animated lightcookies."
 	[
-	reversedir(choices) : "Reverse Dir" : 0 : "Reflects Y angle value and applies it. This additionally impacts performance, use it in extremely rare cases. For example if you want your NewLight_Spot to look up and not down, change value of Y angle from positive number to negative number." =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	enabled(choices) : "Enabled ?" : 1 : "Is light enabled on spawn ?" =
-		[
-		0: "Disabled"
-		1: "Enabled"
-		]
+	lightcolor(color255) : "Light Color" : "255 255 255 1" : "This is the color of the light."
+	lightcolorambient(color255) : "Light Ambient Color" : "0 0 0 0" : "This is the shadow color of the light."
+	intensity(float) : "Light Intensity" : 8000 : "Light intensity."
+	specmultiplier(float) : "Specular Intensity" : 1 : "The specular shader intensity."
+	range(float) : "Range" : 50 : "Range. How far the light source illuminates. Measured in Hammer Units."
 
 	style(choices) : "Appearance" : 0 =
 		[
@@ -9226,22 +9247,32 @@
 		4: "Fast strobe"
 		9: "Slow strobe"
 		]
+	
+	enabled(choices) : "Enabled ?" : 1 : "Is light enabled on spawn ?" =
+		[
+		0: "Disabled"
+		1: "Enabled"
+		]
+	
+	linedivider_newlightspot1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 
-	lightcolorambient(color255) : "Light Ambient Color" : "0 0 0 0" : "This is the shadow color of the light."
-	lightcolor(color255) : "Light Color" : "255 255 255 1" : "This is the color of the light."
-	intensity(float) : "Light Intensity" : 8000 : "Light intensity."
-	specmultiplier(float) : "Specular Intensity" : 1 : "The specular shader intensity."
-	range(float) : "Range" : 1000 : "Range. How far the light source illuminates. Measured in Hammer Units."
+	reversedir(choices) : "Reverse Direction ?" : 0 : "Reflects Y angle value and applies it. This additionally impacts performance, use it in extremely rare cases. For example if you want your NewLight_Spot to look up and not down, change value of Y angle from positive number to negative number." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+		
 	phi(float) : "Outer Angle" : 60 : "Outer angle value for spot light."
 	theta(float) : "Inner Angle" : 30 : "Inner angle value for spot light."
 	angularfalloff(float) : "Angular Falloff" : 2 : "Angular falloff. Results depend on values of Outer Angle and Inner Angle."
+	linedivider_newlightspot2(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	lighttype(choices) : "Light Type" : 0 : "Static - shadows shadows are cast only by static objects (prop_static, geometry, etc.). Lighting does not update if it has parent (use if part scene has no large moving parts, or shadow accuracy is not important). Stationary - shadows are cast by static and dynamic objects (brushes shadows is still baked), lighting does not update if it has a parent. Dynamic - 2: Dynamic - shadows are cast by static and dynamic objects, lighting updates if it does have a parent. This light is quite expensive, and should only be used for moving light sources, and if your scene have moving geometry." =
 		[
 		0: "Static"
 		1: "Stationary"
 		2: "Dynamic"
 		]
-
+		
 	hasshadow(choices) : "Has Shadows ?" : 0 : "Do You want this light to have shadows ?" =
 		[
 		0: "No"
@@ -9254,13 +9285,15 @@
 		1: "512"
 		2: "1024"
 		]
-
-	nearz(float) : "NearZ" : 2 : "NearZused by shadowmap camera for this light."
-	depthbias(float) : "DepthBias" : "0.0002" : "DepthBias - Offset added to depth values in shadowmaps."
-	slopedepthbias(float) : "SlopeDepthBias" : "0.2" : "Slope Depth Bias - For surfaces having aliasing due to steep angles with light."
-	normalbias(float) : "NormalBias" : "1.0" : " While rendering objects into shadow maps each vertex will be moved along -ve Normal direction, giving it an appearance of shrinking while rendering to shadow maps. this property determines the amount of Units to be moved. Helps with shadow aliasing."
+	
 	shadowradius(float) : "ShadowRadius" : "-1.0" : "Radius of shadow edges for soft shadows. If its value is negetive code will auto assign a value depending on shadowlod. These code based values can be adjusted via convars nr_shadow_rad_High,nr_shadow_rad_Med and nr_shadow_rad_Low"
 	ShadowFOV (float) : "Shadow FOV " : "0" : "Fov used by shadowmap camera for this light. Keep it 0 to use Outer angle as the fov."
+	linedivider_newlightspot3(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	nearz(float) : "NearZ" : 2 : "NearZused by shadowmap camera for this light."
+	normalbias(float) : "NormalBias" : "1.0" : " While rendering objects into shadow maps each vertex will be moved along -ve Normal direction, giving it an appearance of shrinking while rendering to shadow maps. this property determines the amount of Units to be moved. Helps with shadow aliasing."
+	depthbias(float) : "DepthBias" : "0.0002" : "DepthBias - Offset added to depth values in shadowmaps."
+	slopedepthbias(float) : "SlopeDepthBias" : "0.2" : "Slope Depth Bias - For surfaces having aliasing due to steep angles with light."
+	linedivider_newlightspot4(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	btexlight(choices) : "Use Texture Light ?" : 0 : "Do we want to use texture for this light ?" =
 		[
 		0: "No"
@@ -9268,9 +9301,17 @@
 		]
 
 	texname(material) : "Texture name" : : "Texture to use for this light. .vtf texture and not .vmt."
+
+	bneglight(choices) : "Enable Prop Only Mode" : 0 : "Enable Prop Only Mode" =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
 	texcookieframesx(integer) : "Texture Cookie Frames X" : 1 : "Num of frames in 1 row of Atlas"
 	texcookieframesy(integer) : "Texture Cookie Frames Y" : 1 : "Sets scales for texture, with 2 and higher it allow Texture Cookie FPS to animate texture."
 	texcookiefps(float) : "Texture Cookie FPS" : 0 : "Determines frame rate for animation. For animation NewLight_Spot divides texture into several parts (their count is indicated in TexCookieFramesY) and changes them in a specific sequence."
+	linedivider_newlightspot7(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	btexcookiescrollmode(choices) : "Texture Cookie Scroll Mode" : 0 : "Enables texture scrolling function. Scroll Speed U and Scroll Speed V sets scrolling speed and direction." =
 		[
 		0: "No"
@@ -9278,12 +9319,8 @@
 		]
 
 	fscrollspeedu(float) : "Scroll Speed U" : 0 : "Determines scrolling speed along Y axis."
-	fscrollspeedv(float) : "Scroll Speed V" : 0 : "Determines scrolling speed along X axis."
-	bneglight(choices) : "Enable Prop Only Mode" : 0 : "Enable Prop Only Mode" =
-		[
-		0: "No"
-		1: "Yes"
-		]
+	fscrollspeedv(float) : "Scroll Speed V" : 0 : "Determines scrolling speed along X axis."		
+	linedivider_newlightspot6(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 
 	m_bsro_brush(choices) : "Enable Brushes In Shadows ?" : 1 : "Do we want to Render Brushes in shadow passes for this light?" =
 		[
@@ -9329,17 +9366,21 @@
 
 	numlights(integer) : "Number of Lights" : 100 : "How many lights do we want to spawn ?"
 	numlightsinrow(integer) : "Number of Lights In Row" : 10 : "Determines number of new lights that will spawn in every row."
-	lightintensity(float) : "Light Intensity" : 4000 : "Light intensity."
-	lightrange(float) : "Range" : 250 : "Range. How far the light source illuminates. Measured in Hammer Units."
-	rowspaceing(float) : "Row Spaceing" : 100 : "Row Spaceing."
-	colspacing(float) : "Col Spacing" : 100 : "Col Spacing."
+
 	randomcolor(choices) : "Random Color ?" : 1 : "If yes - new lights will use random colors. If no - new lights will use chosen color." =
 		[
 		0: "No"
 		1: "Yes"
 		]
-
+		
+	linedivider_newlightspawner1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	lightcolor(color255) : "Light Color" : "255 255 255 1" : "This is the color of the light when random color is tunedOFF."
+	lightintensity(float) : "Light Intensity" : 4000 : "Light intensity."
+	lightrange(float) : "Range" : 250 : "Range. How far the light source illuminates. Measured in Hammer Units."
+	linedivider_newlightspawner2(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	rowspaceing(float) : "Row Spaceing" : 100 : "Row spaceing."
+	colspacing(float) : "Columns Spacing" : 100 : "Columns spacing."
+	linedivider_newlightspawner3(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	spawndir_forward(vector) : "Spawn Direction Forward" : "1.0 0.0 0.0" : "Spawn Direction Forward."
 	spawndir_right(vector) : "Spawn Direction Right" : "0.0 1.0 0.0" : "Spawn Direction Right."
 	]
@@ -9354,21 +9395,21 @@
 = newlights_settings: "This entity uses to dynamically change some lighting settings for newLight_Spot and newLight_Point."
 	[
 	targetnewlightentity(target_destination) : "Target Light Entity" : : "Target new light entity name."
-	transitiontime(integer) : "Transition Time" : 0 : "TransitionTime in secs ( 0 for instant ) to transition into new settings. Its a lerp operation A + (B-A)*TimeFactor"
+
 	lighttype(choices) : "Light Type" : 0 : "Type of light source for which you want to apply settings. Entity will not apply settings for spot lights if selected Point Light and will not apply settings for point lights if selected Spot Light." =
 		[
 		0: "Point Light"
 		1: "Spot Light"
 		]
 
-	enabled(choices) : "Enabled" : 1 : "Determines if the light turns on or turns off. No - turns off, Yes - turns on." =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	lightcolorambient(color255) : "Light Ambient Color" : "0 0 0 0" : "This is the shadow color of the light."
+	transitiontime(integer) : "Transition Time" : 0 : "TransitionTime in secs ( 0 for instant ) to transition into new settings. Its a lerp operation A + (B-A)*TimeFactor"
+	linedivider_newlightsettings1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	lightcolor(color255) : "Light Color" : "255 255 255 1" : "This is the color of the light."
+	lightcolorambient(color255) : "Light Ambient Color" : "0 0 0 0" : "This is the shadow color of the light."
+	intensity(float) : "Light Intensity" : 8000 : "Light intensity."
+	specmultiplier(float) : "Specular Intensity" : 1 : "The specular shader intensity."
+	range(float) : "Range" : 10 : "Range. How far the light source illuminates. Measured in Hammer Units."
+
 	style(choices) : "Appearance" : 0 =
 		[
 		0: "Normal"
@@ -9385,9 +9426,13 @@
 		9: "Slow strobe"
 		]
 		
-	intensity(float) : "Light Intensity" : 8000 : "Light intensity."
-	specmultiplier(float) : "Specular Intensity" : 1 : "The specular shader intensity."
-	range(float) : "Range" : 1000 : "Range. How far the light source illuminates. Measured in Hammer Units."
+	enabled(choices) : "Enabled ?" : 1 : "Determines if the light turns on or turns off. No - turns off, Yes - turns on." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+	
+	linedivider_newlightsettings2(string) readonly : "----------------------------------------------------------------------------------------------------------"		
 	phi(float) : "Outer Angle" : 60 : "Outer angle value for spot light."
 	theta(float) : "Inner Angle" : 30 : "Inner angle value for spot light."
 	angularfalloff(float) : "Angular Falloff" : 2 : "Angular falloff. Results depend on values of Outer Angle and Inner Angle."
@@ -11952,10 +11997,10 @@
 
 @FilterClass base(filter_base) 
 	color(0 255 0)
-	iconsprite("editor/filter_activator_class.vmt")
+	iconsprite("editor/filter_class.vmt")
 = filter_activator_flag: "Filters by the entity flags of the activator"
 	[
-	flag(choices) : "Flag" : 0 =
+	flag(choices) : "Flag" : 0 : "None: Does nothing. On ground: Activator must touch surface, will not work if activator in air. Crouching: Activator must crouch, only for player and bots. Grenade: Activator must have grenade_ prefix in entity classname. In a normal situation, triggers don't work with such entities (with exception of trigger_weaponfire). On fire: Activator must be ignited, also works with prop_flare if it is turned on." =
 		[
 		0: "None"
 		1: "On ground"
