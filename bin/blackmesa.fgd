@@ -6041,6 +6041,8 @@
 
 @PointClass base(BaseEntityAnimating, BaseDynamicShadow)
 	studio("models/props_st/st_boundingmine.mdl")
+	sphere(fademindist)
+	sphere(fademaxdist)
 = env_mine: "Mine."
 	[
 	
