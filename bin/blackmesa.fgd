@@ -1599,7 +1599,8 @@
 	input FireUser3(void) : "Causes this entity's OnUser3 output to be fired."
 	input FireUser4(void) : "Causes this entity's OnUser4 output to be fired."
 	input Use(void) : "Same as a player invoking +use; may not do anything. Can also be invoked by creating an output that does not specify an input."
-	input DispatchEffect(string) : "Dispatch an effect from the entity's origin. See https://developer.valvesoftware.com/wiki/List_of_Client_Effects"
+	input DispatchEffect(string) : "Dispatch an effect from the entity's origin. See https://developer.valvesoftware.com/wiki/List_of_Client_Effects."
+	input SetTeam(integer) : "Changes the entity's team."
 	]
 
 @BaseClass = BaseEntityOutputs
@@ -1616,6 +1617,17 @@
 	[
 	fademindist(float) : "Start Fade Dist" : -1 : "Distance at which the prop starts to fade (<0 = use fademaxdist)."
 	fademaxdist(float) : "End Fade Dist" : 0 : "Max fade distance at which the prop is visible (0 = don't fade out)."
+	]
+
+@BaseClass = BaseDynamicShadow
+	[
+	
+	disableshadows(choices) : "Disable Shadows" : 0 =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
 	]
 
 @BaseClass = BaseLight: "Parameters common to light and light_spot."
@@ -2008,11 +2020,17 @@
 
 @BaseClass = TeamNum
 	[
-	teamnum(integer) : "Team"
-	team(integer) : "Team"
+	team(choices) : "Team" : 0 : "Which Team the entity belongs / is assigned to on spawn." =
+		[
+		0: "None"
+		1: "Spectator"
+		2: "HECU"
+		3: "Scientists"
+		]
+
+	teamnum(integer) : "Team Number" : : "Used by filter_activator_team as assigned team value. You can use any integer here. Overrides by SetTeam input."
 
 	// Inputs
-	input TeamNum(integer) : "Changes the entity's team num."
 	input SetTeam(integer) : "Changes the entity's team."
 	]
 
@@ -2453,6 +2471,16 @@
 	[
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	globalname(string) : "Global Entity Name" : : "Name by which this entity is linked to another entity in a different map. When the player transitions to a new map, entities in the new map with globalnames matching entities in the previous map will have the previous map's state copied over their state."
+
+	team(choices) : "Team" : 0 : "Which Team the entity belongs / is assigned to on spawn." =
+		[
+		0: "None"
+		1: "Spectator"
+		2: "HECU"
+		3: "Scientists"
+		]
+
+	teamnum(integer) : "Team Number" : : "Used by filter_activator_team as assigned team value. You can use any integer here. Overrides by SetTeam input."		
 	linedivider_base(string) readonly : "----------------------------------------------------------------------------------------------------------"
 	]
 
@@ -2463,6 +2491,16 @@
 	origin(origin) : "Origin (X Y Z)" : : "The position of this brush entity's center in the world. Rotating entities typically rotate around their origin."
 	parentname(target_destination) : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	parent_attachment_point(string) : "[HA] Attachment Point" : : "If set, attach to this attachment point on the parent during spawn."
+
+	team(choices) : "Team" : 0 : "Which Team the entity belongs / is assigned to on spawn." =
+		[
+		0: "None"
+		1: "Spectator"
+		2: "HECU"
+		3: "Scientists"
+		]
+
+	teamnum(integer) : "Team Number" : : "Used by filter_activator_team as assigned team value. You can use any integer here. Overrides by SetTeam input."		
 	linedivider_base(string) readonly : "----------------------------------------------------------------------------------------------------------"
 	linedivider_basebrush(string) readonly : "----------------------------------------------------------------------------------------------------------"
 
@@ -2480,6 +2518,16 @@
 	globalname(string) : "Global Entity Name" : : "Name by which this entity is linked to another entity in a different map. When the player transitions to a new map, entities in the new map with globalnames matching entities in the previous map will have the previous map's state copied over their state."
 	parentname(target_destination) : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	parent_attachment_point(string) : "[HA] Attachment Point" : : "If set, attach to this attachment point on the parent during spawn."
+
+	team(choices) : "Team" : 0 : "Which Team the entity belongs / is assigned to on spawn." =
+		[
+		0: "None"
+		1: "Spectator"
+		2: "HECU"
+		3: "Scientists"
+		]
+
+	teamnum(integer) : "Team Number" : : "Used by filter_activator_team as assigned team value. You can use any integer here. Overrides by SetTeam input."		
 	linedivider_base(string) readonly : "----------------------------------------------------------------------------------------------------------"
 	linedivider_basebrush(string) readonly : "----------------------------------------------------------------------------------------------------------"
 
@@ -2498,6 +2546,16 @@
 	angles(angle) : "Pitch Yaw Roll (X Y Z)" : "0 0 0" : "This entity's orientation in the world. Roll is the rotation around the X axis, pitch is rotation around the Y axis and yaw is the rotation around the Z axis."
 	parentname(target_destination) : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	parent_attachment_point(string) : "[HA] Attachment Point" : : "If set, attach to this attachment point on the parent during spawn."
+
+	team(choices) : "Team" : 0 : "Which Team the entity belongs / is assigned to on spawn." =
+		[
+		0: "None"
+		1: "Spectator"
+		2: "HECU"
+		3: "Scientists"
+		]
+
+	teamnum(integer) : "Team Number" : : "Used by filter_activator_team as assigned team value. You can use any integer here. Overrides by SetTeam input."		
 	linedivider_base(string) readonly : "----------------------------------------------------------------------------------------------------------"
 
 	// Inputs
@@ -5190,7 +5248,7 @@
 	input RollCredits(void) : "Start the intro credits rolling."
 	input RollOutroCredits(void) : "Start the outro credits rolling."
 	input RollEndCredits(void) : "Start the end credits rolling."
-	input ShowLogo(void) : "Show the HL2 logo."
+	input ShowLogo(void) : "Show the game logo."
 	input SetLogoLength(float) : "Sets the amount of time the logo is displayed. Default is 5.0."
 
 	// Outputs
@@ -5207,21 +5265,26 @@
 	fademaxdist(float) : "End Fade Dist/Pixels" : 1024 : "The distance at which the detail props will stop fading and stop drawing entirely."
 	]
 
-@PointClass base(BaseEntityPoint) = env_dispenser: "Dispenser (replaces env_beverage)"
+@PointClass base(BaseEntityPoint) 
+	studioprop()
+= env_dispenser: "Dispenser (replaces env_beverage)"
 	[
-	spawnmodel(studio) : "Model to spawn" : "models/props_junk/popcan01a.mdl" : "Model to spawn when activated."
-	spawnangles(angle) : "Spawn angles" : "0 0 0" : "Orientation of the model at spawn (Y Z X)"
+	skin(integer) : "[H] Skin" : 0 : "Set the skin displayed in Hammer."
+	model(studio) : "[H] Model" : "models/props_junk/popcan01a.mdl" : "Set the model displayed in Hammer."
+	linedivider_dispenser(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	spawnmodel(studio) : "Model to spawn" : "models/props_junk/popcan01a.mdl" : "Model to spawn when activated. Only the default model will heal player."
+	spawnangles(angle) : "Spawn angles" : "0 0 0" : "Orientation of the model at spawn (Y Z X). Pitch Yaw Roll (Y Z X) property will override value here if it is not 0 0 0."
 	capacity(integer) : "Capacity" : 15 : "Number of models to spawn."
 	skinmin(integer) : "Minimum skin" : 0 : "Minimum skin number."
 	skinmax(integer) : "Maximum skin" : 0 : "Maximum skin number."
 
 	// Inputs
-	input Activate(void) : "Spawn prop_physics item with the specified model and skin."
+	input Activate(void) : "Spawn object item with the specified model and skin."
 	input Break(void) : "Rapidy spawn all the items remaining in the dispenser."
 
 	// Outputs
-	output OnBreak(void) : "Break"
-	output OnEmpty(void) : "Empty"
+	output OnBreak(void) : "Fires via Break input."
+	output OnEmpty(void) : "Fires when it tries to spawn model while empty."
 	]
 
 @PointClass base(BaseEntityPoint, Angles) 
@@ -5974,6 +6037,15 @@
 	output SoundLevel(float) : "Fired in Measuring mode whenever the sound level changes."
 	output OnRoutedSound(void) : "Fired whenever a sound is routed out through the specified speaker (if any)."
 	output OnHeardSound(void) : "Fired whenever this microphone hears any sound it cares about."
+	]
+
+@PointClass base(BaseEntityAnimating, BaseDynamicShadow)
+	studio("models/props_st/st_boundingmine.mdl")
+= env_mine: "Mine."
+	[
+	
+	// Inputs
+	input Detonate(void) : "Detonate the mine."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -7112,8 +7184,8 @@
 		[
 		0: "None"
 		1: "Spectator"
-		2: "Marines (Team-based game modes only)"
-		3: "Scientists (Team-based game modes only)"
+		2: "HECU"
+		3: "Scientists"
 		]
 
 	force_map_reset(choices) : "Force Map Reset" : 1 : "Force the map to reset during the force respawn after the round is over." =
@@ -7891,16 +7963,6 @@
 	// Inputs
 	input SetTimescale(float) : "Sets the value of host_timescale."
 	input RestoreTimescale(void) : "Restores the value of host_timescale back to what it was previously."
-	]
-
-@PointClass base(BaseEntityPoint, TeamNum, EnableDisable) 
-	studio("editor/info_target.vmt")
-= info_vehicle_groundspawn: "DELETE ME!"
-	[
-	
-	// Outputs
-	output OnVehicleSpawn(void) : "OnVehicleSpawn "
-	output OnPlayerSpawn(void) : " OnPlayerSpawn "	
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -12041,13 +12103,13 @@
 	iconsprite("editor/filter_team.vmt")
 = filter_activator_team: "A filter that filters by the team of the activator."
 	[
-	filterteam(choices) : "Filter Team Number" : 2 : "The team number to filter by.  If the filter mode is Allow, only entities whose team number matches the given team will pass the filter. If the filter mode is Disallow, all entities EXCEPT those whose team number matches the given team will pass the filter." =
+	filterteam(choices) : "Filter Team Number" : 2 : "The team number to filter by.  If the filter mode is Allow, only entities whose team number matches the given team will pass the filter. If the filter mode is Disallow, all entities EXCEPT those whose team number matches the given team will pass the filter. You can use any integer here." =
 		[
-		0: "Unassigned"
+		0: "None"
+		1: "Spectator"
 		2: "HECU"
 		3: "Scientists"
 		]
-
 	]
 
 
