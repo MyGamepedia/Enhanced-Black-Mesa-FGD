@@ -5738,6 +5738,18 @@
 
 	]
 
+@PointClass base(BaseEntityAnimating, BaseDynamicShadow)
+	studio("models/items/holo_emitter.mdl")
+	sphere(fademindist)
+	sphere(fademaxdist)
+= env_holo_emitter: "Holo emitter."
+	[
+	
+	// Inputs
+	input TurnOff(void) : "Turn spotlight off."
+	input TurnOn(void) : "Turn spotlight on."	
+	]
+
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/env_hudhint.vmt")
 = env_hudhint: "An entity to control the display of HUD hints. HUD hints are used to show the player what key is bound to a particular command."
@@ -6050,10 +6062,11 @@
 	input Detonate(void) : "Detonate the mine."
 	]
 
-@PointClass base(BaseEntityPoint) 
+@PointClass base(BaseEntityAnimating, BaseDynamicShadow) 
 	line(255 255 255, targetname, MortarLauncher)
-	line(255 255 255, targetname, MortarField)
 	studio("models/props_st/airstrike_map.mdl")
+	sphere(fademindist)
+	sphere(fademaxdist)
 = env_mortar_controller: "Mortar controller."
 	[
 	mortarlauncher(target_destination) : "Mortar Launcher" : "" : "Env_mortar_launcher to use."
@@ -6062,12 +6075,12 @@
 @PointClass base(BaseEntityPoint)
 	line(255 255 255, targetname, Target)
 	iconsprite("editor/info_target.vmt")
+	sphere(radius)
 = env_mortar_launcher : "Mortar launcher."
 [
-	firedelay(integer) : "Fire Delay" : 1
-	rateoffire(float) : "Rate of Fire" : 10
-	radius(float) : "Launcher Spread" : "128"
-	target(target_destination) : "Impact Target" : ""
+	rateoffire(float) : "Rate of Fire" : 10 : "Rate of fire when Launch input fires multiple count of shells."
+	radius(float) : "Launcher Spread" : "128" : "Max random spread radius. Set 0 to have perfect shoot."
+	target(target_destination) : "Impact Target" : "" : "If a target is specified here, this mortar launcher will always fire at that target until the target is killed."
 
 	grenadeentityname(choices) : "Mortar Type" : "Small" : "Grenade type to use." =
 	[
@@ -6075,20 +6088,21 @@
 		"grenade_mortar_large" : "Large"
 	]
 
-	apexheightratio(float) : "Apex Height Ratio" : "1"
-	pathoption(choices) : "Path Start" : "Apex" =
+	apexheightratio(float) : "Apex Height Ratio" : "1" : "A float value that changes max height of launched shell. Only values from 0.001 to 1 works."
+	pathoption(choices) : "Path Start" : "Apex" : "Origin - shell will be launched vertically into the air and then fall to its destination. Apex - shell will be launched directly to the destination. Free Fall - the same as Apex, but can go through walls, works only in Black Mesa 2012 (the mod version)." =
 	[
 		"0" : "Origin"
 		"1" : "Apex"
 		"2" : "Free Fall"
 	]
 
-	fireshellscount(integer) : "Default Shell Count" : 1
-	override_damage(float) : "Override Shell Damage" : -1
-	override_damageradius(float) : "Override Shell Damage Radius" : -1
+	fireshellscount(integer) : "Default Shell Count" : 1 : "Count of shells per shoot."
+	override_damage(float) : "Override Shell Damage" : -1 : "Overrides shell damage value from the cvar. With -1 it will use value from the cvar."
+	override_damageradius(float) : "Override Shell Damage Radius" : -1 : "Overrides shell damage radius value from the cvar. With -1 it will use value from the cvar."
 
+	// Inputs
 	input LaunchDefault(void) : "Launch default count of shells mortars toward the target within the impact radius."
-	input Launch(integer) : "Launch mortars toward the target within the impact radius."
+	input Launch(integer) : "Launch mortars toward the target with specified count of shells."
 	input FireSingle(void) : "Launch single shell."
 ]
 
