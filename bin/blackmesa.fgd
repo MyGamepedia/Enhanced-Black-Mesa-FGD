@@ -5245,8 +5245,6 @@
 	[
 
 	// Inputs
-	input RollCredits(void) : "Start the intro credits rolling."
-	input RollOutroCredits(void) : "Start the outro credits rolling."
 	input RollEndCredits(void) : "Start the end credits rolling."
 	input ShowLogo(void) : "Show the game logo."
 	input SetLogoLength(float) : "Sets the amount of time the logo is displayed. Default is 5.0."
@@ -5772,13 +5770,13 @@
 	[
 	startactive(choices) : "Start Active" : 0 =
 		[
-		0: "No"
-		1: "Yes"
+		0: "Off"
+		1: "On"
 		]
 
 
 	// Inputs
-	input Activate(void) : "Activate"
+	input Activate(void) : "Start the intro credits rolling."
 	]
 
 @PointClass base(BaseEntityPoint)
@@ -6126,18 +6124,6 @@
 	target(target_destination) : "Beam Target"
 	damage(float) : "Damage" : 1
 	damagetick(float) : "Damage Tick" : "0.1"
-	burntrail(material) : "Burn Trail Material" : "effects/gluon_burn_trail.vmt"
-	burntrail_life(float) : "Burn Trail Life" : 4
-	burntrail_size(float) : "Burn Trail Size" : 16
-	burntrail_text(float) : "Burn Trail Textile" : "0.01"
-	burntrail_flags(choices) : "Burn Trail Flags" : "Shrink + Fade" =
-		[
-		-1: "Disabled"
-		0: "None"
-		1: "Shrink"
-		2: "Fade"
-		3: "Shrink + Fade"
-		]
 
 	spawnflags(flags)  =
 		[
@@ -6286,11 +6272,12 @@
 
 
 	// Inputs
-	input start(void) : "Dispatch the pinch fx"
-	input stop(void) : "Stop the pinch fx"
+	input Start(void) : "Start/restart the pinch fx."
+	input Stop(void) : "Stop Life Time and make the pinch fx infinite."
+	input Finish(void) : "Finish the pinch fx and fire OnFinish output."
 
 	// Outputs
-	output OnFinish(void) : "Pinch FX is finished"
+	output OnFinish(void) : "Fires when pinch FX is finished."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -9043,7 +9030,7 @@
 @PointClass base(BaseEntityPoint) 
 	lightprop("models/editor/spot.mdl")
 	iconsprite("editor/light_new.vmt")
-= newlight_dir: "Next generation directional light. Draw GodRays in sky, also include disk to imitate sun."
+= newLight_Dir: "Next generation directional light. Draw GodRays in sky, also include disk to imitate sun."
 	[
 	lightenvenabled(choices) : "Use Light_Environment Angles ?" : 1 : "Do we want to use light_environment angles or manual angles ?" =
 		[
@@ -9089,7 +9076,7 @@
 	iconsprite("editor/light_new.vmt")
 	sphere(range)
 	sphere(NearZ)
-= newlight_point: "Next generation point light. One of deferred lighting entities, also support lightcookies and godrays."
+= newLight_Point: "Next generation point light. One of deferred lighting entities, also support lightcookies and godrays."
 	[
 	lightcolor(color255) : "Light Color" : "255 255 255 1" : "This is the color of the light."
 	lightcolorambient(color255) : "Light Ambient Color" : "0 0 0 0" : "This is the shadow color of the light."
@@ -9302,7 +9289,7 @@
 	sphere(range)
 	sphere(NearZ)
 	frustum(phi,NearZ,Range,LightColor,-1)
-= newlight_spot: "Next generation spot light. One of deferred lighting entities, also support animated lightcookies."
+= newLight_Spot: "Next generation spot light. One of deferred lighting entities, also support animated lightcookies."
 	[
 	lightcolor(color255) : "Light Color" : "255 255 255 1" : "This is the color of the light."
 	lightcolorambient(color255) : "Light Ambient Color" : "0 0 0 0" : "This is the shadow color of the light."
@@ -9434,7 +9421,7 @@
 	input InputFixRotBugDueToTram(void) : "Input fix rotating bug due to tram."
 	]
 
-@PointClass base(BaseEntityPoint) = newlights_spawner: "This entity creates client side new lights over a given area when it appears and also after loading save. Created new lights removes if this entity is removed from level. Initially created to test new lighting system"
+@PointClass base(BaseEntityPoint) = newLights_Spawner: "This entity creates client side new lights over a given area when it appears and also after loading save. Created new lights removes if this entity is removed from level. Initially created to test new lighting system"
 	[
 	lighttype(choices) : "Light Type" : 0 : "What light type do we want to spawn ?"=
 		[
@@ -9470,7 +9457,7 @@
 	sphere(NearZ)
 	frustum(phi,NearZ,Range,LightColor,-1)
 	line(255 255 255, targetname, targetnewlightentity)
-= newlights_settings: "This entity uses to dynamically change some lighting settings for newLight_Spot and newLight_Point."
+= newLights_settings: "This entity uses to dynamically change some lighting settings for newLight_Spot and newLight_Point."
 	[
 	targetnewlightentity(target_destination) : "Target Light Entity" : : "Target new light entity name."
 
@@ -17178,7 +17165,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/vortigaunt_slave.mdl")
-= npc_xorteb: "Xortigaunt (xen vortigaunt) earthbound."
+= npc_xortEB: "Xortigaunt (xen vortigaunt) earthbound."
 	[
 	xortstate(choices) : "Xort Internal State" : 1 =
 		[
