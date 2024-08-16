@@ -6153,15 +6153,15 @@
 	sphere(range)
 = env_particle_tesla
 	[
-	particletesla(string) : "Particle Tesla Name" : "tesla_lc_core"
-	frequency(float) : "Spawn Frequency" : "0.1"
-	mincount(integer) : "Min Spawn Count" : 2
-	maxcount(integer) : "Max Spawn Count" : 4
-	range(integer) : "Range" : 2048
-	life(float) : "System Life" : -1 : "infinite = -1"
-	min(vector) : "Mins" : "-1 -1 -1"
-	max(vector) : "Maxs" : "1 1 1"
-	decalname(string) : "Decal Name" : "ZapScorch" : "Decal to be applied at the end of the beam"
+	particletesla(particlesystem) : "Particle Name" : "tesla_lc_beams" : "Particle name to use for the beams."
+	frequency(float) : "Spawn Frequency" : "0.1" : "Spawn frequency for beams."
+	mincount(integer) : "Min Spawn Count" : 2 : "Minimum count of beams."
+	maxcount(integer) : "Max Spawn Count" : 4 : "Maximum count of beams."
+	range(integer) : "Range" : 2048 : "Max beam range."
+	life(float) : "System Life" : -1 : "Number of seconds before it turns itself off. Will never turn off self with -1."
+	min(vector) : "Mins" : "-1 -1 -1" : "Minimum spread value."
+	max(vector) : "Maxs" : "1 1 1" : "Maximum spread value."
+	decalname(string) : "Decal Name" : "ZapScorch" : "Decal to be applied at the end of the beams."
 	spawnflags(flags)  =
 		[
 		1: "[1] Start On" : 0
@@ -6170,12 +6170,12 @@
 
 
 	// Inputs
-	input TurnOn(void) : "TurnOn"
-	input TurnOff(void) : "TurnOff"
+	input TurnOn(void) : "Turns entity on."
+	input TurnOff(void) : "Turns entity off."
 
 	// Outputs
-	output OnTurnOn(void) : "Turned On"
-	output OnTurnOff(void) : "Turned Off"
+	output OnTurnOn(void) : "Fires via TurnOn input."
+	output OnTurnOff(void) : "Fires via TurnOff input."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -6585,6 +6585,9 @@
 	input StopSpark(void) : "Stop the spark effect."
 	input ToggleSpark(void) : "Toggle the on/off state of the spark effect."
 	input SparkOnce(void) : "Spark once."
+	
+	// Outputs
+	output OnSpark(void) : "Fired when the sparks emit."
 	]
 
 @PointClass base(BaseEntityPoint, ResponseContext) 
@@ -11864,7 +11867,7 @@
 
 	// Inputs
 	input StrikeOnce(void) : "Causes the beam to strike once. It will stay on for its set Life and then turn off (it will never turn off if Life is set to zero)."
-	input Amplitude(float) : "Set the amplitude of beam noise (0 - 255)."
+	input Noise(float) : "Set the amplitude of beam noise (0 - 255)."
 
 	// Outputs
 	output OnTouchedByEntity(void) : "Fired when an entity touches the beam. Only fired if the entity passes the 'Touch Type' choice."
@@ -15887,7 +15890,7 @@
 	color(0 0 200)
 	sphere(fademindist)
 	sphere(fademaxdist)
-	studioprop("models/weapons/v_hgun.mdl")
+	studioprop("models/weapons/w_hgun.mdl")
 = weapon_hivehand: "Hivearm. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
 	[
 	]
