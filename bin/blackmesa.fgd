@@ -2045,18 +2045,17 @@
 	[
 	size(choices) : "Portal Size" : 80 =
 		[
-		80: "Default"
+		80: "Default/Alien Slave"
 		20: "Small Headcrab"
 		40: "Headcrab"
-		80: "Alien Slave"
 		90: "Houndeye"
 		100: "Alien Grunt"
 		110: "Bullsquid"
 		]
 
 	sound(sound) : "Sound Name" : "XenPortal.Sound" : "Name of the GameSound entry for the sound to play. Also supports direct .wav filenames."
-	jump_distance(float) : "Leap Distance" : 0
-	jump_hmaxspeed(float) : "Leap Max Horizontal Speed" : 200
+	jump_distance(float) : "Leap Distance" : 0 : "Determines the max distance npc_houndeye can jump out of the portal. Also works with npc_houndeye_knockback and npc_houndeye_suicide."
+	jump_hmaxspeed(float) : "Leap Max Horizontal Speed" : 200 : "Determines the max horizontal speed npc_houndeye can jump out of the portal. Also works with {npc_houndeye_knockback and {npc_houndeye_suicide."
 	min_delay(float) : "Minimum spawn delay" : 0
 	max_delay(float) : "Maximum spawn delay" : 0
 	spawnflags(flags)  =
@@ -2066,7 +2065,6 @@
 		128: "[128] Don't Spawn While Visible" : 0
 		256: "[256] Always use radius spawn" : 0
 		512: "[512] Don't preload template models" : 0
-		32768: "[32768] No DLight" : 0
 		65536: "[65536] Remove after portal fx has finished" : 0
 		131072: "[131072] No sound" : 0
 		262144: "[262144] Jump out (Houndeye Only)" : 0
@@ -2075,11 +2073,13 @@
 		]
 
 	// Inputs
-	input StartPortal(void) : "Start portal."	
+	input StartPortal(void) : "Start portal."
+	input InternalStartPortal(void) : "Used by StartPortal and Spawn input for houndeyes to make them jump out. If used separately - spawn NPC with no delay."
+	input InternalFinishPortal(void) : "Used by InternalStartPortal input. If used separately - spawn NPC with no delay and xen portal effects."
 	
 	// Outputs
-	output OnStartPortal(void) : "Portal FX is started"
-	output OnFinishPortal(void) : "Portal FX is finished"
+	output OnStartPortal(void) : "Portal FX is started."
+	output OnFinishPortal(void) : "Portal FX is finished."
 	]
 
 @BaseClass = _Breakable
@@ -6838,9 +6838,12 @@
 	iconsprite("editor/info_target.vmt")
 = env_tram_screen
 	[
-	panelname(string) : "Panel Name" : : "TramScreen"
-	functrainname(target_destination) : "Func Train To Trigger"
-	propname(target_destination) : "Prop To Attach"
+	functrainname(target_destination) : "Func Train To Trigger" : : "Determines the func_tracktrain that will change screen. Doesn't work with other train entities."
+	propname(target_destination) : "Prop To Attach" : : "Determines the prop that the screen will be attached to."
+		
+	// Inputs
+	input SetActive(void) : "Activates screen."
+	input SetInactive(void) : "Deactivates screen."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -9871,6 +9874,11 @@
 	input Reload(void) : "Ends this game and reloads"
 	]
 
+@PointClass base(BaseEntityPoint)
+= player_manager: "This is entity that propagates general data needed by clients for every player (ping, score, deaths, connected, team, alive). You will not see any info in data table if this entity is killed. Use it in Hammer only when you kill player_manager (to hide stats for example) and want to spawn new via point_template. This entity appears automatically in multiplayer gamemodes."
+	[
+	]
+
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/player_speedmod.vmt")
 = player_speedmod: "Speeds up or slows down player velocity over time (slow mo/fast forward)"
@@ -12028,23 +12036,19 @@
 
 	]
 
-@PointClass base(BaseEntityAnimating) 
+@PointClass base(BaseEntityAnimating, BaseDynamicShadow) 
 	sphere(fademindist)
 	sphere(fademaxdist)
+	sphere(height)
 	studio("models/xenians/jump_pad.mdl")
 	line(255 255 255, targetname, target)
 = env_xen_pushpad
 	[
-	nextjumpdelta(float) : "Next Jump Delta" : "0.5"
-	target(target_destination) : "Jump Target Name"
-	height(float) : "Height Offset" : 512
-	disableshadows(choices) : "Disable Shadows" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
+	nextjumpdelta(float) : "Next Jump Delay" : "0.5" : "Push pad trigger delay. Don't use 0, it may will break jump pad."
+	target(target_destination) : "Jump Target Name" : "" : "The target we will jump towards. Overrides max jump height. Forces it to push along a certain trajectory."
+	height(float) : "Height Offset" : 512 : "The max jump height."
 
-	m_bmuteme(choices) : "MuteME" : 0 =
+	m_bmuteme(choices) : "Mute me ?" : 0 : "Do we want to disable the push sound ?" =
 		[
 		0: "No"
 		1: "Yes"
@@ -12052,7 +12056,7 @@
 
 
 	// Outputs
-	output OnTrigger(void)
+	output OnTrigger(void) : "Fired when jump pad is triggered."
 	]
 
 @FilterClass base(filter_base) 
@@ -13297,13 +13301,13 @@
 	npcsquadname(string) : "Childrens' Squad Name"
 	npchintgroup(string) : "Childrens' Hint Group"
 	relationship(string) : "Relationship" : : "Sets whether the spawned NPC likes or dislikes certain others. Format is: <string|targetname or classname> <string|disposition> <integer|rank>. Values for disposition are: D_HT (Hate), D_FR (Fear), D_LI (Like), D_NU, (Neutral)."
-	additionalequipment(choices) : "Weapons" : 0 =
+	additionalequipment(choices) : "Weapons" : 0 : "What weapon each NPC should spawn with. With Nothing, it will give one of the weapons in random way for HECU marines, rest NPCs will get nothing." =
 		[
 		"weapon_glock": "Glock"
 		"weapon_mp5": "MP5"
 		"weapon_shotgun": "Shotgun"
 		"weapon_357": "357"
-		0: "Nothing"
+		"0": "Nothing"
 		]
 
 	]
