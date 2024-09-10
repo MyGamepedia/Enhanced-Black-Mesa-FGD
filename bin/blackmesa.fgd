@@ -14141,6 +14141,20 @@
 = env_xen_portal
 	[
 	]
+	
+@PointClass base(BaseEntityPoint)
+	sphere(size)
+= env_xen_portal_effect
+	[
+	size(float) : "Size" : 40 : "Size. Affects the push away distance. The max push distance is distance increased by ~95 percent of the specified number."
+	
+	// Inputs
+	input PushAway(void) : "Will push player once when fired. Doesn't play any sound."
+	input Burst(void) : "Copy of PushAway, but will also fire OnBurst output."
+
+	// Outputs
+	output OnBurst(void) : "Fires via Burst input."
+	]
 
 @PointClass base(npc_template_maker, XenPortal) 
     studio("models/editor/angle_helper.mdl")
