@@ -348,7 +348,6 @@
 		"env_viewpunch"
 		"env_wind"
 		"env_xen_healpool"
-		"env_xen_healshower"
 		"env_zoom"
 		"filter_activator_class"
 		"filter_activator_flag"
@@ -536,7 +535,6 @@
 		"cycler"
 		"cycler_actor"
 		"env_xen_healpool"
-		"env_xen_healshower"
 		"nihilanth_pylon"
 		"nihiportalsbase"
 		"nihiportals_teleprops"
@@ -1397,7 +1395,6 @@
 		"cycler"
 		"cycler_actor"
 		"env_xen_healpool"
-		"env_xen_healshower"
 		"nihilanth_pylon"
 		"nihiportalsbase"
 		"nihiportals_teleprops"
@@ -4943,7 +4940,16 @@
 	// Outputs
 	output OnArrival(void) : "Fires when the NPC reaches this rally point."
 	]
-	
+
+@PointClass base(BaseEntityPoint)
+= blackmesa_mp_gamerules: "It spawns automatically initially. Still can be used for some cases. This entity controls deathmatch game rules. Spawns automatically with multiplayer game if mp_teamplay and mp_coop are using 0 value. Spawn via console will result countdown with round restart (without map load). If the entity is killed during the countdown, it will partially break the text display. You can use it in combination with point_template when you want to restart round without map load (make sure you removed the previous entity)."
+	[
+	]
+
+@PointClass base(BaseEntityPoint)
+= blackmesa_mp_teamplay_gamerules: "It spawns automatically initially. Still can be used for some cases. This entity controls team deathmatch game rules. Spawns automatically with multiplayer game if mp_teamplay are using 1 value. Spawn via console will result countdown with round restart (without map load). If the entity is killed during the countdown, it will partially break the text display. You can use it in combination with point_template when you want to restart round without map load (make sure you removed the previous entity)."
+	[
+	]
 
 @PointClass base(BaseEntityPoint, EnableDisable) 
 	sphere(minfalloff)
@@ -5233,9 +5239,9 @@
 	iconsprite("editor/shadow_control.vmt")
 = env_cascade_volume: "An entity to control the CSM volume. Mostly deprecated due to trigger_csm_volume, which is much easier to use."
 	[
-	 RadiusX(float) : "Radius X" : "100" : "Radius along world X axis."
-	 RadiusY(float) : "Radius Y" : "100" : "Radius along world Y axis."
-	 RadiusZ(float) : "Radius Z" : "100" : "Radius along world Z axis."
+	RadiusX(float) : "Radius X" : "100" : "Radius along world X axis."
+	RadiusY(float) : "Radius Y" : "100" : "Radius along world Y axis."
+	RadiusZ(float) : "Radius Z" : "100" : "Radius along world Z axis."
 	]
 
 
@@ -5265,7 +5271,7 @@
 
 @PointClass base(BaseEntityPoint) 
 	studioprop()
-= env_dispenser: "Dispenser (replaces env_beverage)"
+= env_dispenser: "Dispenser (replaces env_beverage)."
 	[
 	skin(integer) : "[H] Skin" : 0 : "Set the skin displayed in Hammer."
 	model(studio) : "[H] Model" : "models/props_junk/popcan01a.mdl" : "Set the model displayed in Hammer."
@@ -5283,6 +5289,18 @@
 	// Outputs
 	output OnBreak(void) : "Fires via Break input."
 	output OnEmpty(void) : "Fires when it tries to spawn model while empty."
+	]
+	
+@PointClass base(BaseEntityPoint)
+= env_doppler_emitter: "This entity imitates specified sound, while parent is moving. If used with no parent, it will play sound once after TurnOn input. Used for some NPCs to play their movement sound. The NPCs is: npc_apache, npc_osprey, npc_alien_controller, npc_ichthyosaur, npc_gargantua."
+	[
+	soundname(sound) : "Sound Name" : "" : "Name of the GameSound entry for the sound to play."
+	pitch(float) : "Pitch" : 100 : "Sound pitch, expressed as a range from 1(low) to 255(high), where 100 is the sound's default pitch. Overriden by soundscripts."
+	distance(float) : "Distance" : 1250 : "Maximum distance at which this sound is audible."
+
+	// Inputs
+	input TurnOff(void) : "Turns entity off."
+	input TurnOn(void) : "Turns entity on."
 	]
 
 @PointClass base(BaseEntityPoint, Angles) 
@@ -8862,18 +8880,18 @@
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/info_target.vmt")
-= material_timer
+= material_timer: "This is a simple point entity that does a countdown (like buttons with timer in  Portal 2) and fire outputs. It doesn't do anything with materials despite the classname."
 	[
-	length(float) : "Length" : 30 : "Length"
+	length(float) : "Length" : 30 : "Length of countdown."
 	
 	// Inputs
-	input start(float) : "Start"
-	input stop(float) : "Stop"
+	input start(void) : "Start the countdown."
+	input stop(void): "Stop the countdown."
 
 	// Outputs
-	output OnStart(void) : ""
-	output OnStop(void) : ""
-	output OnFinish(void) : ""
+	output OnStart(void) : "Fires when countdown is started."
+	output OnStop(void) : "Fires when countdown is stoped by stop input."
+	output OnFinish(void) : "Fires when countdown is finished successfully."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -9571,21 +9589,26 @@
 	sphere(distend)
 = newxog_global: "New screen space xen fog (xog for short)."
 	[
-	enabled(choices) : "Enabled" : 1 : "Is this entity turned off on spawn ?" =
+	colortop(color255) : "Color Top" : "255 0 0 255" : "Xog top color. This is the main color of xog that uses if 'Enable Height Blend' keyvalue is disabled."
+	colorbottom(color255) : "Color Bottom" : "0 255 0 255" : "Xog bottom color. Requires enabled 'Enable Height Blend' keyvalue to be working."
+	diststart(float) : "Start Fog Distance" : 50 : "Xog start draw distance."
+	distend(float) : "End Fog Distance" : 2000 : "Xog end draw distance."
+	distdensity(float) : "Density Fog Distance" : "1.0" : "Density of xog entity, only values from 0 to 1 works."
+	
+	enabled(choices) : "Enabled ?" : 1 : "Is this entity turned off on spawn ?" =
 		[
 		0: "No"
 		1: "Yes"
 		]
-
+	
+	linedivider_newxogglobal1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	xogtype(choices) : "Xog Type" : 0 : "Determines xog type. Global - render xog in world space only. GlobalWithSky - render xog in world space and add third layer for skybox (without color blending, uses skyColor instead). SkyOnly - xog will be applied to skybox with color blending, skyBlendFactor will not work, decreased intensity will show a ''black void'' instead of skybox." =
 		[
 		0: "0: Global"
 		1: "1: GlobalWithSky"
 		2: "2: SkyOnly"
 		]
-
-	skycolor(color255) : "Sky Color" : "0 0 255 255" : "Xog color in 2D skybox."
-	skyblendfactor(float) : "Sky Blend Factor" : "0.4" : "Xog intensity in skybox. This is a float value from 0.0 to 1.0."
+	
 	colormode(choices) : "Color Mode" : 0 : "Determines color mode. With StaticColor it will use color from colorBottom and colorTop, doesn't affects color in skybox. With 1DGradTexture, color will depends on texture from Grad Texture, doesn't affects color in skybox." =
 		[
 		0: "0: StaticColor"
@@ -9593,22 +9616,24 @@
 		2: "2: CubeGradTexture"
 		]
 
-	texname(material) : "Grad Texture" : : "Grad texture to use."
-	colortop(color255) : "Color Top" : "255 0 0 255" : "Xog top color. This is the main color of xog that uses if 'Enable Height Blend' keyvalue is disabled."
-	colorbottom(color255) : "Color Bottom" : "0 255 0 255" : "Xog bottom color. Requires enabled 'Enable Height Blend' keyvalue to be working."
-	diststart(float) : "Start Fog Distance" : 50 : "Xog start draw distance."
-	distend(float) : "End Fog Distance" : 2000 : "Xog end draw distance."
-	distdensity(float) : "Density Fog Distance" : "1.0" : "Density of xog entity, only values from 0 to 1 works."
-	opacityoffsettop(float) : "Opacity Offset Top" : 0 : "Offsets top color of xog."
-	opacityoffsetbottom(float) : "Opacity Offset Bottom" : 0 : "Offsets bottom color of xog."
+	texname(material) : "Grad Texture" : : "Grad texture to use."	
+	linedivider_newxogglobal2(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	skycolor(color255) : "Sky Color" : "0 0 255 255" : "Xog color in 2D skybox."
+	skyblendfactor(float) : "Sky Blend Factor" : "0.4" : "Xog intensity in skybox. This is a float value from 0.0 to 1.0."
+	linedivider_newxogglobal3(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	htzstart(float) : "Height Start" : 0 : "Height that xog starts rendering at."
 	htzend(float) : "Height End" : 400 : "Height that xog stops rendering at."
 	htzcolstart(float) : "Height Color Start" : 0 : "Height that xog color starts rendering at. Results depend on 'Height Color End' value."
 	htzcolend(float) : "Height Color End" : 400 : "Height that xog color stops rendering at. Results depend on 'Height Color Start' value."
+	linedivider_newxogglobal4(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	opacityoffsettop(float) : "Opacity Offset Top" : 0 : "Offsets top color of xog."
+	opacityoffsetbottom(float) : "Opacity Offset Bottom" : 0 : "Offsets bottom color of xog."
+	linedivider_newxogglobal5(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	noise1scrollspeed(vector) : "Noise 1 Scroll Speed" : "0.01095 0.00855 -0.02265 0.0" : "Layer one, speed at which noise moves trough xog volume (X Y Z)."
 	noise1tiling(vector) : "Noise 1 Tiling" : "1.32 1.32 1.32 0.0" : "Layer one, tiling speed at which noise moves trough xog volume (X Y Z)."
 	noise2scrollspeed(vector) : "Noise 2 Scroll Speed" : "0.00525 0.00495 -0.0075 0.0" : "Layer two, speed at which noise moves trough xog volume (X Y Z)."
 	noise2tiling(vector) : "Noise 2 Tiling" : "0.96 0.96 0.96 0.0" : "Layer two, tiling speed at which noise moves trough xog volume (X Y Z)."
+	linedivider_newxogglobal6(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	noisecontrast(float) : "Noise Contrast" : "1.0" : "Contrast of xog."
 	noisemultiplier(float) : "Noise Multiplier" : "1.0" : "Multiplier of xog."
 
@@ -9623,31 +9648,37 @@
 	line(255 255 255, targetname, targetnewlightentity)
 = newxog_settings: "This entity allows dynamically change some parameters for newxog_global and newxog_volume entities."
 	[
-	targetnewlightentity(target_destination) : "TargetNewXOGEntity_Name" : : "Target Light Entity name"
-	transitiontime(integer) : "TransitionTime" : 0 : "TransitionTime in secs ( 0 for instant ) to transition into new settings. Its a lerp operation A + (B-A)*TimeFactor"
-	enabled(choices) : "Enabled" : 1 : "Light Enabled or Disabled" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	skycolor(color255) : "Sky Color" : "112 104 255 255" : "Xog color in 2D skybox."
-	skyblendfactor(float) : "Sky Blend Factor" : "0.25" : "Xog intensity in skybox. This is a float value from 0.0 to 1.0."
+	targetnewlightentity(target_destination) : "Target Xog Entity" : : "Target xog entity name."
+	transitiontime(integer) : "Transition Time" : 0 : "Transition time in seconds (0 for instant) to transition into new settings. Its a lerp operation A + (B-A)*TimeFactor."
+	linedivider_newxogsettings1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	colortop(color255) : "Color Top" : "61 255 235 255" : "Xog top color. This is the main color of xog that uses if 'Enable Height Blend' keyvalue is disabled."
 	colorbottom(color255) : "Color Bottom" : "255 62 235 255" : "Xog bottom color. Requires enabled 'Enable Height Blend' keyvalue to be working."
 	diststart(float) : "Start Fog Distance" : 50 : "Xog start draw distance."
 	distend(float) : "End Fog Distance" : 2000 : "Xog end draw distance."
 	distdensity(float) : "Density Fog Distance" : "1.0" : "Density of xog entity, only values from 0 to 1 works."
-	opacityoffsettop(float) : "Opacity Offset Top" : 0 : "Offsets top color of xog."
-	opacityoffsetbottom(float) : "Opacity Offset Bottom" : 0 : "Offsets bottom color of xog."
+	enabled(choices) : "Enabled ?" : 1 : "Determines whether target will be turned on or turned off after Transition Time." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	linedivider_newxogsettings2(string) readonly : "----------------------------------------------------------------------------------------------------------"		
+	skycolor(color255) : "Sky Color" : "112 104 255 255" : "Xog color in 2D skybox."
+	skyblendfactor(float) : "Sky Blend Factor" : "0.25" : "Xog intensity in skybox. This is a float value from 0.0 to 1.0."
+	linedivider_newxogsettings3(string) readonly : "----------------------------------------------------------------------------------------------------------"		
 	htzstart(float) : "Height Start" : 0 : "Height that xog starts rendering at."
 	htzend(float) : "Height End" : 2000 : "Height that xog stops rendering at."
 	htzcolstart(float) : "Height Color Start" : 0 : "Height that xog color starts rendering at. Results depend on 'Height Color End' value."
 	htzcolend(float) : "Height Color End" : 400 : "Height that xog color stops rendering at. Results depend on 'Height Color Start' value."
+	linedivider_newxogsettings4(string) readonly : "----------------------------------------------------------------------------------------------------------"		
+	opacityoffsettop(float) : "Opacity Offset Top" : 0 : "Offsets top color of xog."
+	opacityoffsetbottom(float) : "Opacity Offset Bottom" : 0 : "Offsets bottom color of xog."
+	linedivider_newxogsettings5(string) readonly : "----------------------------------------------------------------------------------------------------------"			
 	noise1scrollspeed(vector) : "Noise 1 Scroll Speed" : "0.007 0.006 -0.01 0.0" : "Layer one, speed at which noise moves trough xog volume (X Y Z)."
 	noise1tiling(vector) : "Noise 1 Tiling" : "0.34 0.34 0.34 0.0" : "Layer one, tiling speed at which noise moves trough xog volume (X Y Z)."
 	noise2scrollspeed(vector) : "Noise 2 Scroll Speed" : "0.0035 0.003 -0.005 0.0" : "Layer two, speed at which noise moves trough xog volume (X Y Z)."
 	noise2tiling(vector) : "Noise 2 Tiling" : "0.24 0.24 0.24 0.0" : "Layer two, tiling speed at which noise moves trough xog volume (X Y Z)."
+	linedivider_newxogsettings6(string) readonly : "----------------------------------------------------------------------------------------------------------"		
 	noisecontrast(float) : "Noise Contrast" : "1.0" : "Contrast of xog."
 	noisemultiplier(float) : "Noise Multiplier" : "1.0" : "Multiplier of xog."
 
@@ -11817,8 +11848,13 @@
 
 @PointClass base(BaseEntityAnimating) 
 	studio("models/editor/entity_player_base.mdl")
-= entity_player_base: "Player base from Elimination game mode. If this entity is not placed - it will spawn at map center."
+= entity_player_base: "Player base from Elimination game mode. Always spawns automatically at 0 0 0 coordinates."
 	[
+	health(integer) : "Health" : 9999999 : "The amount of health."
+	physdamagescale(float) : "Physics Impact Damage Scale" : "1.0" : "Scales damage energy when this object is hit by a physics object. NOTE: 0 means this feature is disabled for backwards compatibility.\nSet to 1.0 for materials as strong as flesh, smaller numbers indicate stronger materials."
+	
+	// Inputs
+	input PhysDamageScale(float) : "Sets the value that scales damage energy when this character is hit by a physics object. NOTE: 0 means this feature is disabled for backwards compatibility."
 	]
 
 @PointClass base(BaseBeam) 
@@ -12004,36 +12040,14 @@
 	[
 	]
 
-@PointClass base(BaseEntityAnimating) 
+@PointClass base(BaseEntityAnimating, BaseDynamicShadow) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= env_xen_healpool: "Xen Healing Pool"
+= env_xen_healpool: "This is a pool with healing liquid from Xen. This entity heals player when the player touches it. This entity is currently unfinished, it's more preferable to use trigger_hurt with model and some logic (just like with larger pools at some levels)."
 	[
 	model(studio) : "World model" : "models/props_Xen/xen_healingpool_full.mdl"
-	healrate(float) : "Healing Rate" : 5
-	disableshadows(choices) : "Disable Shadows" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	]
-
-@PointClass base(BaseEntityAnimating) 
-	sphere(fademindist)
-	sphere(fademaxdist)
-	studioprop()
-= env_xen_healshower: "Xen Healing Shower"
-	[
-	model(studio) : "World model" : "models/props_xen/interloper/healing_shower.mdl"
-	healrate(float) : "Healing Rate" : 5
-	disableshadows(choices) : "Disable Shadows" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
+	healrate(float) : "Healing Rate" : 5 : "The heal rate. This property can be changed via Addoutput."
 	]
 
 @PointClass base(BaseEntityAnimating, BaseDynamicShadow) 
@@ -12042,7 +12056,7 @@
 	sphere(height)
 	studio("models/xenians/jump_pad.mdl")
 	line(255 255 255, targetname, target)
-= env_xen_pushpad
+= env_xen_pushpad: " This is Xen Trampoline, the Xen flora that propelling anything who steps onto it into the air. The game uses it as a jump pad that allows the player to jump high. Works with player and physics objects."
 	[
 	nextjumpdelta(float) : "Next Jump Delay" : "0.5" : "Push pad trigger delay. Don't use 0, it may will break jump pad."
 	target(target_destination) : "Jump Target Name" : "" : "The target we will jump towards. Overrides max jump height. Forces it to push along a certain trajectory."
@@ -13182,17 +13196,25 @@
 	output OnReachedPosition(void) : "Fired whenever the button reaches a goal position: i.e. when it becomes open, becomes closed, or reaches the point specified by a 'SetPosition' input."
 	]
 
-@SolidClass base(TriggerOnce) 
+@SolidClass base(BaseEntityBrush) 
 	line(255 255 255, targetname, filtername)
 	sphere(diststart)
 	sphere(distend)
 = newxog_volume: "This is volumetric xog (Xen Fog) brush entity that creates a fog transition, making spaces appear deeper than they are."
 	[
+	colortop(color255) : "Color Top" : "255 0 0 255" : "Xog top color. This is the main color of xog that uses if 'Enable Height Blend' keyvalue is disabled."
+	colorbottom(color255) : "Color Bottom" : "0 255 0 255" : "Xog bottom color. Requires enabled 'Enable Height Blend' keyvalue to be working."
+	diststart(float) : "Start Fog Distance" : 50 : "Xog start draw distance."
+	distend(float) : "End Fog Distance" : 2000 : "Xog end draw distance."
+	distdensity(float) : "Density Fog Distance" : "1.0" : "Density of xog entity, only values from 0 to 1 works."
+
 	enabled(choices) : "Enabled ?" : 1 : "Is this entity turned off on spawn ?" =
 		[
 		0: "No"
 		1: "Yes"
 		]
+	
+	linedivider_newxogvolume1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 
 	xogtype(choices) : "Shape Type" : 0 : "Determines shape type that use xog volume, BBOX or Ellipsoid." =
 		[
@@ -13200,37 +13222,27 @@
 		1: "Ellipsoid"
 		]
 
-	colormode(choices) : "Color Mode" : 0 : "0:StaticColor 1:1DGradTexture  2: CubeGradTexture" =
-		[
-		0: "StaticColor"
-		1: "1DGradTexture"
-		2: "CubeGradTexture"
-		]
-
-	texname(material) : "Grad Texture" : : "Texture name Grad Texture"
-	colortop(color255) : "Color Top" : "255 0 0 255" : "Xog top color. This is the main color of xog that uses if 'Enable Height Blend' keyvalue is disabled."
-	colorbottom(color255) : "Color Bottom" : "0 255 0 255" : "Xog bottom color. Requires enabled 'Enable Height Blend' keyvalue to be working."
-	diststart(float) : "Start Fog Distance" : 50 : "Xog start draw distance."
-	distend(float) : "End Fog Distance" : 2000 : "Xog end draw distance."
-	distdensity(float) : "Density Fog Distance" : "1.0" : "Density of xog entity, only values from 0 to 1 works."
-	opacityoffsettop(float) : "Opacity Offset Top" : 0 : "Offsets top color of xog."
-	opacityoffsetbottom(float) : "Opacity Offset Bottom" : 0 : "Offsets bottom color of xog."
-	htzstart(float) : "Height Start" : 0 : "Height that xog starts rendering at."
-	htzend(float) : "Height End" : 400 : "Height that xog stops rendering at."
-	htzcolstart(float) : "Height Color Start" : 0 : "Height that xog color starts rendering at. Results depend on 'Height Color End' value."
-	htzcolend(float) : "Height Color End" : 400 : "Height that xog color stops rendering at. Results depend on 'Height Color Start' value."
-	noise1scrollspeed(vector) : "Noise 1 Scroll Speed" : "0.01095 0.00855 -0.02265 0.0" : "Layer one, speed at which noise moves trough xog volume (X Y Z)."
-	noise1tiling(vector) : "Noise 1 Tiling" : "1.32 1.32 1.32 0.0" : "Layer one, tiling speed at which noise moves trough xog volume (X Y Z)."
-	noise2scrollspeed(vector) : "Noise 2 Scroll Speed" : "0.00525 0.00495 -0.0075 0.0" : "Layer two, speed at which noise moves trough xog volume (X Y Z)."
-	noise2tiling(vector) : "Noise 2 Tiling" : "0.96 0.96 0.96 0.0" : "Layer two, tiling speed at which noise moves trough xog volume (X Y Z)."
-	noisecontrast(float) : "Noise Contrast" : "1.0" : "Contrast of xog."
-	noisemultiplier(float) : "Noise Multiplier" : "1.0" : "Multiplier of xog."
-	enablevol_height(choices) : "Enable Height Blend" : 0 : "Enable or disable heightbased xog ?" =
+	enablevol_height(choices) : "Enable Height Blend ?" : 0 : "Enable or disable heightbased xog ?" =
 		[
 		0: "No"
 		1: "Yes"
 		]
-
+	
+	htzstart(float) : "Height Start" : 0 : "Height that xog starts rendering at."
+	htzend(float) : "Height End" : 400 : "Height that xog stops rendering at."
+	htzcolstart(float) : "Height Color Start" : 0 : "Height that xog color starts rendering at. Results depend on 'Height Color End' value."
+	htzcolend(float) : "Height Color End" : 400 : "Height that xog color stops rendering at. Results depend on 'Height Color Start' value."
+	linedivider_newxogvolume4(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	opacityoffsettop(float) : "Opacity Offset Top" : 0 : "Offsets top color of xog."
+	opacityoffsetbottom(float) : "Opacity Offset Bottom" : 0 : "Offsets bottom color of xog."
+	linedivider_newxogvolume5(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	noise1scrollspeed(vector) : "Noise 1 Scroll Speed" : "0.01095 0.00855 -0.02265 0.0" : "Layer one, speed at which noise moves trough xog volume (X Y Z)."
+	noise1tiling(vector) : "Noise 1 Tiling" : "1.32 1.32 1.32 0.0" : "Layer one, tiling speed at which noise moves trough xog volume (X Y Z)."
+	noise2scrollspeed(vector) : "Noise 2 Scroll Speed" : "0.00525 0.00495 -0.0075 0.0" : "Layer two, speed at which noise moves trough xog volume (X Y Z)."
+	noise2tiling(vector) : "Noise 2 Tiling" : "0.96 0.96 0.96 0.0" : "Layer two, tiling speed at which noise moves trough xog volume (X Y Z)."
+	linedivider_newxogvolume6(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	noisecontrast(float) : "Noise Contrast" : "1.0" : "Contrast of xog."
+	noisemultiplier(float) : "Noise Multiplier" : "1.0" : "Multiplier of xog."
 
 	// Inputs
 	input TurnOn(void) : "Turn the xog on."
@@ -16644,7 +16656,7 @@
 	studio("models/vortigaunt_slave.mdl")
 	sphere(RangeOuter)
 	sphere(RangeInner)
-= npc_alien_slave: "Vortigaunt."
+= npc_alien_slave: "Alternate name for npc_xortEB."
 	[
 	passive(choices) : "Is Initially Passive" : 0 =
 		[
@@ -16657,6 +16669,63 @@
 		0: "No"
 		1: "Yes"
 		]
+
+	xortstate(choices) : "Xort Internal State" : 1 =
+		[
+		0: "Neutral"
+		1: "Evil"
+		2: "Evil & Possessed"
+		]
+
+	m_nfearlevel(choices) : "FearLevels" : 0 =
+		[
+		-2: "Brave To THE MAX"
+		-1: "Brave Level 1"
+		0: "Normal"
+		1: "Afraid Level 1"
+		2: "Afraid To THE MAX"
+		]
+
+	m_ndamagecalleveryone(integer) : "Damage Call All Xorts In Radius Enabled" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
+	m_fdamagecallradius(float) : "Damage Call Radius" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
+	m_nalertcalleveryone(integer) : "Alert Call Everyone" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
+	m_falertcallradius(float) : "Alert Call Radius" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
+	fearnodesgroupname(string) : "FearNodesGroupName" : : "Node Group name to be used while searching for fear nodes"
+	healnodesgroupname(string) : "HealNodesGroupName" : : "Node Group name to be used while searching for heal nodes"
+	bplayteleportanimonspawn(choices) : "Play Teleport Anim On Spawn" : 0 =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	bdisablespells(choices) : "bDisableSpells" : 0 =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	canusehealingnodes(choices) : "CanUseHealingNodes" : 0 =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	canusefearnodes(choices) : "CanUseFearNodes" : 0 =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+
+	// Inputs
+	input XortEnableHealing(void) : "Enable Healing"
+	input XortDisableHealing(void) : "Disable healing"
+	input XortChangeState(integer) : "Change xort State 1: Neutral 2: Evil 3: Evil_Possessed"
+	input StartScriptedFearSchedule(void) : "Activated scripted Fear behaviour. They will try to run to fear nodes. If that fails they will just try to run away or run to cover."
+	input InputAddFearPoints(integer) : "Add/Subtract Fear Points to change fear level"
+
+	// Outputs
+	output OnKilledByPlayer(void) : "OnKilledByPlayer"
 
 	]
 
@@ -17179,71 +17248,15 @@
 	output OnScriptedMindControlFailure(void) : "Mind control wave were terminated, most likely after taking heavy damage"
 	]
 
-@NpcClass base(BaseNPC) 
+@NpcClass base(npc_alien_slave) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	line(255 0 0, targetname, enemyfilter)
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/vortigaunt_slave.mdl")
-= npc_xortEB: "Xortigaunt (xen vortigaunt) earthbound."
+= npc_xortEB: "Vortigaunt from earthbound levels."
 	[
-	xortstate(choices) : "Xort Internal State" : 1 =
-		[
-		0: "Neutral"
-		1: "Evil"
-		2: "Evil & Possessed"
-		]
-
-	m_nfearlevel(choices) : "FearLevels" : 0 =
-		[
-		-2: "Brave To THE MAX"
-		-1: "Brave Level 1"
-		0: "Normal"
-		1: "Afraid Level 1"
-		2: "Afraid To THE MAX"
-		]
-
-	m_ndamagecalleveryone(integer) : "Damage Call All Xorts In Radius Enabled" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
-	m_fdamagecallradius(float) : "Damage Call Radius" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
-	m_nalertcalleveryone(integer) : "Alert Call Everyone" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
-	m_falertcallradius(float) : "Alert Call Radius" : -1 : "-1 - Convar value. 0 - Disabled. 1 - Enabled."
-	fearnodesgroupname(string) : "FearNodesGroupName" : : "Node Group name to be used while searching for fear nodes"
-	healnodesgroupname(string) : "HealNodesGroupName" : : "Node Group name to be used while searching for heal nodes"
-	bplayteleportanimonspawn(choices) : "Play Teleport Anim On Spawn" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	bdisablespells(choices) : "bDisableSpells" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	canusehealingnodes(choices) : "CanUseHealingNodes" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	canusefearnodes(choices) : "CanUseFearNodes" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-
-	// Inputs
-	input XortEnableHealing(void) : "Enable Healing"
-	input XortDisableHealing(void) : "Disable healing"
-	input XortChangeState(integer) : "Change xort State 1: Neutral 2: Evil 3: Evil_Possessed"
-	input StartScriptedFearSchedule(void) : "Activated scripted Fear behaviour. They will try to run to fear nodes. If that fails they will just try to run away or run to cover."
-	input InputAddFearPoints(integer) : "Add/Subtract Fear Points to change fear level"
-
-	// Outputs
-	output OnKilledByPlayer(void) : "OnKilledByPlayer"
 	]
 
 @PointClass base(prop_physics) 
@@ -17838,7 +17851,7 @@
 	color(0 200 200)
 	line(255 255 255, targetname, target)
 	studio("models/vortigaunt_slave.mdl")
-= npc_vortigaunt: "Vortigaunt, copy of npc_alien_slave."
+= npc_vortigaunt: "Alternate name for npc_xortEB."
 	[
 	]
 
