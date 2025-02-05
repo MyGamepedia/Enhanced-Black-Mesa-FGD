@@ -1654,56 +1654,6 @@
 	input Throttle(float) : "Throttle +/-1"
 	]
 
-@BaseClass = CombineScanner
-	[
-	spawnflags(flags)  =
-		[
-		65536: "[65536] No Dynamic Light" : 0
-		131072: "[131072] Strider Scout Scanner" : 0
-		]
-
-	spotlightlength(integer) : "Spotlight Length" : 500
-	spotlightwidth(integer) : "Spotlight Width" : 50
-	spotlightdisabled(choices) : "Disable Spotlight" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	shouldinspect(choices) : "Should inspect" : 1 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	onlyinspectplayers(choices) : "Only Inspect Players" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	neverinspectplayers(choices) : "Never Inspect Players" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-
-	// Inputs
-	input DisableSpotlight(void) : "Disable the spotlight."
-	input InspectTargetPhoto(target_destination) : "Tells the scanner to photograph the given entity, named by classname or by target name. !activator or !player works here also."
-	input InspectTargetSpotlight(target_destination) : "Tells the scanner to spotlight the given entity, named by classname or by target name. !activator or !player works here also."
-	input InputSetFlightSpeed(integer) : "Sets the flight speed of the scanner"
-	input InputShouldInspect(integer) : "Set whether should inspect or not"
-	input SetFollowTarget(target_destination) : "Set target to follow until told otherwise"
-	input ClearFollowTarget(void) : "Stop following our target"
-	input SetDistanceOverride(float) : "Override the distance the scanner will attempt to keep between inspection targets and itself"
-
-	// Outputs
-	output OnPhotographPlayer(void) : "Fired any time the scanner takes a picture of the player."
-	output OnPhotographNPC(void) : "Fired any time the scanner takes a picture of an NPC."
-	]
-
 @BaseClass = ControlEnables: "A pair of keyvalues for specifying if a comp_ entity is enabled."
 	[
 	ctrl_type(choices) : "Control Type" : 0 : "Controls how the Control Value is interpreted" =
@@ -4134,6 +4084,282 @@
 	input Disable(void) : "Disable"
 	input Toggle(void) : "Toggle"
 	]
+	
+@BaseClass = BmGodraysNormal
+	[
+	linedivider_BmGodraysNormal0(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	
+	enablegodrays(choices) : "Enable GodRays ?" : 0 : "Sets godrays state on spawn, enabled or disabled." =
+		[
+		0: "Disabled"
+		1: "Enabled"
+		]
+		
+	linedivider_BmGodraysNormal1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	colorinner(color255) : "Color Inner" : "128 200 255 255" : "The RGB color and brightness of the inner circle. Colors and brightness must be between 0 and 255."
+	colorouter(color255) : "Color Outer" : "255 255 164 255" : "The RGB color and brightness of the outer circle. Colors and brightness must be between 0 and 255."
+	colorrays(color255) : "Color Rays" : "200 200 255 255" : "The RGB color and brightness of the rays. Colors and brightness must be between 0 and 255."
+	linedivider_BmGodraysNormal2(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	density(float) : "Density" : "1.0" : "Density controls the length of rays/volumetric shadows. 1.0 should work in 99% cases. Good values are 0.5-1.5."
+	weight(float) : "Weight" : "1.0" : "Weight controls the intensity of volumetric shadow. Blocking of rays by geometry. Good values are 0.1-10."
+	exposure(float) : "Exposure" : "2.5" : "Exposure controls the intensity of rays during blending pass with main scene. 2.0 is a good start. Good values are 1.0-10.0."
+	distfactor(float) : "Dist Factor" : "1.0" : "DistFactor controls the falloff of rays/length. 1.0 is a good starting value increase or decrease in the increments of 0.1. 0.0 will make the rays dissappear only disk will be rendererd."
+	linedivider_BmGodraysNormal3(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	diskradius(float) : "Disk Radius" : "0.02" : "Radius of disk/circle of sun/point light in texturespace. 1.0 will be full screen, 0.5 is half screen, etc. 0 means don't render."
+	diskinnersizepercent(float) : "Disk Inner Size Percent" : "0.75" : "Disk inner circle radius is DiskRadius * DiskInnerSizePercent. 0 means don't render."
+	linedivider_BmGodraysNormal4(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	]
+
+@BaseClass = BmGodraysDirectional
+	[
+	lightenvenabled(choices) : "Use Light_Environment Angles ?" : 1 : "Determines is the entity uses light_environment's direction or its own (just like env_sun)." =
+		[
+		0: "Use Manual Angles"
+		1: "Use Light_Environment Angles"
+		]
+
+	pushbackdist(float) : "Pushback Distance" : 9999999 : "Pushback distance is distance from godrays to player in skybox. Decreasing the value will cause parallax effect."
+	]
+	
+@BaseClass = BmGodraysFancy
+	[
+	godraystype(choices) : "Godrays Type" : 0 : "Sets godrays type, normal or fancy." =
+		[
+		0: "Normal"
+		1: "Fancy"
+		]
+	m_benableworldspace(choices) : "Render In World Space" : 1 : "Disables disks if this enabled" =
+		[
+		0: "Disabled"
+		1: "Enabled"
+		]	
+	linedivider_BmGodraysFancy1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	ell_fr_consta(float) : "Fancy Rays Disk Size" : "0.9" : "This is fancy godrays disk size."
+	ell_fr_constb(float) : "Fancy Rays Disk Distortion" : "0.1" : "This is fancy godrays disk distortion."
+	ell_sr_consta(float) : "Fancy Rays Disk Hole Size" : "0.9" : "This is fancy godrays disk hole size."
+	ell_sr_constb(float) : "Fancy Rays Disk Hole Distortion" : "0.1" : "This is fancy godrays disk hole distortion."
+	ell_rrf_consta(float) : "Fancy Rays Inner Size" : "0.9" : "This is fancy godrays inner size."
+	ell_rrf_constb(float) : "Fancy Rays Disk Inner Distortion" : "0.1" : "This is fancy godrays inner distortion."
+	linedivider_BmGodraysFancy2(string) readonly : "----------------------------------------------------------------------------------------------------------"		
+	rotspeed(float) : "Rotating Speed" : "3.14" : "Rotating speed of fancy godrays, 0 means don't rotate, with negative number it will rotate to left."
+	rotpatternfreq(float) : "Rotating Pattern Freq" : "10.0" : "Count of fancy godrays, with negative number will deny RotSpeed +/- effect."
+	linedivider_BmGodraysFancy3(string) readonly : "----------------------------------------------------------------------------------------------------------"		
+	]
+
+@BaseClass = BmNewLightBase
+	[
+	lightcolor(color255) : "Light Color" : "255 255 255 1" : "The RGB color of the light. Colors must be between 0 and 255."
+	intensity(float) : "Light Intensity" : 8000 : "Intensity/brightness of the light. It's RGB * intensity."
+	range(float) : "Range" : 50 : "Range of the light, or how far the light source can illuminate. Measured in Hammer Units."
+	linedivider_BmNewLightBase0(string) readonly : "----------------------------------------------------------------------------------------------------------"		
+	]
+	
+@BaseClass base(BmNewLightBase) = BmNewLightBaseMain
+	[
+	enabled(choices) : "Enabled" : 1 : "Sets light state on spawn, enabled or disabled." =
+		[
+		0: "Disabled"
+		1: "Enabled"
+		]
+		
+	style(choices) : "Appearance" : 0 : "Appearance presets." =
+		[
+		0: "Normal"
+		1: "Flicker A"
+		2: "Slow, strong pulse"
+		3: "Candle A"
+		4: "Fast strobe"
+		5: "Gentle pulse"
+		6: "Flicker B"
+		7: "Candle B"
+		8: "Candle C"
+		9: "Slow strobe"
+		10: "Fluorescent flicker"
+		11: "Slow pulse, noblack"
+		12: "Underwater light mutation"
+		]
+
+	lightcolorambient(color255) : "Light Ambient Color" : "0 0 0 0" : "The RGB color of the shadows. Colors must be between 0 and 255."
+	specmultiplier(float) : "Specular Intensity" : 1 : "Specular multiplier. Sets intensity of new specular shader from this light source. It's RGB * Intensity * SpecularMultiplier."
+	linedivider_BmNewLightBaseMain0(string) readonly : "----------------------------------------------------------------------------------------------------------"		
+	]
+	
+@BaseClass base(BmNewLightBaseMain) = BmNewLightsSettings
+	[
+	phi(float) : "Outer Angle" : 60 : "Outer angle for spot light."
+	theta(float) : "Inner Angle" : 30 : "Inner angle value for spot light."
+	angularfalloff(float) : "Angular Falloff" : 2 : "Angular falloff value. Results depend on values of Outer Angle and Inner Angle."
+	linedivider_BmNewLightsSettings0(string) readonly : "----------------------------------------------------------------------------------------------------------"		
+	]
+
+@BaseClass = BmNewLightShadowPasses
+	[
+	m_bsro_brush(choices) : "Enable Brushes In Shadows ?" : 1 : "Do we want to render world geometry in shadow passes for this light ? Doesn't affect bmodels." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	m_bsro_staticprop(choices) : "Enable Static Props In Shadows ?" : 1 : "DDo we want to render prop_static in shadow passes for this light ? This also disable bmodels." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	m_bsro_dynprops(choices) : "Enable Dynamic Props In Shadows ?" : 1 : "Do we want to render dynamic models in shadow passes for this light ?" =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	m_bsro_trans(choices) : "Enable Alpha Test Objects in Shadows ?" : 1 : "Do we want to render models with transparency materials in shadow passes for this light ? Objects with transparency can cast shadows if your model includes a material without transparency." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+		
+	]
+	
+@BaseClass = BmNewLightShadowFace
+	[
+	
+	shadowfacex(choices) : "Shadows (+X)" : 1 : "Sets shadow state (enabled or disabled) for +X face." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	shadowfacex_minus(choices) : "Shadows (-X)" : 1 : "Sets shadow state (enabled or disabled) for -Y face." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	shadowfacey(choices) : "Shadows (+Y)" : 1 : "Sets shadow state (enabled or disabled) for +Y face." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	shadowfacey_minus(choices) : "Shadows (-Y)" : 1 : "Sets shadow state (enabled or disabled) for -Y face." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	shadowfacez(choices) : "Shadows (+Z)" : 1 : "Sets shadow state (enabled or disabled) for +Z face." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	shadowfacez_minus(choices) : "Shadows (-Z)" : 1 : "Sets shadow state (enabled or disabled) for -Z face." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+		
+	linedivider_BmNewLightShadowFace0(string) readonly : "----------------------------------------------------------------------------------------------------------"			
+	]
+	
+@BaseClass = BmNewLightShadowBias
+	[
+	depthbias(float) : "DepthBias" : "0.0002" : "DepthBias is offset added to depth values in shadowmaps."
+	slopedepthbias(float) : "SlopeDepthBias" : "0.2" : "Slope Depth Bias used for surfaces having aliasing due to steep angles with light."
+	normalbias(float) : "NormalBias" : "1.0" : " While rendering objects into shadowmaps, each vertex will be moved along -ve Normal direction, giving it an appearance of shrinking while rendering to shadowmaps. This property determines the amount of Units to be moved. Helps with shadow aliasing."
+	linedivider_BmNewLightShadowBias0(string) readonly : "----------------------------------------------------------------------------------------------------------"			
+	]
+
+@BaseClass = BmNewLightShadowMain
+	[
+	lighttype(choices) : "Light Type" : 0 : "Type of the light. This affects the behavior of the light source with parent, enable/disable dynamic models in shadowmaps, enable/disable static shadowmaps. Static - used only static shadowmaps, this means that shadows are cast only by static objects (prop_static, geometry, etc). Cannot move with parent. Stationary - the same as Static, but with dynamic shadows for dynamic models. Dynamic - lighting don't use static shadowmaps at all. It uses dynamic shadows for static objects and dynamic models. This type also can move with parent. This type is expensive, usually used for moving lights, but also can be used if you're getting issues due to static shadowmaps." =
+		[
+		0: "Static"
+		1: "Stationary"
+		2: "Dynamic"
+		]
+		
+	hasshadow(choices) : "Has Shadows ?" : 0 : "Sets shadows state for the light, enabled or disabled. Remember that default choices is No." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	shadowlod(choices) : "ShadowMap LOD" : 0 : "Resolution of shadowmap used by this light. This affects the quality of the shadows." =
+		[
+		0: "256"
+		1: "512"
+		2: "1024"
+		]
+	
+	shadowradius(float) : "ShadowRadius" : "-1.0" : "Radius of shadow edges for soft shadows. If its value is negative, code will auto assign a value depending on ShadowLod. These code based values can be adjusted via convars nr_shadow_rad_High, nr_shadow_rad_Med and nr_shadow_rad_Low."
+	nearz(float) : "NearZ" : 2 : "NearZ used by shadowmap camera for this light. This is the distance at which the light source will start cast shadows."
+	linedivider_BmNewLightShadowMain0(string) readonly : "----------------------------------------------------------------------------------------------------------"				
+	]
+	
+@BaseClass = BmNewLightShadowFOV
+	[
+	ShadowFOV (float) : "Shadow FOV " : "0" : "Fov used by shadowmap camera for this light. Keep it 0 to use Outer angle as the fov."
+	]
+	
+@BaseClass = BmNewLightGodraysMode
+	[
+	lightngodraymode(choices) : "Light And GodRays Mode" : 0 : "Sets state for light and godrays." =
+		[
+		0: "Light Only"
+		1: "Godrays Only"
+		2: "Light and Godrays"
+		]
+	]	
+
+@BaseClass = BmNewLightToneMapDisk
+	[
+		m_busetonemapdisk(choices) : "Use ToneMap Disk" : 1 =
+		[
+		0: "No"
+		1: "Yes"
+		]
+	]
+	
+	
+@BaseClass = BmNewLightCookieMain
+	[
+	btexlight(choices) : "Enable Texture Light" : 0 : "Sets lightcookie (texture lights) state, enabled or disabled. For NewLight_Point, you need static cubemap texture. For NewLight_Spot, you can use any texture with No Mipmap and No Level Of Detail flags." =
+		[
+		0: "Disabled"
+		1: "Enabled"
+		]
+
+	texname(material) : "Texture name" : : "Determines which texture will use the light source. Lightcookies are using .vtf (not .vmt) texture from files (just like env_projectedtexture)."
+		
+	linedivider_BmNewLightCookieMain0(string) readonly : "----------------------------------------------------------------------------------------------------------"				
+	]
+	
+@BaseClass base(BmNewLightCookieMain) = BmNewLightCookieSpot
+	[
+	texcookieframesx(integer) : "Texture Cookie Frames X" : 1 : "Number of frames in 1 row of atlas."
+	texcookieframesy(integer) : "Texture Cookie Frames Y" : 1 : "Number of frames in 1 column of atlas. Also sets scale for texture, with 2 and higher it allows TexCookieFps to animate texture."
+	texcookiefps(float) : "Texture Cookie FPS" : 0 : "Frame rate for animation. This entity divides texture into several parts (their count is indicated in TexCookieFramesY) and changes them in a specific sequence."
+	linedivider_BmNewLightCookieMainSpot0(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	btexcookiescrollmode(choices) : "Texture Cookie Scroll Mode" : 0 : "Sets texture scrolling function state, enabled or disabled. ScrollSpeedU and ScrollSpeedV sets scrolling speed and direction." =
+		[
+		0: "Disabled"
+		1: "Enabled"
+		]
+
+	fscrollspeedu(float) : "Scroll Speed U" : 0 : "Scrolling speed along Y axis."
+	fscrollspeedv(float) : "Scroll Speed V" : 0 : "Scrolling speed along X axis."			
+	linedivider_BmNewLightCookieMainSpot1(string) readonly : "----------------------------------------------------------------------------------------------------------"				
+	]
+
+@BaseClass = BmNewLightReverseDir	
+	[
+	ReverseDir(choices) : "Reverse Direction" : 0 : "By default, the Y angle for a spot light is inverted, which causes the light to point upward when pointed downwards. This option allows you to fix this problem." =
+		[
+		0: "No"
+		1: "Yes"
+		]	
+	]
 
 @BaseClass base(BaseEntityBrush) = TriggerOnce
 	[
@@ -5664,8 +5890,9 @@
 	iconsprite("editor/env_global.vmt")
 = env_global: "An entity to control a game-specific global states."
 	[
-	globalstate(choices) : "Global State to Set" : "Predisaster - makes scientist and guard NPCs use pre-disaster speech (greetings, idles, busy responses)." =
+	globalstate(choices) : "Global State to Set" : "None" : "None - for nothing. Predisaster - makes scientist and guard NPCs use pre-disaster speech (greetings, idles, busy responses)." =
 		[
+		"none" : "None"
 		"predisaster" : "Pre-Disaster"
 		]
 
@@ -9051,251 +9278,24 @@
 	input Next(void) : "Plays the next track when the BPM lines up."
 	]
 
-@PointClass base(BaseEntityPoint) 
+@PointClass base(BaseEntityPoint, BmGodraysDirectional, BmGodraysNormal) 
 	lightprop("models/editor/spot.mdl")
 	iconsprite("editor/light_new.vmt")
-= newLight_Dir: "Next generation directional light. Draw GodRays in sky, also include disk to imitate sun."
+= newLight_Dir: "It places a godrays and disk/circle as sun effect in the skybox where it does not parallax, giving the impression that it is nearly infinitely far away. The entity does not contribute any actual lighting (the lighting code is disabled); it is merely a visual representation of the Sun."
 	[
-	lightenvenabled(choices) : "Use Light_Environment Angles ?" : 1 : "Do we want to use light_environment angles or manual angles ?" =
-		[
-		0: "Use Manual Angles"
-		1: "Use Light_Environment Angles"
-		]
-
-	pushbackdist(float) : "Pushback Distance" : 9999999 : "Determines distance from GodRays to player in skybox."
-
-	m_busetonemaprays(choices) : "Use ToneMap On Rays" : 1 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-		
-	enablegodrays(choices) : "Enable GodRays ?" : 0 : "Are GodRays enabled on spawn ?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-		
-	linedivider_newlightdir3(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	colorinner(color255) : "Color Inner" : "128 200 255 255" : "This is the color of the inner circle"
-	colorouter(color255) : "Color Outer" : "255 255 164 255" : "This is the color of the outer circle."
-	colorrays(color255) : "Color Rays" : "200 200 255 255" : "This is the color of the rays."
-	linedivider_newlightdir2(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	density(float) : "Density" : "1.0" : "Density Controls the length of rays/volumetric shadows. 1.0 should work in 99% cases. Good value range is 0.5 to 1.5"
-	weight(float) : "Weight" : "1.0" : "Weight Controls the intensity of volumetric shadow. Blocking of rays by geometry. good values 0.1 - 10.0"
-	decay(float) : "Decay" : "1.0" : "Decay NOT being used"
-	exposure(float) : "Exposure" : "2.5" : "Exposure Controls the intensity of Rays during blending pass with main scene. 2.0 is a good start. Good values are 1.0 - 10.0"
-	distfactor(float) : "Dist Factor" : "1.0" : "DistFactor Controls the falloff of rays / length. 1.0f is a good starting value increase or decrease in the increments of 0.1. 0.0 will make the rays dissappear only disk	will be rendererd."
-	linedivider_newlightdir1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	diskradius(float) : "Disk Radius" : "0.02" : "DiskRadius Radius of Disk/circle of sun in texturespace. 1.0 will be full screen 0.5 is half screen etc"
-	diskinnersizepercent(float) : "Disk Inner Size Percent" : "0.75" : "Used to control the thickness of circumference. Disk inner circle radius = DiskRadius * DiskInnerSizePercent"
-
+	
 	// Inputs
 	input TurnOnGodRays(void) : "Turn the Godrays on."
 	input TurnOffGodRays(void) : "Turn the Godrays off."
 	]
 
-@PointClass base(BaseEntityPoint) 
+@PointClass base(BaseEntityPoint, BmNewLightBaseMain, BmNewLightShadowMain, BmNewLightShadowFace, BmNewLightShadowBias, BmNewLightCookieMain, BmNewLightGodraysMode, BmGodraysNormal, BmGodraysFancy, BmNewLightShadowPasses) 
 	studio("models/editor/axis_helper_white.mdl")
 	iconsprite("editor/light_new.vmt")
 	sphere(range)
 	sphere(NearZ)
-= newLight_Point: "Next generation point light. One of deferred lighting entities, also support lightcookies and godrays."
+= newLight_Point: "It creates an invisible deferred light source that shines in all directions, includes godrays and lightcookies."
 	[
-	lightcolor(color255) : "Light Color" : "255 255 255 1" : "This is the color of the light."
-	lightcolorambient(color255) : "Light Ambient Color" : "0 0 0 0" : "This is the shadow color of the light."
-	intensity(float) : "Light Intensity" : 8000 : "Light intensity."
-	specmultiplier(float) : "Specular Intensity" : 1 : "The specular shader intensity."
-	range(float) : "Range" : 50 : "Range. How far the light source illuminates. Measured in Hammer Units."
-
-	style(choices) : "Appearance" : 0 =
-		[
-		0: "Normal"
-		10: "Fluorescent flicker"
-		2: "Slow, strong pulse"
-		11: "Slow pulse, noblack"
-		5: "Gentle pulse"
-		1: "Flicker A"
-		6: "Flicker B"
-		3: "Candle A"
-		7: "Candle B"
-		8: "Candle C"
-		4: "Fast strobe"
-		9: "Slow strobe"
-		]
-	
-	enabled(choices) : "Enabled ?" : 1 : "Is light enabled on spawn ?" =
-		[
-		0: "Disabled"
-		1: "Enabled"
-		]
-	
-	linedivider_newlightpoint1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-
-	lighttype(choices) : "Light Type" : 0 : "Static - shadows shadows are cast only by static objects (prop_static, geometry, etc.). Lighting does not update if it has parent (use if part scene has no large moving parts, or shadow accuracy is not important). Stationary - shadows are cast by static and dynamic objects (brushes shadows is still baked), lighting does not update if it has a parent. Dynamic - 2: Dynamic - shadows are cast by static and dynamic objects, lighting updates if it does have a parent. This light is quite expensive, and should only be used for moving light sources, and if your scene have moving geometry." =
-		[
-		0: "Static"
-		1: "Stationary"
-		2: "Dynamic"
-		]
-		
-	hasshadow(choices) : "Has Shadows ?" : 0 : "Do You want this light to have shadows ?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	shadowlod(choices) : "ShadowMap LOD" : 0 : "Determines quality of shadows. 1024 is very expensive, use it only in places where it's really needed, in most cases 512 is good alternative. 256 produces the blurriest shadows, but it is also the cheapest." =
-		[
-		0: "256"
-		1: "512"
-		2: "1024"
-		]
-	
-	shadowradius(float) : "ShadowRadius" : "-1.0" : "Radius of shadow edges for soft shadows. If its value is negetive code will auto assign a value depending on shadowlod. These code based values can be adjusted via convars nr_shadow_rad_High,nr_shadow_rad_Med and nr_shadow_rad_Low"
-	linedivider_newlightpoint2(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	shadowfacex(choices) : "Shadows (+X)" : 1 : "Shadow Enabled for this Face ?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	shadowfacex_minus(choices) : "Shadows (-X)" : 1 : "Shadow Enabled for this Face ?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	shadowfacey(choices) : "Shadows (+Y)" : 1 : "Shadow Enabled for this Face ?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	shadowfacey_minus(choices) : "Shadows (-Y)" : 1 : "Shadow Enabled for this Face ?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	shadowfacez(choices) : "Shadows (+Z)" : 1 : "Shadow Enabled for this Face ?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	shadowfacez_minus(choices) : "Shadows (-Z)" : 1 : "Shadow Enabled for this Face ?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	linedivider_newlightpoint3(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	nearz(float) : "NearZ" : 2 : "NearZ used by shadowmap camera for this light."
-	normalbias(float) : "NormalBias" : "1.0" : " While rendering objects into shadow maps each vertex will be moved along -ve Normal direction, giving it an appearance of shrinking while rendering to shadow maps. this property determines the amount of Units to be moved. Helps with shadow aliasing."
-	depthbias(float) : "DepthBias" : "0.0002" : "DepthBias - Offset added to depth values in shadowmaps."
-	slopedepthbias(float) : "SlopeDepthBias" : "0.2" : "Slope Depth Bias - For surfaces having aliasing due to steep angles with light."
-	linedivider_newlightpoint4(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	btexlight(choices) : "Use Texture Light ?" : 0 : "Do we want to use texture for this light ?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	texname(material) : "Texture name" : : "Texture to use for this light. .vtf texture and not .vmt."
-	bneglight(choices) : "Enable Prop Only Mode" : 0 : "Enable Prop Only Mode" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	linedivider_newlightpoint5(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	lightngodraymode(choices) : "Light And GodRays Mode" : 0 : "Light Only - light only, can't have GodRays. GodRays Only - GodRays only, can't have light. Light and GodRays - both, can have light and GodRays." =
-		[
-		0: "Light Only"
-		1: "Godrays Only"
-		2: "Light and GodRays"
-		]
-
-	enablegodrays(choices) : "Enable GodRays ?" : 0 : "Are GodRays enabled on spawn ?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-		
-	m_benableworldspace(choices) : "Render In World Space ?" : 1 : "Disables disks if this enabled." =
-		[
-		0: "No"
-		1: "Yes"
-		]
-	
-	m_busetonemaprays(choices) : "Use ToneMap Rays" : 1 =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	m_busetonemapdisk(choices) : "Use ToneMap Disk" : 1 =
-		[
-		0: "No"
-		1: "Yes"
-		]	
-
-	linedivider_newlightpoint8(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	colorinner(color255) : "Color Inner" : "128 200 255 255" : "This is the color of the inner circle"
-	colorrays(color255) : "Color Rays" : "200 200 255 255" : "This is the color of the rays."
-	density(float) : "Density" : "1.0" : "Density Controls the length of rays/volumetric shadows. 1.0 should work in 99% cases. Good value range is 0.5 to 1.5"
-	weight(float) : "Weight" : "1.0" : "Weight Controls the intensity of volumetric shadow. Blocking of rays by geometry. good values 0.1 - 10.0"
-	decay(float) : "Decay" : "1.0" : "Decay NOT being used"
-	exposure(float) : "Exposure" : "2.5" : "Exposure Controls the intensity of Rays during blending pass with main scene. 2.0 is a good start. Good values are 1.0 - 10.0"
-	distfactor(float) : "Dist Factor" : "1.0" : "DistFactor Controls the falloff of rays / length. 1.0f is a good starting value increase or decrease in the increments of 0.1. 0.0 will make the rays dissappear only disk will be rendererd."
-	linedivider_newlightpoint9(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	diskradius(float) : "Disk Radius" : "0.02" : "DiskRadius DiskRadius Radius of Disk/circle of sun in texturespace. 1.0 will be full screen 0.5 is half screen etc"
-	diskinnersizepercent(float) : "Disk Inner Size Percent" : "0.75" : "Disk inner circle radius = DiskRadius * DiskInnerSizePercent"
-	m_falphadiskinner(float) : "Alpha Disk Inner" : 1
-	m_falphadiskouter(float) : "Alpha Disk Outer" : 1	
-	linedivider_newlightpoint6(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	godraystype(choices) : "GodRays Type" : 0 : "What GodRays type to use ?" =
-		[
-		0: "Normal"
-		1: "Fancy"
-		]
-
-	colorouter(color255) : "Color Outer" : "255 255 164 1" : "Used only in Fancy Mode. This is the color of the outer circle."
-	ell_fr_consta(float) : "Fancy Rays Disk Disk Size" : "0.9" : "For fancy Godrays disk size."
-	ell_fr_constb(float) : "Fancy Rays Disk Disk Distortion" : "0.1" : "For fancy Godrays disk distortion."
-	ell_sr_consta(float) : "Fance Rays Disk Hole Size" : "0.9" : "For fancy Godrays disk hole size."
-	ell_sr_constb(float) : "Fance Rays Disk Hole Distortion" : "0.1" : "For fancy Godrays disk hole distortion."
-	ell_rrf_consta(float) : "Fance Rays Inner Size" : "0.9" : "For fancy Godrays inner size."
-	ell_rrf_constb(float) : "Fancy Rays Inner Distortion" : "0.1" : "For fancy Godrays inner distortion."
-	rotspeed(float) : "Rotating Speed" : "3.14" : "Rotating speed. For fancy Godrays only."
-	rotpatternfreq(float) : "Rotating Pattern Freq" : "10.0" : "Determines count of fancy rays in frame, with negative number will deny Rotating Speed +/- effect."
-	linedivider_newlightpoint7(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-
-	m_bsro_brush(choices) : "Enable Brushes In Shadows ?" : 1 : "Do we want to Render Brushes in shadow passes for this light?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	m_bsro_staticprop(choices) : "Enable Static Props In Shadows ?" : 1 : "Do we want to Render StaticProps in shadow passes for this light?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	m_bsro_dynprops(choices) : "Enable Dynamic Props In Shadows ?" : 1 : "Do we want to Render Dynamic Props in shadow passes for this light?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	m_bsro_trans(choices) : "Enable Alpha Test Objects in Shadows ?" : 1 : "Do we want to Render AlphaTested Objects in shadow passes for this light?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
 
 	// Inputs
 	input TurnOn(void) : "Turn the light on."
@@ -9307,134 +9307,14 @@
 	input SetColorLight(color255) : "Change color fo this light. Doesnt effect the godrays."
 	]
 
-@PointClass base(BaseEntityPoint, Angles) 
+@PointClass base(BaseEntityPoint, BmNewLightReverseDir, BmNewLightsSettings, BmNewLightShadowMain, BmNewLightShadowBias, BmNewLightCookieSpot, BmNewLightShadowPasses) 
 	lightprop("models/editor/spot.mdl")
 	iconsprite("editor/light_new.vmt")
 	sphere(range)
 	sphere(NearZ)
 	frustum(phi,NearZ,Range,LightColor,-1)
-= newLight_Spot: "Next generation spot light. One of deferred lighting entities, also support animated lightcookies."
+= newLight_Spot: "It is a cone-shaped, invisible deferred light source, includes lightcookies with animations for them. The animations is based on row and column atlases or scroll mode."
 	[
-	lightcolor(color255) : "Light Color" : "255 255 255 1" : "This is the color of the light."
-	lightcolorambient(color255) : "Light Ambient Color" : "0 0 0 0" : "This is the shadow color of the light."
-	intensity(float) : "Light Intensity" : 8000 : "Light intensity."
-	specmultiplier(float) : "Specular Intensity" : 1 : "The specular shader intensity."
-	range(float) : "Range" : 50 : "Range. How far the light source illuminates. Measured in Hammer Units."
-
-	style(choices) : "Appearance" : 0 =
-		[
-		0: "Normal"
-		10: "Fluorescent flicker"
-		2: "Slow, strong pulse"
-		11: "Slow pulse, noblack"
-		5: "Gentle pulse"
-		1: "Flicker A"
-		6: "Flicker B"
-		3: "Candle A"
-		7: "Candle B"
-		8: "Candle C"
-		4: "Fast strobe"
-		9: "Slow strobe"
-		]
-	
-	enabled(choices) : "Enabled ?" : 1 : "Is light enabled on spawn ?" =
-		[
-		0: "Disabled"
-		1: "Enabled"
-		]
-	
-	linedivider_newlightspot1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-
-	reversedir(choices) : "Reverse Direction ?" : 0 : "Reflects Y angle value and applies it. This additionally impacts performance, use it in extremely rare cases. For example if you want your NewLight_Spot to look up and not down, change value of Y angle from positive number to negative number." =
-		[
-		0: "No"
-		1: "Yes"
-		]
-		
-	phi(float) : "Outer Angle" : 60 : "Outer angle value for spot light."
-	theta(float) : "Inner Angle" : 30 : "Inner angle value for spot light."
-	angularfalloff(float) : "Angular Falloff" : 2 : "Angular falloff. Results depend on values of Outer Angle and Inner Angle."
-	linedivider_newlightspot2(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	lighttype(choices) : "Light Type" : 0 : "Static - shadows shadows are cast only by static objects (prop_static, geometry, etc.). Lighting does not update if it has parent (use if part scene has no large moving parts, or shadow accuracy is not important). Stationary - shadows are cast by static and dynamic objects (brushes shadows is still baked), lighting does not update if it has a parent. Dynamic - 2: Dynamic - shadows are cast by static and dynamic objects, lighting updates if it does have a parent. This light is quite expensive, and should only be used for moving light sources, and if your scene have moving geometry." =
-		[
-		0: "Static"
-		1: "Stationary"
-		2: "Dynamic"
-		]
-		
-	hasshadow(choices) : "Has Shadows ?" : 0 : "Do You want this light to have shadows ?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	shadowlod(choices) : "ShadowMap LOD" : 0 : "Determines quality of shadows. 1024 is very expensive, use it only in places where it's really needed, in most cases 512 is good alternative. 256 produces the blurriest shadows, but it is also the cheapest." =
-		[
-		0: "256"
-		1: "512"
-		2: "1024"
-		]
-	
-	shadowradius(float) : "ShadowRadius" : "-1.0" : "Radius of shadow edges for soft shadows. If its value is negetive code will auto assign a value depending on shadowlod. These code based values can be adjusted via convars nr_shadow_rad_High,nr_shadow_rad_Med and nr_shadow_rad_Low"
-	ShadowFOV (float) : "Shadow FOV " : "0" : "Fov used by shadowmap camera for this light. Keep it 0 to use Outer angle as the fov."
-	linedivider_newlightspot3(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	nearz(float) : "NearZ" : 2 : "NearZused by shadowmap camera for this light."
-	normalbias(float) : "NormalBias" : "1.0" : " While rendering objects into shadow maps each vertex will be moved along -ve Normal direction, giving it an appearance of shrinking while rendering to shadow maps. this property determines the amount of Units to be moved. Helps with shadow aliasing."
-	depthbias(float) : "DepthBias" : "0.0002" : "DepthBias - Offset added to depth values in shadowmaps."
-	slopedepthbias(float) : "SlopeDepthBias" : "0.2" : "Slope Depth Bias - For surfaces having aliasing due to steep angles with light."
-	linedivider_newlightspot4(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	btexlight(choices) : "Use Texture Light ?" : 0 : "Do we want to use texture for this light ?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	texname(material) : "Texture name" : : "Texture to use for this light. .vtf texture and not .vmt."
-
-	bneglight(choices) : "Enable Prop Only Mode" : 0 : "Enable Prop Only Mode" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	texcookieframesx(integer) : "Texture Cookie Frames X" : 1 : "Num of frames in 1 row of Atlas"
-	texcookieframesy(integer) : "Texture Cookie Frames Y" : 1 : "Sets scales for texture, with 2 and higher it allow Texture Cookie FPS to animate texture."
-	texcookiefps(float) : "Texture Cookie FPS" : 0 : "Determines frame rate for animation. For animation NewLight_Spot divides texture into several parts (their count is indicated in TexCookieFramesY) and changes them in a specific sequence."
-	linedivider_newlightspot7(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	btexcookiescrollmode(choices) : "Texture Cookie Scroll Mode" : 0 : "Enables texture scrolling function. Scroll Speed U and Scroll Speed V sets scrolling speed and direction." =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	fscrollspeedu(float) : "Scroll Speed U" : 0 : "Determines scrolling speed along Y axis."
-	fscrollspeedv(float) : "Scroll Speed V" : 0 : "Determines scrolling speed along X axis."		
-	linedivider_newlightspot6(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-
-	m_bsro_brush(choices) : "Enable Brushes In Shadows ?" : 1 : "Do we want to Render Brushes in shadow passes for this light?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	m_bsro_staticprop(choices) : "Enable Static Props In Shadows ?" : 1 : "Do we want to Render StaticProps in shadow passes for this light?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	m_bsro_dynprops(choices) : "Enable Dynamic Props In Shadows ?" : 1 : "Do we want to Render Dynamic Props in shadow passes for this light?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
-	m_bsro_trans(choices) : "Enable Alpha Test Objects in Shadows ?" : 1 : "Do we want to Render AlphaTested Objects in shadow passes for this light?" =
-		[
-		0: "No"
-		1: "Yes"
-		]
-
 
 	// Inputs
 	input TurnOn(void) : "Turn the light on."
@@ -9445,7 +9325,7 @@
 	input InputFixRotBugDueToTram(void) : "Input fix rotating bug due to tram."
 	]
 
-@PointClass base(BaseEntityPoint) = newLights_Spawner: "This entity creates client side new lights over a given area when it appears and also after loading save. Created new lights removes if this entity is removed from level. Initially created to test new lighting system"
+@PointClass base(BaseEntityPoint, BmNewLightBase) = newLights_Spawner: "This entity creates client side new lights over a given area when it appears and also after loading save. Created new lights removes if this entity is removed from level. Initially created to test new lighting system"
 	[
 	lighttype(choices) : "Light Type" : 0 : "What light type do we want to spawn ?"=
 		[
@@ -9453,8 +9333,8 @@
 		1: "Spot Light"
 		]
 
-	numlights(integer) : "Number of Lights" : 100 : "How many lights do we want to spawn ?"
-	numlightsinrow(integer) : "Number of Lights In Row" : 10 : "Determines number of new lights that will spawn in every row."
+	numlights(integer) : "Number of Lights" : 100 : "Amount of new lights that will be spawned."
+	numlightsinrow(integer) : "Number of Lights In Row" : 10 : "Amount of new lights that will spawn in each row."
 
 	randomcolor(choices) : "Random Color ?" : 1 : "If yes - new lights will use random colors. If no - new lights will use chosen color." =
 		[
@@ -9463,13 +9343,9 @@
 		]
 		
 	linedivider_newlightspawner1(string) readonly : "----------------------------------------------------------------------------------------------------------"	
-	lightcolor(color255) : "Light Color" : "255 255 255 1" : "This is the color of the light when random color is tunedOFF."
-	lightintensity(float) : "Light Intensity" : 4000 : "Light intensity."
-	lightrange(float) : "Range" : 250 : "Range. How far the light source illuminates. Measured in Hammer Units."
-	linedivider_newlightspawner2(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	rowspaceing(float) : "Row Spaceing" : 100 : "Row spaceing."
 	colspacing(float) : "Columns Spacing" : 100 : "Columns spacing."
-	linedivider_newlightspawner3(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	linedivider_newlightspawner2(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	spawndir_forward(vector) : "Spawn Direction Forward" : "1.0 0.0 0.0" : "Spawn Direction Forward."
 	spawndir_right(vector) : "Spawn Direction Right" : "0.0 1.0 0.0" : "Spawn Direction Right."
 	]
@@ -9530,27 +9406,27 @@
 	input InputApplySettings(void) : "Apply settings on fire."
 	]
 
-@PointClass base(BaseEntityPoint) = newlights_gbuffersettings: "An entity to control some of the Gbuffer Settings via Hammer. Broken, this entity does not work, as well as console commands that perform the same functions."
+@PointClass base(BaseEntityPoint) = newlights_gbuffersettings: "An entity to control some of the Gbuffer Settings via Hammer. You need nr_allow_hammer_nerfs 1 or 2 value, this entity doesn't work with 0 value."
 	[
-	enable4waysfastpath(choices) : "Enable 4Ways Fast Path ?" : 1 : "Enable Lightmapped_4WayBlend fast path ?" =
+	enable4waysfastpath(choices) : "Enable 4Ways Fast Path ?" : 1 : "Enable or disable Lightmapped_4WayBlend fast path. The same does r_4way_use_fast_normal cvar." =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	disablegbufferonsecondarycams(choices) : "Disable Gbuffer On Secondary Cams ?" : 0 : "Disable Gbuffer/NewLights/Fx for secondary cams like point cam, intro cam, water, reflection, refraction view." =
+	disablegbufferonsecondarycams(choices) : "Disable Gbuffer On Secondary Cameras ?" : 0 : "Disable or enable Gbuffer for secondary cameras like point camera, etc. The same does nr_gbuffer_for_secondary_cams_enabled cvar (needs save reload)." =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	disablegbufferonrefractions(choices) : "Disable Gbuffer On Refractions ?" : 0 : "Disable Gbuffer/NewLights/Fx for refraction view." =
+	disablegbufferonrefractions(choices) : "Disable Gbuffer On Refractions ?" : 0 : "Disable or enable Gbuffer for water refractions. The same does nr_gbuffer_for_refraction_enabled cvar." =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	disablegbufferonreflections(choices) : "Disable Gbuffer On Reflections ?" : 0 : "Disable Gbuffer/NewLights/Fx reflection view etc." =
+	disablegbufferonreflections(choices) : "Disable Gbuffer On Reflections ?" : 0 : "Disable or enable Gbuffer in planar (water) reflections. The same does nr_gbuffer_for_reflection_enabled cvar." =
 		[
 		0: "No"
 		1: "Yes"
@@ -9558,29 +9434,15 @@
 
 	]
 	
-@PointClass base(BaseEntityPoint) 
-= godrays_settings : "This entity uses to dynamically change godrays settings for point light."
+@PointClass base(BaseEntityPoint, BmGodraysNormal) 
+= godrays_settings : "This entity dynamically changes some godrays settings for newLight_Point if triggered by the input. It should also affect newLight_Dir entity, but due to the incorrectly specified class it does not work for this entity."
 [
-	TargetGodRays(target_destination) : "Target Point Light Entity" : "" : "Target light entity name that support GodRays (point only, directional and spot isn't supported)."
-	TransitionTime(integer) : "Transition Time" : 0 : "TransitionTime in secs ( 0 for instant ) to transition into new settings. Its a lerp operation A + (B-A)*TimeFactor"
-	
-	LightType(integer) readonly: "Light Type" : 1 : "Type of light source for which you want to apply settings, 1 - point light, 0 - direction/sun light. Don't change, direction/sun light will not work because of code mistake."
-	EnableGodRays(integer) : "Enable GodRays" : 1 : "Determines if the light rays turns on or turns off. 1 - turns on, 0 - turns off."
-	Density(float) : "Density" : "1.0" : "Density Controls the length of rays/volumetric shadows. 1.0 should work in 99% cases. Good value range is 0.5 to 1.5"	
-	Weight(float) : "Weight" : "1.0" : "Weight Controls the intensity of volumetric shadow. Blocking of rays by geometry. good values 0.1 - 10.0"	
-	Decay(float) : "Decay" : "1.0" : "Decay NOT being used"	
-	Exposure(float) : "Exposure" : "2.5" : "Exposure Controls the intensity of Rays during blending pass with main scene. 2.0 is a good start. Good values are 1.0 - 10.0"	
-	DistFactor(float) : "Dist Factor" : "1.0" : "DistFactor Controls the falloff of rays / length. 1.0f is a good starting value increase or decrease in the increments of 0.1. 0.0 will make the rays dissappear only disk will be rendererd."		
-	
-	DiskRadius(float) : "Disk Radius" : "0.02" : "DiskRadius"	
-	DiskInnerSizePercent(float) : "Disk Inner Size Percent" : "0.75" : "Disk inner circle radius = DiskRadius * DiskInnerSizePercent"	
-	
-	ColorInner(color255) : "Color Inner" : "128 200 255 1" : "This is the color of the inner circle"
-	ColorOuter(color255) : "Color Outer" : "255 255 164 1" : "This is the color of the outer circle."
-	ColorRays(color255) : "Color Rays" : "200 200 255 1" : "This is the color of the rays."
+	TargetGodRays(target_destination) : "Target Point Light Entity" : "" : "Here you enter name of new light entity (with godrays support) for which you want to apply changes. Works with multiple lights if they have the same name."
+	TransitionTime(integer) : "Transition Time" : 0 : "Transition time in seconds (0 for instant) to transition into new settings. Its a lerp operation A + (B-A) * TimeFactor."
+	LightType(integer) readonly : "Light Type" : 1 : "Type of light source for which you want to apply settings. Entity will not apply settings for newLight_Dir if selected Point Light and will not apply settings for point lights if selected Direction/Sun Light. Don't change this to Direction/Sun Light, will not work due to the incorrectly specified class in the code."
 	
 	// Inputs
-	input InputApplySettings(void) : "Apply settings on fire."
+	input InputApplySettings(void) : "Triggers the entity to apply the settings."
 ]
 
 @PointClass base(BaseEntityPoint) 
@@ -12880,11 +12742,12 @@
 
 	// Inputs
 	input Fill(float) : "Fills the charger with specified number if the charger is empty."
-	input Enable(void) : "Enable"
-	input Disable(void) : "Disable"
+	input Enable(void) : "Allows to use, sets skin 0, turns light on."
+	input Disable(void) : "Prevents to use, sets skin 1, turns light off."
 
 	// Outputs
-	output OnEmpty(void) : "Fires on empty use."
+	output OnUse(void) : "Fired when the player tries to +use the charger."
+	output OnEmpty(void) : "Fired when the charger is empty."
 	output OnTurnOff(void) : "Fires on disable."
 	output OnTurnOn(void) : "Fires on enable."
 	]
@@ -12912,11 +12775,12 @@
 
 	// Inputs
 	input Fill(float) : "Fills the charger with specified number if the charger is empty."
-	input Enable(void) : "Enable"
-	input Disable(void) : "Disable"
+	input Enable(void) : "Allows to use, sets skin 0, turns light on."
+	input Disable(void) : "Prevents to use, sets skin 1, turns light off."
 
 	// Outputs
-	output OnEmpty(void) : "Fires on empty use."
+	output OnUse(void) : "Fired when the player tries to +use the charger."
+	output OnEmpty(void) : "Fired when the charger is empty."
 	output OnTurnOff(void) : "Fires on disable."
 	output OnTurnOn(void) : "Fires on enable."
 	]
