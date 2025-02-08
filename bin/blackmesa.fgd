@@ -5545,13 +5545,6 @@
 	color(200 200 0)
 = env_embers: "An entity used to create a volume in which to spawn fire embers."
 	[
-	particletype(choices) : "Ember type" : 0 =
-		[
-		0: "Normal"
-		1: "Smooth Fade"
-		2: "Pulled"
-		]
-
 	density(integer) : "Density (particles per second)" : 50
 	lifetime(integer) : "Particle Lifetime (seconds)" : 4
 	speed(integer) : "Particle Speed (units per second)" : 32
@@ -5561,7 +5554,9 @@
 		1: "[1] Start On" : 0
 		2: "[2] Toggle" : 0
 		]
-
+		
+	// Inputs
+	input Color(color255) : "Changes the color that new sprites will spawn with."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -7268,7 +7263,7 @@
 	input Toggle(void) : "Toggle the active/inactive state of the occluder."
 	]
 
-@SolidClass base(BaseEntity) = func_precipitation: "A brush entity that creates rain and snow inside its volume."
+@SolidClass base(BaseEntity) = func_precipitation: "It is a brush entity that creates rain, snow, or ash inside its volume."
 	[
 	renderamt(integer) : "Density (0-100%)" : 5 : "This is the amount of particles that fall down from top side of brush. However distance from first particle to second depends on a brush volume size! This can be changed later with the 'Alpha' input."
 	rendercolor(color255) : "Color (R G B)" : "100 100 100" : "Color added to sprites which are rendered transparently (probably rain and snow particles)"
@@ -9285,8 +9280,8 @@
 	[
 	
 	// Inputs
-	input TurnOnGodRays(void) : "Turn the Godrays on."
-	input TurnOffGodRays(void) : "Turn the Godrays off."
+	input TurnOnGodRays(void) : "Turn the godrays on."
+	input TurnOffGodRays(void) : "Turn the godrays off."
 	]
 
 @PointClass base(BaseEntityPoint, BmNewLightBaseMain, BmNewLightShadowMain, BmNewLightShadowFace, BmNewLightShadowBias, BmNewLightCookieMain, BmNewLightGodraysMode, BmGodraysNormal, BmGodraysFancy, BmNewLightShadowPasses) 
@@ -9300,11 +9295,11 @@
 	// Inputs
 	input TurnOn(void) : "Turn the light on."
 	input TurnOff(void) : "Turn the light off."
-	input Toggle(void) : "Toggle the light on/off."
-	input TurnOnGodRays(void) : "Turn the Godrays on."
-	input TurnOffGodRays(void) : "Turn the Godrays off."
-	input SetIntensityForLight(float) : "Change intensity value for this light. Doesnt effect the godrays."
-	input SetColorLight(color255) : "Change color fo this light. Doesnt effect the godrays."
+	input Toggle(void) : "Toggle the light's current state."
+	input TurnOnGodRays(void) : "Turn the godrays on."
+	input TurnOffGodRays(void) : "Turn the godrays off."
+	input SetIntensityForLight(float) : "Change light's intensity value. Doesn't affect the godrays."
+	input SetColorLight(color255) : "Change light's color value. Doesn't affect the godrays."
 	]
 
 @PointClass base(BaseEntityPoint, BmNewLightReverseDir, BmNewLightsSettings, BmNewLightShadowMain, BmNewLightShadowBias, BmNewLightCookieSpot, BmNewLightShadowPasses) 
@@ -9319,13 +9314,13 @@
 	// Inputs
 	input TurnOn(void) : "Turn the light on."
 	input TurnOff(void) : "Turn the light off."
-	input Toggle(void) : "Toggle the light on/off."
-	input SetIntensityForLight(float) : "Change Light's intensity value. Doesnt effect the godrays"
-	input SetColorLight(color255) : "Change Light's Color value. Doesnt effect the godrays"
-	input InputFixRotBugDueToTram(void) : "Input fix rotating bug due to tram."
+	input Toggle(void) : "Toggle the light's current state."
+	input SetIntensityForLight(float) : "Change light's color value."
+	input SetColorLight(color255) : "Change light's intensity value."
+	input InputFixRotBugDueToTram(void) : "This is an unused input. Doesn't seem to do anything. Perhaps it initially should enable the direction reversing."
 	]
 
-@PointClass base(BaseEntityPoint, BmNewLightBase) = newLights_Spawner: "This entity creates client side new lights over a given area when it appears and also after loading save. Created new lights removes if this entity is removed from level. Initially created to test new lighting system"
+@PointClass base(BaseEntityPoint) = newLights_Spawner: "This entity creates client side new lights over a given area when it appears and also after loading save. Created new lights removes if this entity is removed from level. Initially created to test new lighting system"
 	[
 	lighttype(choices) : "Light Type" : 0 : "What light type do we want to spawn ?"=
 		[
@@ -9348,6 +9343,10 @@
 	linedivider_newlightspawner2(string) readonly : "----------------------------------------------------------------------------------------------------------"	
 	spawndir_forward(vector) : "Spawn Direction Forward" : "1.0 0.0 0.0" : "Spawn Direction Forward."
 	spawndir_right(vector) : "Spawn Direction Right" : "0.0 1.0 0.0" : "Spawn Direction Right."
+	linedivider_newlightspawner3(string) readonly : "----------------------------------------------------------------------------------------------------------"	
+	lightcolor(color255) : "Light Color" : "255 255 255 1" : "The RGB color of the light. Colors must be between 0 and 255."
+	lightintensity(float) : "Light Intensity" : 8000 : "Intensity/brightness of the light. It's RGB * intensity."
+	lightrange(float) : "Range" : 50 : "Range of the light, or how far the light source can illuminate. Measured in Hammer Units."
 	]
 
 @PointClass base(BaseEntityPoint)
@@ -9403,7 +9402,7 @@
 	angularfalloff(float) : "Angular Falloff" : 2 : "Angular falloff. Results depend on values of Outer Angle and Inner Angle."
 
 	// Inputs
-	input InputApplySettings(void) : "Apply settings on fire."
+	input InputApplySettings(void) : "Triggers the entity to apply the settings."
 	]
 
 @PointClass base(BaseEntityPoint) = newlights_gbuffersettings: "An entity to control some of the Gbuffer Settings via Hammer. You need nr_allow_hammer_nerfs 1 or 2 value, this entity doesn't work with 0 value."
@@ -9545,7 +9544,7 @@
 	noisemultiplier(float) : "Noise Multiplier" : "1.0" : "Multiplier of xog."
 
 	// Inputs
-	input InputApplySettings(void) : "Trigger to apply settings."
+	input InputApplySettings(void) : "Triggers the entity to apply the settings."
 	]
 
 
