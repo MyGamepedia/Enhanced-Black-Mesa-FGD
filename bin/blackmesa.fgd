@@ -2002,7 +2002,7 @@
 
 	sound(sound) : "Sound Name" : "XenPortal.Sound" : "Name of the GameSound entry for the sound to play. Also supports direct .wav filenames."
 	jump_distance(float) : "Leap Distance" : 0 : "Determines the max distance npc_houndeye can jump out of the portal. Also works with npc_houndeye_knockback and npc_houndeye_suicide."
-	jump_hmaxspeed(float) : "Leap Max Horizontal Speed" : 200 : "Determines the max horizontal speed npc_houndeye can jump out of the portal. Also works with {npc_houndeye_knockback and {npc_houndeye_suicide."
+	jump_hmaxspeed(float) : "Leap Max Horizontal Speed" : 200 : "Determines the max horizontal speed npc_houndeye can jump out of the portal. Also works with npc_houndeye_knockback and npc_houndeye_suicide."
 	min_delay(float) : "Minimum spawn delay" : 0
 	max_delay(float) : "Maximum spawn delay" : 0
 	spawnflags(flags)  =
@@ -4212,7 +4212,7 @@
 		1: "Yes"
 		]
 
-	m_bsro_trans(choices) : "Enable Alpha Test Objects in Shadows ?" : 1 : "Do we want to render models with transparency materials in shadow passes for this light ? Objects with transparency can cast shadows if your model includes a material without transparency." =
+	m_bsro_trans(choices) : "Enable Transparent Props in Shadows ?" : 1 : "Do we want to render models with transparency materials in shadow passes for this light ? Objects with transparency can cast shadows if your model includes a material without transparency." =
 		[
 		0: "No"
 		1: "Yes"
