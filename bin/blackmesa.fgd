@@ -176,6 +176,7 @@
 		"item_healthkit"
 		"item_healthvial"
 		"item_longjump"
+		"item_sodacan"
 		"item_suit"
 		"item_syringe"
 		"item_tow_missile"
@@ -11087,7 +11088,7 @@
 
 @BaseClass base(BaseEntityAnimating) = BaseMesaPickup
 	[
-	respawntime(float) : "Respawn Time" : 15 : "Time waited between respawns."
+	respawntime(float) : "Respawn Time" : 15 : "Time waited between respawns in multiplayer mode."
 	spawnflags(flags)  =
 		[
 		1: "[1] Start Asleep" : 0
@@ -11098,11 +11099,11 @@
 
 
 	// Inputs
-	input Enable(void) : "Enabled the pickup, also spawns it"
-	input Disable(void) : "Disable the pickup"
-	input AttachTo(string) : "AttachTo"
-	input Fall(void) : "Fall"
-	input Respawn(void) : "Spawn item in multiplayer game"
+	input Enable(void) : "Make this item visible and enable the ability to be picked up by players."
+	input Disable(void) : "Make this item invisible and disable the ability to be picked up by players."
+	input AttachTo(void) : "Attaches this entity to !activator, the entity becomes impossible to pick up. It becomes invisible in first person mode, but only in Steam versions of the game only."
+	input Fall(void) : "Doesn't seem to work."
+	input Respawn(void) : "Respawn this entity in multiplayer. Fired by this entity after the amount of time from Respawn Time property."
 
 	// Outputs
 	output OnPlayerPickup(void) : "Fires when the player picks up this object."
@@ -12703,7 +12704,7 @@
 = item_ammo_crate: "Ammo Crate"
 	[
 	model(studio) : "Model" : "models/items/ammocrate_rockets.mdl" : "Model to use for the ammo crate"
-	ammotype(choices) : "Ammo Type" : "grenade_rpg" =
+	ammotype(choices) : "Ammo Type" : "grenade_rpg" : "Decides which ammo will be inside the crate." =
 		[
 		"9mm": "9mm Rounds"
 		357: ".357 Rounds"
@@ -12718,7 +12719,7 @@
 		]
 
 	isdynamicmoving(integer) : "CanMove" : 0 : "CanMove"
-	ammocount(integer) : "Ammo Count" : 1 : "Ammo Count"
+	ammocount(integer) : "Ammo Count" : 1 : "Amount of specifed ammo to give."
 
 	// Outputs
 	output OnUsed(void) : "Fires when +used by the player."
@@ -13663,7 +13664,7 @@
 	mimicname(string) : "Character Manifest Mimic Name" : : "Choose a name or a classname from the character manifest to dress the ragdoll."
 	health(integer) : "Health" : 100 : "The amount of damage the ragdoll takes before gibbing."
 	angleoverride(string) : "Override Animation" : : "Filled in by the engine via hammer_update_entity, do not edit by hand except to clear."
-	budy(integer) : "Body" : 0 : "Specifies which body group should be used."
+	body(integer) : "Body" : 0 : "Specifies which body group should be used."
 
 	// Inputs
 	input AllowBloodPool(void) : "Corpse once will create pool of blood (particle effect) if it is placed on brush."
@@ -13671,6 +13672,19 @@
 	input EnableMotion(void) : "Enable physics motion/collision response."
 	input DisableMotion(void) : "Disable physics motion/collision response."
 	input FadeAndRemove(float) : "Fade out then remove (kill) self. Parameter override = duration of fade"
+	]
+	
+@PointClass base(prop_ragdoll) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studioprop()
+= item_healthkit_ragdoll_clone: "Healthkit that appears in singleplayer to replace other medkit entities."
+	[
+	model(studio) : "Model" : "models/weapons/w_medkit.mdl" : "Model to use for this healthkit."
+
+	// Outputs
+	output OnPlayerPickup(void) : "Fires when the player picks up this object."
+	output OnPlayerDenied(void) : "Fires when the player attempts to pick up this object but is denied."
 	]
 
 @PointClass base(BaseEntityPhysics, EnableDisable, SetModel) 
@@ -14228,7 +14242,7 @@
 	output OnFullyClosed(void) : "Fired when the water brush reaches the starting position."
 	]
 
-@PointClass base(BaseGrenade) 
+@PointClass base(BaseEntityPhysics) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio("models/weapons/w_satchel.mdl")
@@ -14253,6 +14267,15 @@
 = item_ammo_357: "Box of 357 ammo."
 	[
 	model(studio) : "Model" : "models/weapons/w_357ammobox.mdl" : "Model to use for this pickup."
+	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= item_ammo_box: "Canister from multiplayer."
+	[
+	model(studio) : "Model" : "models/weapons/w_weaponbox.mdl" : "Model to use for this canister."
 	]
 
 @PointClass base(BaseMesaPickup) 
@@ -14337,10 +14360,10 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_crate: "Item Grate"
+= item_crate: "Crate with items."
 	[
-	model(studio) : "Model" : "models/items/item_item_crate.mdl" : "Model to use for the crate."
-	scriptpreset(choices) : "Script preset" : : "Spawn entities using a section from /scripts/proplist.txt" =
+	model(studio) : "Model" : "models/props_generic/bm_supplycrate01.mdl" : "Model to use for this crate."
+	scriptpreset(choices) : "Script preset" : : "The preset props that will fall out of the crate upon breaking. Spawn entities using a section from proplist.txt, you also can add your own by editing the file." =
 		[
 		"canteen": "Canteen"
 		"joke": "Joke"
@@ -14361,7 +14384,7 @@
 		"tools": "Tools"
 		]
 
-	spawnonbreak(string) : "Spawn on break" : : "Spawn entities using a comma separated list."
+	spawnonbreak(string) : "Spawn on break" : : "Spawn entities using a comma (or space) separated list."
 	]
 
 @PointClass base(BaseMesaPickup) 
@@ -14386,16 +14409,16 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_healthkit: "Small health kit."
+= item_healthkit: "Big health kit."
 	[
-	model(studio) : "Model" : "models/weapons/w_medkit.mdl" : "Model to use for the medkit."
+	model(studio) : "Model" : "models/weapons/w_medkit.mdl" : "Model to use for this big healthkit."
 	]
 	
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_syringe : "Scientist syringe. Probably must be used when scientist with syringe die, however nothing like this in the game. Can be respawn, but with no effects and sound. Requaried model fixes."
+= item_syringe : "Scientist's syringe."
 	[
 	model(studio) : "Model" : "models/humans/props/scientist_syringe.mdl" : "Model to use for the syringe."
 	]
@@ -14404,9 +14427,9 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_healthvial: "Personal health kit."
+= item_healthvial: "Small health kit."
 	[
-	model(studio) : "Model" : "models/healthvial.mdl" : "Model to use for this health."
+	model(studio) : "Model" : "models/weapons/w_medkit.mdl" : "Model to use for this small healthkit."
 	]
 
 @PointClass base(BaseMesaPickup) 
@@ -14416,6 +14439,22 @@
 = item_longjump: "Longjump Module."
 	[
 	model(studio) : "Model" : "models/weapons/w_longjump.mdl" : "Model to use for this longjump module."
+	]
+
+@PointClass base(BaseEntityAnimating) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio("models/can.mdl")
+= item_snark_grenade: "Grenade snark nest."
+	[
+	]
+
+@PointClass base(BaseEntityAnimating) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio("models/can.mdl")
+= item_sodacan: "Beverage; heals 1 HP."
+	[
 	]
 
 @PointClass base(BaseMesaPickup) 
@@ -17527,7 +17566,7 @@
 	input InputDisableMemUpdatePerFrame(void) : "Input Disable Mem UpdatePer Frame"
 	]
 
-@NpcClass base(TalkNPC, PlayerCompanion) 
+@NpcClass base(TalkNPC, PlayerCompanion, ResponseContext) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	line(255 0 0, targetname, enemyfilter)
@@ -17549,7 +17588,7 @@
 	[
 	]
 
-@NpcClass base(TalkNPC, PlayerCompanion) 
+@NpcClass base(TalkNPC, PlayerCompanion, ResponseContext) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	line(255 0 0, targetname, enemyfilter)
@@ -17571,7 +17610,7 @@
 	[
 	]
 
-@NpcClass base(TalkNPC, PlayerCompanion) 
+@NpcClass base(TalkNPC, PlayerCompanion, ResponseContext) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	line(255 0 0, targetname, enemyfilter)
