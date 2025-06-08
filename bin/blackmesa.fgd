@@ -4666,7 +4666,7 @@
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/ai_goal_standoff.vmt")
-= ai_goal_throw_prop: "Initially, this entity should disable/enable prop throwing for npc_alien_controller. However, this entity doesn't work in any public version of the game (the mod version as well). Besides this, you can control the throwing mechanic via inputs and outputs from npc_xontroller and npc_alien_controller. Used once in bm_c3a2i and does nothing."
+= ai_goal_throw_prop: "This entity forces npc_alien_controller to throw specified physics prop when activated. For npc_xontroller, it can be done by using input."
 	[
 	actor(target_name_or_class) : "Actor(s) to affect"
 	searchtype(choices) : "Search Type" : 0 : "How to search for the entities using the targetname." =
@@ -4681,11 +4681,12 @@
 		1: "Yes"
 		]
 
-	propname(target_destination) : "Phsyics Prop Name" : : "Name of the physics prop to throw"
+	propname(target_destination) : "Phsyics Prop Name" : : "Name of the physics prop to throw."
 
 	// Inputs
-	input Activate(void) : "Begin contesting position."
-	input Deactivate(void) : "Cease contesting position."
+	input Activate(void) : "Start throwing the prop."
+	input UpdateActors(void) : "Update actors."
+	input Deactivate(void) : "Stop throwing the prop."
 	]
 
 
@@ -6027,7 +6028,6 @@
 	iconsprite("editor/lensflare.vmt")
 = env_lensflare: "Controls lensflare. "
 	[
-	flarefile(string) : "File" : : "Optionnal - file defining the lens flare. Note: Hammer's parameters overwrite the file's parameters."
 	spawnflags(flags)  =
 		[
 		1: "[1] Start on" : 1
@@ -7079,6 +7079,10 @@
 	iconsprite("editor/info_target.vmt")
 = env_tram_screen
 	[
+	panelname(string) : "Panel Name" : : "The type of display to show."
+	overlaymaterial(material) : "Overlay Material" : : "Name of a material to overlay over the top of the VGUI screen. NOTE: This material must write Z for the VGUI screen to work."
+	width(integer) : "Panel Width in World (Green)" : 256 : "Width of the panel in units."
+	height(integer) : "Panel Height in World (Blue)" : 128 : "Height of the panel in units."
 	functrainname(target_destination) : "Func Train To Trigger" : : "Determines the func_tracktrain that will change screen. Doesn't work with other train entities."
 	propname(target_destination) : "Prop To Attach" : : "Determines the prop that the screen will be attached to."
 		
@@ -10863,11 +10867,6 @@
 	overlaymaterial(material) : "Overlay Material" : : "Name of a material to overlay over the top of the VGUI screen. NOTE: This material must write Z for the VGUI screen to work."
 	width(integer) : "Panel Width in World (Green)" : 256 : "Width of the panel in units."
 	height(integer) : "Panel Height in World (Blue)" : 128 : "Height of the panel in units."
-	istransparent(choices) : "Is Transparent?" : 0 : "Set this to true if you would like your background to be invisible instead of a black fill." =
-		[
-		0: "No"
-		1: "Yes"
-		]
 
 
 	// Inputs
