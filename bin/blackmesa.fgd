@@ -12700,7 +12700,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop()
-= item_ammo_crate: "Ammo Crate"
+= item_ammo_crate: "This entity places a large crate containing an unlimited supply of a certain type of ammo (specified by Ammo Type). The player can open it as many times as desired, by pressing the +use key (E by default), and get a complete refill of the specified ammo type."
 	[
 	model(studio) : "Model" : "models/items/ammocrate_rockets.mdl" : "Model to use for the ammo crate"
 	ammotype(choices) : "Ammo Type" : "grenade_rpg" : "Decides which ammo will be inside the crate." =
@@ -12715,6 +12715,8 @@
 		"grenade_frag": "Frag Grenades"
 		"grenade_satchel": "Satchels"
 		"grenade_tripmine": "Tripmines"
+		"snark": "Snark"
+		"grenade_hornet": "Hornet"
 		]
 
 	isdynamicmoving(integer) : "CanMove" : 0 : "CanMove"
@@ -14520,7 +14522,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_glock: "Glock-18 handgun."
+= item_weapon_glock: "Glock-17 handgun."
 	[
 	model(studio) : "Model" : "models/weapons/w_glock.mdl" : "Model to use for this glock."
 	]
@@ -14529,7 +14531,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_assassin_glock: "Assassin's glock-18 handgun."
+= item_weapon_assassin_glock: "Assassin's glock-17 handgun."
 	[
 	model(studio) : "Model" : "models/weapons/w_glock.mdl" : "Model to use for this assassin's glock."
 	]
@@ -15765,7 +15767,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_357.mdl")
-= weapon_357: "357 revolver. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_357: "357 revolver."
 	[
 	]
 
@@ -15774,7 +15776,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_crossbow.mdl")
-= weapon_crossbow: "Crossbow. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_crossbow: "Crossbow."
 	[
 	]
 
@@ -15783,7 +15785,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_crowbar.mdl")
-= weapon_crowbar: "Crowbar. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_crowbar: "Crowbar."
 	[
 	]
 
@@ -15792,7 +15794,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_grenade.mdl")
-= weapon_frag: "Frag grenade. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_frag: "Frag grenade."
 	[
 	]
 
@@ -15801,7 +15803,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_rpg.mdl")
-= weapon_rpg: "RPG. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_rpg: "RPG."
 	[
 	]
 
@@ -15810,7 +15812,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_shotgun.mdl")
-= weapon_shotgun: "Shotgun. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_shotgun: "Shotgun."
 	[
 	]
 	
@@ -15828,7 +15830,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_hgun.mdl")
-= weapon_hivehand: "Hivearm. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_hivehand: "Hivearm."
 	[
 	]
 	
@@ -15837,7 +15839,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_egon_pickup.mdl")
-= weapon_gluon: "Gluon gun. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_gluon: "Gluon gun."
 	[
 	]
 
@@ -15846,7 +15848,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_gauss.mdl")
-= weapon_tau: "Tau cannon. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_tau: "Tau cannon."
 	[
 	]
 
@@ -15855,7 +15857,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_glock.mdl")
-= weapon_glock: "Glock. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_glock: "Glock."
 	[
 	]
 	
@@ -15864,7 +15866,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_glock.mdl")
-= weapon_assassin_glock: "Assassin's glock. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_assassin_glock: "Assassin's glock."
 	[
 	]
 	
@@ -15873,7 +15875,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_mp5.mdl")
-= weapon_mp5: "MP5. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_mp5: "MP5."
 	[
 	]
 	
@@ -15882,7 +15884,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/xenians/snarknest.mdl")
-= weapon_snark: "Nest with snarks. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_snark: "Snarks."
 	[
 	]
 
@@ -15891,7 +15893,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_satchel.mdl")
-= weapon_satchel: "Satchel. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_satchel: "Satchel."
 	[
 	]
 	
@@ -15900,7 +15902,7 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/weapons/w_tripmine.mdl")
-= weapon_tripmine: "Tripmine. Difference between weapon_ and item_weapon_ is: the respawn mechanics in multiplayer and the respawn sound are different, weapon_ physics isn't disabled in multiplayer, weapon_ model can't be changed, different I/O and spawnflags, item_weapon_ can be breaked (nest with snarks only), item_weapon_ gives 3 magazines instead of 1 (only 357 and crossbow), item_weapon_ gives 20 count of uranium instead of 30 (only tau and gluon)."
+= weapon_tripmine: "Tripmine."
 	[
 	]
 
