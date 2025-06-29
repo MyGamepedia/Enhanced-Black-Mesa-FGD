@@ -5770,6 +5770,13 @@
 	]
 
 @PointClass base(BaseEntityPoint) 
+	iconsprite("editor/env_fire")
+	color(200 200 0)
+= env_fire_trail: "The trail of fire created by ignited pieces of some vehicles."
+	[
+	]
+
+@PointClass base(BaseEntityPoint) 
 	sphere(fireradius)
 	color(200 200 0)
 	iconsprite("editor/ficool2/env_firesensor.vmt")
@@ -9193,44 +9200,47 @@
 	output OutValue(float) : "Fired when the InValue input is received, with the remapped input value as the parameter."
 	]
 
-@PointClass base(BaseEntityPoint) = misc_marionettist
+@PointClass base(BaseEntityPoint)
+	sphere(innerdestinationradius)
+	sphere(outerdestinationradius)
+= misc_marionettist: "Represents ''marionettist'' which manipulates target's movement when Manipulate input is fired. The trajectory is defined using 1-16 target slots, in which entities (usually info_target) are specified. During movement manipulation, nothing else can affect manipulated entity's velocity and trajectory. Manipulated can be any point, model or brush entity, including the player. It also provides optional start, loop and end sounds. Used in the game for suction ventilation in Interloper or xen push pads (if a strictly defined push direction is required)."
 	[
-	innerdestinationradius(integer) : "Inner Destination Radius" : 32
-	innerpullspeed(integer) : "Inner Pull Speed" : 448
-	outerdestinationradius(integer) : "Outer Destination Radius" : 128
-	outerpullspeed(integer) : "Outer Pull Speed" : 512
-	ignorecollisions(choices) : "Should Ignore Collisions" : 0 =
+	innerdestinationradius(integer) : "Inner Destination Radius" : 32 : "Inner destination radius that affects how close manipulated target should be to target from target slot to start move to the next target."
+	innerpullspeed(integer) : "Inner Pull Speed" : 448 : "The start speed boost value when manipulated target moves to the next target."
+	outerdestinationradius(integer) : "Outer Destination Radius" : 128 : "Outer destination radius that affects how close manipulated target should be to target from target slot to start move to the next target."
+	outerpullspeed(integer) : "Outer Pull Speed" : 512 : "The speed value when manipulated target moves to the next target."
+	ignorecollisions(choices) : "Should Ignore Collisions" : 0 : "Optional. If yes, manipulated entity will ignore all collisions until manipulation is finished. If no, marionettist will attempt to push manipulated entity if it is colliding with something." =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	target01(target_destination) : "Target [Slot 01]" : : "Slot 01."
-	target02(target_destination) : "Target [Slot 02]" : : "Slot 02."
-	target03(target_destination) : "Target [Slot 03]" : : "Slot 03."
-	target04(target_destination) : "Target [Slot 04]" : : "Slot 04."
-	target05(target_destination) : "Target [Slot 05]" : : "Slot 05."
-	target06(target_destination) : "Target [Slot 06]" : : "Slot 06."
-	target07(target_destination) : "Target [Slot 07]" : : "Slot 07."
-	target08(target_destination) : "Target [Slot 08]" : : "Slot 08."
-	target09(target_destination) : "Target [Slot 09]" : : "Slot 09."
-	target10(target_destination) : "Target [Slot 10]" : : "Slot 10."
-	target11(target_destination) : "Target [Slot 11]" : : "Slot 11."
-	target12(target_destination) : "Target [Slot 12]" : : "Slot 12."
-	target13(target_destination) : "Target [Slot 13]" : : "Slot 13."
-	target14(target_destination) : "Target [Slot 14]" : : "Slot 14."
-	target15(target_destination) : "Target [Slot 15]" : : "Slot 15."
-	target16(target_destination) : "Target [Slot 16]" : : "Slot 16."
-	soundscriptstart(string) : "SoundScript Start"
-	soundscriptloop(string) : "SoundScript Loop"
-	soundscriptend(string) : "SoundScript End"
+	target01(target_destination) : "Target [Slot 01]" : : "The target entity where the manipulated entity will be moved. The sequence depends on the numbers in slots (from the smallest value to the largest). Slot 01."
+	target02(target_destination) : "Target [Slot 02]" : : "See description from Target [Slot 01]. Slot 02."
+	target03(target_destination) : "Target [Slot 03]" : : "See description from Target [Slot 01]. Slot 03."
+	target04(target_destination) : "Target [Slot 04]" : : "See description from Target [Slot 01]. Slot 04."
+	target05(target_destination) : "Target [Slot 05]" : : "See description from Target [Slot 01]. Slot 05."
+	target06(target_destination) : "Target [Slot 06]" : : "See description from Target [Slot 01]. Slot 06."
+	target07(target_destination) : "Target [Slot 07]" : : "See description from Target [Slot 01]. Slot 07."
+	target08(target_destination) : "Target [Slot 08]" : : "See description from Target [Slot 01]. Slot 08."
+	target09(target_destination) : "Target [Slot 09]" : : "See description from Target [Slot 01]. Slot 09."
+	target10(target_destination) : "Target [Slot 10]" : : "See description from Target [Slot 01]. Slot 10."
+	target11(target_destination) : "Target [Slot 11]" : : "See description from Target [Slot 01]. Slot 11."
+	target12(target_destination) : "Target [Slot 12]" : : "See description from Target [Slot 01]. Slot 12."
+	target13(target_destination) : "Target [Slot 13]" : : "See description from Target [Slot 01]. Slot 13."
+	target14(target_destination) : "Target [Slot 14]" : : "See description from Target [Slot 01]. Slot 14."
+	target15(target_destination) : "Target [Slot 15]" : : "See description from Target [Slot 01]. Slot 15."
+	target16(target_destination) : "Target [Slot 16]" : : "See description from Target [Slot 01]. Slot 16."
+	soundscriptstart(string) : "SoundScript Start" : "": "Name of the GameSound entry or sound file to use for the manipulation start. The source of specified sound will be the manipulated entity."
+	soundscriptloop(string) : "SoundScript Loop" : "" : "Name of the GameSound entry or sound file to use while entity is manipulated. The source of specified sound will be the manipulated entity."
+	soundscriptend(string) : "SoundScript End" : "" : "Name of the GameSound entry or sound file to use for the manipulation end. The source of specified sound will be the manipulated entity."
 
 	// Inputs
-	input Manipulate(target_destination)
-	input SetInnerDestinationRadius(string) : "Set Inner Destination Radius (Time:<Time> Value:<Value>)"
-	input SetInnerPullSpeed(string) : "Set Inner Pull Speed (Time:<Time> Value:<Value>)"
-	input SetOuterDestinationRadius(string) : "Set Outer Destination Radius (Time:<Time> Value:<Value>)"
-	input SetOuterPullSpeed(string) : "Set Outer Pull Speed (Time:<Time> Value:<Value>)"
+	input Manipulate(target_destination) : "Starts manipulation with specified entity."
+	input SetInnerDestinationRadius(string) : "Sets inner destination radius."
+	input SetInnerPullSpeed(string) : "Sets inner destination radius."
+	input SetOuterDestinationRadius(string) : "Sets outer destination radius."
+	input SetOuterPullSpeed(string) : "Sets outer pull speed."
 	]
 
 @MoveClass base(BaseEntityPoint, KeyFrame, Mover) 
@@ -17409,7 +17419,7 @@
 	line(255 0 0, targetname, enemyfilter)
 	color(0 200 200)
 	line(255 255 255, targetname, target)
-	studio("models/xenians/gonarch.mdl")
+	studioprop()
 = npc_gonarch: "Gonarch."
 	[
 	model(studio) : "World model" : "models/xenians/gonarch.mdl"
