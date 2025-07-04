@@ -10990,7 +10990,7 @@
 	output OnDetonate(void) : "Grenade has just exploded."
 	]
 
-@BaseClass base(BaseEntityAnimating, DamageFilter, TeamNum) = BaseLogicalNPC: "NPC behaviours, split out so npc_bullseye doesn't have model-related stuff."
+@BaseClass base(BaseEntityAnimating, ResponseContext, DamageFilter, TeamNum) = BaseLogicalNPC: "NPC behaviours, split out so npc_bullseye doesn't have model-related stuff."
 	[
 	health(integer) : "Health" : : "Overrides the NPC's default health. Cannot be higher than Max Health."
 	max_health(integer) : "Max Health" : : "Overrides the NPC's max health. Health cannot exceed this amount."
