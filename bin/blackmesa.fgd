@@ -2120,13 +2120,16 @@
 		0: "No"
 		1: "Yes"
 		]
-
+	rotatetarget(choices) : "Match Target Rotation" : 0 : "Rotate the found entity to match the rotation of this entity or that of the reference." =
+		[
+		0: "No"
+		1: "Yes"
+		]
 	makeunique(choices) : "Make Target Unique" : 0 : "Append a numeric suffix to the target's name to make it unique." =
 		[
 		0: "No"
 		1: "Yes"
 		]
-
 	sep1(string) readonly : "----------------------------------------------------------------------------------------------------------"
 	kv1_mode(choices) : "1 - Mode" : : "The first modification to perform. For Replace Outputs, outputs sent to a !name specified in Destination will be switched to point to the found entity." =
 		[
@@ -2137,7 +2140,6 @@
 		"target2known": "Target Ent KV -> Known Ent KV"
 		"replacetarget": "Replace Outputs"
 		]
-
 	kv1_known(target_destination) : "1 - Known Entity" : : "The known entity to access."
 	kv1_src(string) : "1 - Source" : : "Constant value to use or keyvalue name to read from."
 	kv1_dest(string) : "1 - Destination" : : "Keyvalue name to write to or !special name to replace."
@@ -2151,7 +2153,6 @@
 		"target2known": "Target KV -> Known KV"
 		"replacetarget": "Replace Outputs"
 		]
-
 	kv2_known(target_destination) : "2 - Known Entity" : : "The known entity to access."
 	kv2_src(string) : "2 - Source" : : "Constant value or keyvalue name to read from."
 	kv2_dest(string) : "2 - Destination" : : "Keyvalue name to write to or !special name to replace."
@@ -2165,7 +2166,6 @@
 		"target2known": "Target KV -> Known KV"
 		"replacetarget": "Replace Outputs"
 		]
-
 	kv3_known(target_destination) : "3 - Known Entity" : : "The known entity to access."
 	kv3_src(string) : "3 - Source" : : "Constant value or keyvalue name to read from."
 	kv3_dest(string) : "3 - Destination" : : "Keyvalue name to write to or !special name to replace."
@@ -2179,7 +2179,6 @@
 		"target2known": "Target KV -> Known KV"
 		"replacetarget": "Replace Outputs"
 		]
-
 	kv4_known(target_destination) : "4 - Known Entity" : : "The known entity to access."
 	kv4_src(string) : "4 - Source" : : "Constant value or keyvalue name to read from."
 	kv4_dest(string) : "4 - Destination" : : "Keyvalue name to write to or !special name to replace."
@@ -2193,7 +2192,6 @@
 		"target2known": "Target KV -> Known KV"
 		"replacetarget": "Replace Outputs"
 		]
-
 	kv5_known(target_destination) : "5 - Known Entity" : : "The known entity to access."
 	kv5_src(string) : "5 - Source" : : "Constant value or keyvalue name to read from."
 	kv5_dest(string) : "5 - Destination" : : "Keyvalue name to write to or !special name to replace."
@@ -2322,6 +2320,14 @@
 	color(180 180 0)
 = func_viscluster: "Any visleafs touching this brush will assume they can see each other. Place across large open areas to help reduce compile times."
 	[
+	]
+
+@PointClass 
+	studioprop()
+= hammer_model: "Fake model entity that only appears in Hammer. Useful for scale references or the like."
+	[
+	model(studio) : "World Model" : : "The model to display."
+	skin(integer) : "Skin" : 0
 	]
 
 @PointClass 
@@ -2840,30 +2846,78 @@
 = comp_adv_output: "Adds a single output to an entity, with precise control over fixup behaviour."
 	[
 	out_ent(target_destination) : "Outputting Entity" : : "The name of the entity or entities to add the output to."
+	mode(choices) : "Mode" : "append" : "How to add the output. 'Append' mode always adds the output. 'Singular' only adds the output if not already present. 'Remove' finds a matching output, then removes it. Removals are processed after the other types." =
+		[
+		"append": "Append"
+		"singular": "Singular"
+		"remove": "Remove"
+		]
 	out_name(string) : "Output Name" : : "The output name to use."
 	target_global(string) : "Target - String" : : "A fixed entity name, !special name or classname to fire inputs at."
 	target_local(target_destination) : "Target - Ent Name" : : "If set, the entity to fire inputs at."
 	target_instname(string) : "Target - Instance Name" : : "If set, this is appended to the target to form a full target-inst_name name."
+	target_expand(choices) : "Expand Target" : : "If set, apply the list of target entities at compile time." =
+		[
+		0: "No"
+		1: "Yes"
+		]
 	inp_name(string) : "Input Name" : : "The input to fire."
-	delay(float) : "Delay" : "0.0" : "The delay to add to the output."
-	delay2(float) : "Extra Delay" : "0.0" : "A second delay to add to the first. Useful for instance parameters."
+	delay(float) : "Delay Min" : "0.0" : "A delay to add to the output."
+	delay_max(float) : "Delay Max" : : "If set, the delay will be randomised between the min and max."
+	delay2(float) : "Extra Delay" : "0.0" : "A second delay to add to the first delay. This is not randomised. Useful for instance parameters."
+	seed(string) : "Random Seed" : : "For the delay, the position and name of the comp_adv_output are used to seed a random number generator, to keep values consistent across compiles. This can be set to further randomise results."
 	times(integer) : "Times to Fire" : -1 : "The number of times this output can fire, or -1 for infinite. Hammer normally only allows setting this to 1 or -1."
-	params_fmt(string) : "Parameter" : "{1}" : "Sets the parameter to use. This can contain placeholders like {1},{2} etc which will be filled by values in the following parameters. Use two braces like {{ or }} if you need them in the parameter directly."
-	params_global1(target_destination) : "Parameter 1 - String" : : "A value which will replace {1} in the parameter."
+	params_fmt(string) : "Parameter" : : "Sets the parameter to use. This can contain placeholders like {1},{2} etc which will be filled by values in the following parameters. Use two braces like {{ or }} if you need them in the parameter directly."
+	params_mode1(choices) : "Parameter 1 - Mode" : "legacy" : "Which value to use to replace {2} in the parameter. This allows using values altered in different ways by the instance. In legacy mode Ent Name then String is checked." =
+		[
+		"legacy": "Legacy (Entity Name or String)"
+		"global": "String"
+		"local": "Entity Name"
+		"position": "Position"
+		]
+	params_global1(string) : "Parameter 1 - String" : : "A value which will replace {1} in the parameter."
 	params_local1(target_destination) : "Parameter 1 - Ent Name" : : "If set, this is a fixed up entity name which will be used in the parameter, replacing {1}."
-	params_pos1(vector) : "Parameter 1 - Position" : : "If set, this is a XYZ position which will be used in the parameter, replacing {1}. This will be offset by instancing."
-	params_global2(target_destination) : "Parameter 2 - String" : : "A value which will replace {2} in the parameter."
-	params_local2(target_destination) : "Parameter 2 - Ent Name" : : "If set, this is a fixed up entity name which will be used in the parameter, replacing {1}."
-	params_pos2(vector) : "Parameter 2 - Position" : : "If set, this is a XYZ position which will be used in the parameter, replacing {2}. This will be offset by instancing."
-	params_global3(target_destination) : "Parameter 3 - String" : : "A value which will replace {3} in the parameter."
+	params_pos1(origin) : "Parameter 1 - Position" : : "If set, this is a XYZ position which will be used in the parameter, replacing {1}. This will be offset by instancing."
+	params_mode2(choices) : "Parameter 2 - Mode" : "legacy" : "Which value to use to replace {2} in the parameter. This allows using values altered in different ways by the instance. In legacy mode Ent Name then String is checked." =
+		[
+		"legacy": "Legacy (Entity Name or String)"
+		"global": "String"
+		"local": "Entity Name"
+		"position": "Position"
+		]
+	params_global2(string) : "Parameter 2 - String" : : "A value which will replace {2} in the parameter."
+	params_local2(target_destination) : "Parameter 2 - Ent Name" : : "If set, this is a fixed up entity name which will be used in the parameter, replacing {2}."
+	params_pos2(origin) : "Parameter 2 - Position" : : "If set, this is a XYZ position which will be used in the parameter, replacing {2}. This will be offset by instancing."
+	params_mode3(choices) : "Parameter 3 - Mode" : "legacy" : "Which value to use to replace {3} in the parameter. This allows using values altered in different ways by the instance. In legacy mode Ent Name then String is checked." =
+		[
+		"legacy": "Legacy (Entity Name or String)"
+		"global": "String"
+		"local": "Entity Name"
+		"position": "Position"
+		]
+	params_global3(string) : "Parameter 3 - String" : : "A value which will replace {3} in the parameter."
 	params_local3(target_destination) : "Parameter 3 - Ent Name" : : "If set, this is a fixed up entity name which will be used in the parameter, replacing {3}."
-	params_pos3(vector) : "Parameter 3 - Position" : : "If set, this is a XYZ position which will be used in the parameter, replacing {3}. This will be offset by instancing."
-	params_global4(target_destination) : "Parameter 4 - Ent Name" : : "A value which will replace {4} in the parameter."
+	params_pos3(origin) : "Parameter 3 - Position" : : "If set, this is a XYZ position which will be used in the parameter, replacing {3}. This will be offset by instancing."
+	params_mode4(choices) : "Parameter 4 - Mode" : "legacy" : "Which value to use to replace {4} in the parameter. This allows using values altered in different ways by the instance. In legacy mode Ent Name then String is checked." =
+		[
+		"legacy": "Legacy (Entity Name or String)"
+		"global": "String"
+		"local": "Entity Name"
+		"position": "Position"
+		]
+	params_global4(string) : "Parameter 4 - String" : : "A value which will replace {4} in the parameter."
 	params_local4(target_destination) : "Parameter 4 - Ent Name" : : "If set, this is a fixed up entity name which will be used in the parameter, replacing {4}."
-	params_pos4(vector) : "Parameter 4 - Position" : : "If set, this is a XYZ position which will be used in the parameter, replacing {4}. This will be offset by instancing."
-	params_global5(target_destination) : "Parameter 5 - String" : : "A value which will replace {5} in the parameter."
+	params_pos4(origin) : "Parameter 4 - Position" : : "If set, this is a XYZ position which will be used in the parameter, replacing {4}. This will be offset by instancing."
+	params_mode5(choices) : "Parameter 5 - Mode" : "legacy" : "Which value to use to replace {5} in the parameter. This allows using values altered in different ways by the instance. In legacy mode Ent Name then String is checked." =
+		[
+		"legacy": "Legacy (Entity Name or String)"
+		"global": "String"
+		"local": "Entity Name"
+		"position": "Position"
+		]
+	params_global5(string) : "Parameter 5 - String" : : "A value which will replace {5} in the parameter."
 	params_local5(target_destination) : "Parameter 5 - Ent Name" : : "If set, this is a fixed up entity name which will be used in the parameter, replacing {5}."
-	params_pos5(vector) : "Parameter 5 - Position" : : "If set, this is a XYZ position which will be used in the parameter, replacing {5}. This will be offset by instancing."
+	params_pos5(origin) : "Parameter 5 - Position" : : "If set, this is a XYZ position which will be used in the parameter, replacing {5}. This will be offset by instancing."
 	]
 
 @PointClass base(StaticTargetName, ControlEnables) 
@@ -2936,35 +2990,38 @@
 	iconsprite("editor/comp_kv_setter")
 = comp_kv_setter: "Sets a keyvalue on an entity to a new value. This is useful to compute spawnflags, or to adjust keyvalues when the target entity's options can't be set to a fixup variable."
 	[
-	target(target_destination) : "Target Entity" : : "The name of the entity or entities to set values on."
+	target(target_destination) : "Target Entity" : : "The name of the entity or entities to set values on. *-suffixed names work to target multiple entities."
 	mode(choices) : "Mode" : "kv" : "The type of value to set." =
 		[
 		"kv": "KeyValues"
 		"flags": "SpawnFlags"
 		]
-
-	kv_name(string) : "Name / Mask" : : "The name of the keyvalue to set, or the bits to change for spawnflags."
-	kv_value_global(string) : "Value - String" : : "The value to apply."
-	kv_value_local(target_destination) : "Value - Ent Name" : : "If set, use this fixed-up entity name."
-	kv_value_pos(vector) : "Value - Position" : : "If set, overrides the regular value. This will be offset by instancing."
+	kv_name(string) : "Name / Mask" : : "The name of the keyvalue to set, or the bits to change for spawnflags. Flag bits can be 0b010 binary, 0x1F hex, decimal, or the full name specified in the entity."
+	kv_value_mode(choices) : "Value Mode" : "legacy" : "Which value to use. This allows using values altered in different ways by the instance.In legacy mode Ent Name then String is checked." =
+		[
+		"legacy": "Legacy (Entity Name or String)"
+		"global": "String"
+		"local": "Entity Name"
+		"position": "Position"
+		]
+	kv_value_global(string) : "Value - Fixed String" : : "The value to apply. This is unaffected by instance fixup names and transformations (except rotation if Rotate Value is turned on)."
+	kv_value_local(target_destination) : "Value - Ent Name" : : "Used in Entity name mode. In an instance, this recieves prefix/postfix fixups."
+	kv_value_pos(origin) : "Value - Position" : : "Used in Position mode. In an instance, this will be offset by the instance position."
 	invert(choices) : "Invert Value" : 0 : "If enabled, invert the value so 0 and 1 are swapped." =
 		[
 		0: "No"
 		1: "Yes"
 		]
-
-	rotate(choices) : "Rotate Value" : 0 : "If enabled, treat the value as a vector and rotate it by the angles set on this entity first." =
+	rotate(choices) : "Rotate Value" : 0 : "If enabled, treat the value as a vector and rotate it by the angles set on this entity first. Useful to rotate the value correctly in an instance." =
 		[
 		0: "No"
 		1: "Yes"
 		]
-
 	conv_ang(choices) : "Convert To Angle" : 0 : "If enabled, convert a +X axis normal back into the Euler angle." =
 		[
 		0: "No"
 		1: "Yes"
 		]
-
 
 	// Outputs
 	output OnUser1(void) : "Fired in response to FireUser1 input."
@@ -3034,6 +3091,45 @@
 	[
 	original(string) : "Original SoundScript" : : "Prevent this soundscript from being included."
 	replacement(string) : "New SoundScript" : : "Force this soundscript to be included."
+	]
+
+@PointClass base(StaticTargetName) 
+	iconsprite("editor/comp_piston_platform")
+	line(255 255 255, targetname, piston1)
+	line(255 255 255, targetname, piston2)
+	line(255 255 255, targetname, piston3)
+	line(255 255 255, targetname, piston4)
+	line(255 255 255, targetname, piston5)
+	line(255 0 0, targetname, enable_motion_trig)
+	line(255 0 0, targetname, underside_fizz)
+	line(255 0 0, targetname, underside_hurt)
+= comp_piston_platform: "Generates logic to correctly sequence Portal-style Piston Platforms. func_movelinear or func_door segments have to be placed, parented appropriately, then linked to this."
+	[
+	piston1(target_destination) : "Piston 1" : : "The func_movelinear or func_door for the 1st segment from the bottom. May be unset if it never moves."
+	piston2(target_destination) : "Piston 2" : : "The func_movelinear or func_door for the 2nd segment from the bottom. May be unset if it never moves."
+	piston3(target_destination) : "Piston 3" : : "The func_movelinear or func_door for the 3rd segment from the bottom. May be unset if it never moves."
+	piston4(target_destination) : "Piston 4" : : "The func_movelinear or func_door for the 4th segment from the bottom. May be unset if it never moves."
+	piston5(target_destination) : "Piston 5" : : "The func_movelinear or func_door for the 5th segment from the bottom. May be unset if it never moves. More can be added with SmartEdit off."
+	position_override(choices) : "Spawn Position" : 0 : "The compiler automatically detects the position of all platforms based on their movement directions. If this doesn't function, this allows overriding to assume they're all extended or retracted. If set to start extended, the piston should be built to retract when Opened." =
+		[
+		0: "Autodetect"
+		1: "Fully Retracted"
+		2: "Fully Extended"
+		]
+	autoconfig_triggers(choices) : "Autoconfigure triggers" : 1 : "If enabled, automatically configure the various triggers, adding outputs and setting keyvalues." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+	snd_start(sound) : "Start Sound" : "Default.Null" : "Play this sound when the platform starts moving. Set to 'Default.Null' to disable."
+	snd_move(sound) : "Move Sound" : "World.PlatformStart" : "Loop this sound while moving. Set to 'Default.Null' to disable."
+	snd_stop(sound) : "Stop Sound" : "World.PlatformStop" : "Play this sound when the platform stops. Set to 'Default.Null' to disable."
+	underside_fizz(target_destination) : "Underside Fizzler" : : "If specified, this should be the name of a trigger_multiple or trigger_portal_cleanser on the underside of the platform, to fizzle obstructions. If the option is unset, this can also be the name of a trigger_hurt to kill the player."
+	underside_hurt(target_destination) : "Underside Hurt" : : "This should be the name of a trigger_hurt placed on the underside of the platform, to kill the player if they obstruct it."
+
+	// Inputs
+	input Extend(void) : "Extend the platform fully."
+	input Retract(void) : "Retract the platform fully."
 	]
 
 @PointClass base(Angles, ControlEnables) 
@@ -3237,7 +3333,9 @@
 	iconsprite("editor/comp_relay")
 = comp_relay: "Simplified version of logic_relay which is able to be optimised away by the compiler.The various inputs and outputs are useful for bundling commands together, or using more appopriate verbs.Inputs only work if given directly from entities (or via instance redirection), not ingame or dynamically.All inputs/outputs may pass through any parameter, if no override is specified."
 	[
-	delay(float) : "Extra Delay" : "0.0" : "Add this delay to all outputs. This allows you to control this via $fixup values, for instance."
+	delay(float) : "Delay Min" : "0.0" : "Add this delay to all outputs. This allows you to control this via $fixup values, for instance."
+	delay_max(float) : "Delay Max" : : "If set, the delay will be randomised between the min and max."
+	seed(string) : "Random Seed" : : "For the delay, the position and name of the comp_relay are used to seed a random number generator, to keep values consistent across compiles. This can be set to further randomise results."
 
 	// Inputs
 	input Trigger(string) : "Trigger the relay and fire the output."
@@ -5000,18 +5098,34 @@
 		32: "[32] Is NOT Looped" : 1
 		64: "[64] Do NOT Pause when game is Paused" : 0
 		]
-
 	message(sound) : "Sound Name" : : "Name of the GameSound entry for the sound to play. Also supports direct .wav filenames."
 	health(integer) : "Volume" : 10 : "Sound volume, expressed as a range from 0 to 10, where 10 is the loudest."
 	radius(float) : "Sound Range" : 1250 : "Maximum distance at which this sound is audible. Overriden by soundscripts."
 	pitch(integer) : "Pitch" : 100 : "Sound pitch, expressed as a range from 1(low) to 255(high), where 100 is the sound's default pitch. Overriden by soundscripts."
 	sourceentityname(target_destination) : "Source Entity" : : "If an entity is specified, sound will come from this named entity instead of the location of ambient_generic."
-	m_bdontmodifypitchvolonspawn(choices) : "Don't Modify Pitch/Volume On Spawn" : 0 : "When the 'Start Silent' flag is left unchecked, a SOUNDSCRIPTED ambient_generic will first pull its pitch & volume values from inside the entity itself upon map load/spawn, and NOT from what's dictated in the actual soundscript. This option, when enabled, will prevent this from happening and ensure no discontinuity occurs when toggling the sound off and on again. (Set to Disabled by default)" =
+	haddons_enabled(choices) : "[HA] Start Enabled" : -1 : "If set, overrides the 'Start Silent' spawnflag. This allows this value to be easily controlled by $fixup values." =
+		[
+		-1: "Use Spawnflag"
+		0: "[0] Start Silent"
+		1: "[1] Start Playing"
+		]
+	haddons_infrange(choices) : "[HA] Infinite Range" : -1 : "If set, overrides the 'Infinite Range' spawnflag. This allows this value to be easily controlled by $fixup values. Note that if a soundscript is used, that overrides this value." =
+		[
+		-1: "Use Spawnflag"
+		0: "[0] Limited Range"
+		1: "[1] Infinite Range"
+		]
+	haddons_mode(choices) : "[HA] Looping Mode" : -1 : "If set, overrides the 'Is NOT Looped' spawnflag. This option controls how the entity controls the output, not whether the sound actually loops. If oneshot, PlaySound starts the sound afresh and StopSound does nothing, while in looping mode PlaySound requires it to already be stopped." =
+		[
+		-1: "Use Spawnflag"
+		0: "[0] Oneshot Sound"
+		1: "[1] Looping Sound"
+		]
+	m_bDontModifyPitchVolOnSpawn(choices) : "Don't Modify Pitch/Volume On Spawn" : 0 : "When the 'Start Silent' flag is left unchecked, a SOUNDSCRIPTED ambient_generic will first pull its pitch & volume values from inside the entity itself upon map load/spawn, and NOT from what's dictated in the actual soundscript. This option, when enabled, will prevent this from happening and ensure no discontinuity occurs when toggling the sound off and on again. (Set to Disabled by default)" =
 		[
 		0: "Disabled"
 		1: "Enabled"
 		]
-
 	preset(choices) : "Dynamic Presets" : 0 : "If used, overrides many of the below properties (+pitch) to preset values." =
 		[
 		0: "None"
@@ -5043,7 +5157,6 @@
 		26: "Planet X"
 		27: "Haunted"
 		]
-
 	linedivider_snd(string) : "-----------------------" : : "More complex values below."
 	volstart(integer) : "Transition Volume" : 0 : "The Volume to start/end with. Use with Fade In and Out times."
 	fadeinsecs(integer) : "Volume Transition Time - Start (0-100)" : 0 : "Time in seconds for the sound to transition from the Transition Volume to the set volume as it starts playing."
@@ -5058,7 +5171,6 @@
 		2: "Triangle Wave"
 		3: "Random"
 		]
-
 	lforate(integer) : "LFO rate (0-1000)" : 0 : "How often the Low Frequency Oscillation repeats itself."
 	lfomodpitch(integer) : "LFO Effect On Pitch (0-100)" : 0 : "The amount the Low Frequency Oscillation affects the pitch."
 	lfomodvol(integer) : "LFO Effect On Volume (0-100)" : 0 : "The amount the Low Frequency Oscillation affects the volume."
@@ -15470,7 +15582,7 @@
 @SolidClass base(Trigger, DamageType) 
 	line(255 255 255, targetname, filtername)
 	line(255 255 255, targetname, master)
-= trigger_hurt: "A trigger volume that damages entities that touch it."
+= trigger_hurt: "A trigger volume that damages entities that touch it, or heal them if negative damage."
 	[
 	damage(integer) : "Damage" : 20 : "The amount of damage done to entities that touch this trigger. The damage is done every half-second. See also 'Damage Model' for extra details on how damage can be dealt."
 	damagecap(integer) : "Damage Cap" : 20 : "The maximum amount of damage that can be dealt when using the Doubling w/Forgiveness damage model."
