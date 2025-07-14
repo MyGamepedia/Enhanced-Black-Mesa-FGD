@@ -1045,7 +1045,7 @@
 	]
 @AutoVisgroup = "Point Entities"
 	[
-	"Camera Controlç"
+	"Camera Control"
 		[
 		"point_viewcontrol"
 		"point_viewproxy"
@@ -1338,7 +1338,7 @@
 		[
 		"func_occluder"
 		]
-	"Propcombineç"
+	"Propcombine"
 		[
 		"comp_propcombine_volume"
 		]
@@ -1487,7 +1487,7 @@
 		"cycler"
 		"cycler_actor"
 		]
-	"Dynamicç"
+	"Dynamic"
 		[
 		"prop_dynamic"
 		"prop_dynamic_ornament"
@@ -1505,7 +1505,7 @@
 		"nihiportals_teleprops"
 		"prop_nihi_shield"
 		]
-	"Physicsç"
+	"Physics"
 		[
 		"physics_cannister"
 		"prop_physics"
@@ -1522,31 +1522,20 @@
 		[
 		"info_lighting"
 		]
-	"Staticç"
+	"Static"
 		[
 		"prop_detail"
 		"prop_detail_sprite"
 		"prop_static"
 		]
 	]
-@AutoVisgroup = "Physicsç"
+@AutoVisgroup = "Physics"
 	[
 	"Ragdoll"
 		[
 		"prop_ragdoll"
 		"prop_ragdoll_original"
 		]
-	]
-
-@BaseClass = AlyxInteractable
-	[
-
-	// Inputs
-	input InteractivePowerDown(void) : "Shutdown this target."
-
-	// Outputs
-	output OnAlyxStartedInteraction(void) : "Fired when Alyx begins to interact with this entity."
-	output OnAlyxFinishedInteraction(void) : "Fired when Alyx has finished interacting with this entity."
 	]
 
 @BaseClass = Angles
@@ -8838,7 +8827,7 @@
 = logic_choreographed_scene: "Manages a choreographed scene of one or more actors."
 	[
 	scenefile(scene) : "Scene file" : : "The scene that will play when this entity is triggered."
-	resumescenefile(scene) : "Resume Scene / Response Concept" : : "If set, an additonal scene which will be played before resuming this scene, if it gets interruptted. This can either be a .vcd scene file, or a response concept. (Response concepts must select a scene file!)"
+	resumescenefile(scene) : "Resume Scene / Response Concept" : : "If set, an additonal scene which will be played before resuming this scene, if it gets interrupted. This can either be a .vcd scene file, or a response concept. (Response concepts must select a scene file!)"
 	target1(target_destination) : "Target 1"
 	target2(target_destination) : "Target 2"
 	target3(target_destination) : "Target 3"
@@ -12855,6 +12844,7 @@
 = item_healthcharger: "Health Charger"
 	[
 	charge(float) : "Charge" : 50 : "How full the charger should be (0 - 100)"
+	mprate(float) : "Charge Rate Multiplier" : 1 : "Multiplies charge rate."
 	skintype(choices) : "Force Skin" : 0 =
 	[
 		0: "None"
@@ -12888,6 +12878,7 @@
 = item_suitcharger: "HEV recharger"
 	[
 	charge(float) : "Charge" : 75 : "How full the charger should be (0 - 100)"
+	mprate(float) : "Charge Rate Multiplier" : 1 : "Multiplies charge rate."
 	skintype(choices) : "Force Skin" : 0 =
 	[
 		0: "None"
@@ -17375,9 +17366,7 @@
 
 	spawnflags(flags)  =
 		[
-		32768: "[32768] No Weapon" : 0
 		262144: "[262144] Disable Freeman Lines" : 0
-		524288: "[524288] Disable Muzzle DLight" : 0
 		]
 
 
@@ -18034,6 +18023,9 @@
 	studioprop("models/humans/marine.mdl")
 = npc_human_grenadier: "Marines grenadier. Uses RPG once and then uses his standard weapon. Note - he never drops RPG when he dies."
 	[
+	
+	// Inputs
+	input InputForceFireRpgAtEnemy(void) : "Forces grunt to fire with the RPG."
 	]
 
 @NpcClass base(BaseMarine) 
