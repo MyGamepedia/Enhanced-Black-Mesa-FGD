@@ -2510,6 +2510,18 @@
 
 @BaseClass base(_Breakable, DamageFilter) = BreakableProp
 	[
+	explosion_override(choices) : "Enable Explosion Override" : 0 : "Enable/disable explosion parameters override (explosion_particle, explosion_particle_liquid, explosion_attachment, explosion_soundscript and explosion_soundscript_liquid)." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+	
+	explosion_particle(particlesystem) : "Explosion Particle" : : "Particle system to use when this entity explode."		
+	explosion_particle_liquid(particlesystem) : "Explosion Particle Underwater" : : "Particle system to use when this entity explode in water."
+	explosion_attachment(string) : "Explosion Attachment Point" : : "Attachment point to use for custom explosion particle system."
+	explosion_soundscript(sound) : "Explosion Sound Script" : : "Sound script to use when this entity explode."
+	explosion_soundscript_liquid(sound) : "Explosion Sound Script Underwater" : : "Sound script to use when this entity explode in water."
+		
 	spawnflags(flags)  =
 		[
 		16: "[16] Break on Touch" : 0
@@ -11374,6 +11386,17 @@
 
 @BaseClass base(BaseEntityVisBrushNoOrigin, _Breakable, DamageFilter) = BreakableBrush
 	[
+	explosion_override(choices) : "Enable Explosion Override" : 0 : "Enable/disable explosion parameters override (explosion_particle, explosion_particle_liquid, explosion_attachment, explosion_soundscript and explosion_soundscript_liquid)." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+	
+	explosion_particle(particlesystem) : "Explosion Particle" : : "Particle system to use when this entity explode."		
+	explosion_particle_liquid(particlesystem) : "Explosion Particle Underwater" : : "Particle system to use when this entity explode in water."
+	explosion_soundscript(sound) : "Explosion Sound Script" : : "Sound script to use when this entity explode."
+	explosion_soundscript_liquid(sound) : "Explosion Sound Script Underwater" : : "Sound script to use when this entity explode in water."
+	
 	spawnflags(flags)  =
 		[
 		1: "[1] Only Break on Trigger" : 0
