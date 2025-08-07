@@ -4300,7 +4300,7 @@
 		1: "Yes"
 		]
 
-	m_bsro_trans(choices) : "Enable Transparent Props in Shadows ?" : 1 : "Do we want to render models with transparency materials in shadow passes for this light ? Objects with transparency can cast shadows if your model includes a material without transparency." =
+	m_bsro_trans(choices) : "Enable Transparent Props in Shadows ?" : 0 : "Do we want to render models with transparency materials in shadow passes for this light ? Objects with transparency can cast shadows if your model includes a material without transparency." =
 		[
 		0: "No"
 		1: "Yes"
@@ -6008,7 +6008,6 @@
 		2: "Dead"
 		]
 
-	counter(integer) : "Counter" : 0 : "An integer counter value associated with this global."
 	spawnflags(flags)  =
 		[
 		1: "[1] Set Initial State" : 0
@@ -6092,6 +6091,14 @@
 	sphere(fademaxdist)
 = env_holo_emitter: "Holo emitter."
 	[
+	solid(choices) : "Collisions" : 0 : "Method of collision for this prop." =
+		[
+		0: "None"
+		2: "Bounding Box"
+		3: "Oriented Bounding Box"
+		4: "Oriented Bounding Box, constrained to Yaw only"
+		6: "VPhysics"
+		]
 	
 	// Inputs
 	input TurnOff(void) : "Turn spotlight off."
@@ -6139,7 +6146,6 @@
 	spawnflags(flags)  =
 		[
 		1: "[1] Start on" : 1
-		2: "[2] Play Once" : 0
 		]
 
 	flareattenuation(float) : "Distance Attenuation" : "0.0" : "Distance where lensflare will be invisible. 0.0 if not attenuation with distance."
@@ -11960,6 +11966,8 @@
 		]
 
 	skin(integer) : "Gib Skin" : 0 : "Some models have multiple versions of their textures, called skins. Set this to a number other than 0 to use that skin on all gibs produced by this shooter."
+	massoverride(float) : "Mass" : 0 : "Force gibs to be a certain mass. Default mass is 200."
+	
 	spawnflags(flags)  =
 		[
 		1: "[1] Repeatable" : 0
@@ -12550,10 +12558,22 @@
 	ammotype(choices) : "Ammo Type" =
 		[
 		"": "None"
-		"9mm": "9mm"
-		357: "357"
-		"buckshot": "buckshot"
-		"energy": "energy"
+		"9mm": "9mm Rounds"
+		357: ".357 Rounds"
+		"bolt": "Bolts"
+		"buckshot": "Buckshot"
+		"energy": "Energy"
+		"grenade_mp5": "MP5 Grenade"
+		"grenade_rpg": "RPG"
+		"grenade_frag": "Frag Grenades"
+		"grenade_satchel": "Satchels"
+		"grenade_tripmine": "Tripmines"
+		"snark": "Snark"
+		"grenade_hornet": "Hornet"
+		"50cal": ".50 BMG"
+		"sentry": "Sentry"
+		"SniperRound": "Sniper Round"
+		"SniperPenetratedRound": "Sniper Penetrated Round"
 		]
 
 	spawnflags(flags)  =
@@ -12828,8 +12848,12 @@
 		"grenade_tripmine": "Tripmines"
 		"snark": "Snark"
 		"grenade_hornet": "Hornet"
+		"50cal": ".50 BMG"
+		"sentry": "Sentry"
+		"SniperRound": "Sniper Round"
+		"SniperPenetratedRound": "Sniper Penetrated Round"
 		]
-
+	
 	isdynamicmoving(integer) : "CanMove" : 0 : "CanMove"
 	ammocount(integer) : "Ammo Count" : 1 : "Amount of specifed ammo to give."
 
@@ -12844,7 +12868,7 @@
 = item_healthcharger: "Health Charger"
 	[
 	charge(float) : "Charge" : 50 : "How full the charger should be (0 - 100)"
-	mprate(float) : "Charge Rate Multiplier" : 1 : "Multiplies charge rate."
+	mprate(float) : "Charge Rate Multiplier" : "1.00" : "Multiplies charge rate."
 	skintype(choices) : "Force Skin" : 0 =
 	[
 		0: "None"
@@ -14140,7 +14164,7 @@
 = env_rotorshooter: "An entity that creates gibs when it's within the influence of a helicopter's rotor wash."
 	[
 	rotortime(float) : "Time Under Rotor" : 1 : "The average time it has to be under the rotor before it shoots a gib."
-	rotortimevariance(float) : "Time variance" : "0.3" : "The random amount to vary the time it has to be under the rotor before it shoots a gib."
+	rotortimevariance(float) : "Time Variance" : "0.3" : "The random amount to vary the time it has to be under the rotor before it shoots a gib."
 	]
 
 @PointClass base(npc_maker, XenPortal)
@@ -15289,7 +15313,7 @@
 	studioprop()
 = prop_flare: "Flare prop which replaces deprecated ''create_flare'' physgun interaction."
 	[
-	model(studio) : "Model" : "models/props_junk/flare.mdl" : "Model to use for the flare."
+	model(studio) : "Model" : "models/props_junk/flare.mdl" : "Model to use for the emergency flare."
 	spawnflags(flags)  =
 		[
 		524288: "[524288] Stay lit indefinitely" : 0
@@ -15297,11 +15321,8 @@
 
 
 	// Inputs
-	input TurnOff(void) : "Extinguish flare."
-	input TurnOn(void) : "Ignite flare."
-
-	// Outputs
-	output OnPlayerUse(void) : "Fired when player instigates +USE."
+	input TurnOff(void) : "Extinguish the emergency flare."
+	input TurnOn(void) : "Ignite the emergency flare."
 	]
 
 @PointClass base(prop_charger_base) 
@@ -17549,8 +17570,8 @@
 		4: "4:FinalArena_1"
 		5: "5:Not_Being_USED_Anymore"
 		6: "6:CUSTOM_MODE_AI"
-		7: "7:TEST_BALL_SPIT"
-		8: "8:TEST_BALL_wAVE"
+		7: "7:TEST_BALL_SPIT (BROKEN)"
+		8: "8:TEST_BALL_wAVE (BROKEN)"
 		9: "9:TEST_SUMMON"
 		10: "10:TEST_CHASE"
 		11: "11:TEST_MORTAR"
@@ -17564,7 +17585,6 @@
 		19: "19:FinalArena_3"
 		20: "20:Mortar_ACID"
 		21: "21:CrystalCave_MapC"
-		22: "22:CHASE_MapC"
 		22: "22:CHASE_MapC"
 		23: "23:GonA_Run_To_Cave"
 		]
