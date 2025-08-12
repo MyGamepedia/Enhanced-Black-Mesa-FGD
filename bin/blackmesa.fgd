@@ -2516,11 +2516,11 @@
 		1: "Yes"
 		]
 	
-	explosion_particle(particlesystem) : "Explosion Particle" : : "Particle system to use when this entity explode."		
-	explosion_particle_liquid(particlesystem) : "Explosion Particle Underwater" : : "Particle system to use when this entity explode in water."
-	explosion_attachment(string) : "Explosion Attachment Point" : : "Attachment point to use for custom explosion particle system."
-	explosion_soundscript(sound) : "Explosion Sound Script" : : "Sound script to use when this entity explode."
-	explosion_soundscript_liquid(sound) : "Explosion Sound Script Underwater" : : "Sound script to use when this entity explode in water."
+	explosion_particle(particlesystem) : "Explosion Particle" : : "A particle system to use when this entity explodes."		
+	explosion_particle_liquid(particlesystem) : "Explosion Particle Underwater" : : "A particle system to use when this entity explodes in water."
+	explosion_attachment(string) : "Explosion Attachment Point" : : "An attachment point to use for custom explosion particle system."
+	explosion_soundscript(sound) : "Explosion Sound Script" : : "A sound script to use when this entity explodes."
+	explosion_soundscript_liquid(sound) : "Explosion Sound Script Underwater" : : "A sound script to use when this entity explodes in water."
 		
 	spawnflags(flags)  =
 		[
@@ -11230,7 +11230,7 @@
 	input Enable(void) : "Make this item visible and enable the ability to be picked up by players."
 	input Disable(void) : "Make this item invisible and disable the ability to be picked up by players."
 	input AttachTo(void) : "Attaches this entity to !activator, the entity becomes impossible to pick up. It becomes invisible in first person mode, but only in Steam versions of the game only."
-	input Fall(void) : "Doesn't seem to work."
+	input Fall(void) : "Deattaches this entity if was attached with AttachTo input, the entity will retain its position before applying this input and will remain stationary until something will hit it."
 	input Respawn(void) : "Respawn this entity in multiplayer. Fired by this entity after the amount of time from Respawn Time property."
 
 	// Outputs
@@ -13886,6 +13886,15 @@
 	input SetScaleX(vector) : "Scales the prop in one Axis. Params: <New Size> <Time>"
 	input SetScaleY(vector) : "Scales the prop in one Axis. Params: <New Size> <Time>"
 	input SetScaleZ(vector) : "Scales the prop in one Axis. Params: <New Size> <Time>"
+	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= prop_soda: "It's a soda can from a vending machine that adds 1 point of health when picked up."
+	[
+	model(studio) : "Model" : "models/props_junk/popcan01a.mdl" : "Model to use for this pickup."
 	]
 
 @PointClass base(BaseEntityAnimating) 
@@ -18068,7 +18077,7 @@
 	[
 	
 	// Inputs
-	input InputForceFireRpgAtEnemy(void) : "Forces grunt to fire with the RPG."
+	input InputForceFireRpgAtEnemy(void) : "Force fires a RPG shot at current enemy."
 	]
 
 @NpcClass base(BaseMarine) 
