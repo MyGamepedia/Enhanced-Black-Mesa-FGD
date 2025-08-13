@@ -4397,7 +4397,7 @@
 	linedivider_BmNewLightShadowMain0(string) readonly : "----------------------------------------------------------------------------------------------------------"				
 	]
 	
-@BaseClass = BmNewLightShadowFOV
+@BaseClass base(BmNewLightShadowMain) = BmNewLightShadowFOV
 	[
 	ShadowFOV (float) : "Shadow FOV " : "0" : "Fov used by shadowmap camera for this light. Keep it 0 to use Outer angle as the fov."
 	]
@@ -9436,7 +9436,7 @@
 	input SetColorLight(color255) : "Change light's color value. Doesn't affect the godrays."
 	]
 
-@PointClass base(BaseEntityPoint, BmNewLightReverseDir, BmNewLightsSettings, BmNewLightShadowMain, BmNewLightShadowBias, BmNewLightCookieSpot, BmNewLightShadowPasses) 
+@PointClass base(BaseEntityPoint, BmNewLightReverseDir, BmNewLightsSettings, BmNewLightShadowFOV, BmNewLightShadowBias, BmNewLightCookieSpot, BmNewLightShadowPasses) 
 	lightprop("models/editor/spot.mdl")
 	iconsprite("editor/light_new.vmt")
 	sphere(range)
@@ -13901,9 +13901,9 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop("models/props_questionableethics/qe_surgery_bot_main.mdl")
-= prop_surgerybot: "Surgery Bot"
+= prop_surgerybot: "Surgery bot."
 	[
-	startactive(choices) : "Start Active" : 1 =
+	startactive(choices) : "Start Active" : 1 : "Enable/disable this entity on spawn, doesn't affect the particle effects." =
 		[
 		0: "No"
 		1: "Yes"
@@ -13911,10 +13911,11 @@
 
 
 	// Inputs
-	input TurnOff(void) : "Turn Off"
-	input TurnOn(void) : "Turn On"
-	input StopEffects(void)
-	input StartEffects(void)
+	input TurnOff(void) : "Disable the robot."
+	input TurnOn(void) : "Enable the robot."
+	input Toggle(void) : "Toggles the robot between enabled and disabled states."
+	input StartEffects(void) : "Enable the particle effects for sparks. Allows to create electric beam. Creates blood particles in enabled state. Creates jet of steam particles in disabled state."
+	input StopEffects(void) : "Disable all the particle effects and electric beam."
 	]
 
 @PointClass base(BaseEntityAnimating) 
