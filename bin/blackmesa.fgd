@@ -2431,6 +2431,7 @@
 	[
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	globalname(string) : "Global Entity Name" : : "Name by which this entity is linked to another entity in a different map. When the player transitions to a new map, entities in the new map with globalnames matching entities in the previous map will have the previous map's state copied over their state."
+	angles(angle) : "Pitch Yaw Roll (Y Z X)" : "0 0 0" : "This entity's orientation in the world. Pitch is rotation around the Y axis, yaw is the rotation around the Z axis, roll is the rotation around the X axis."
 	origin(origin) : "Origin (X Y Z)" : : "The position of this brush entity's center in the world. Rotating entities typically rotate around their origin."
 	parentname(target_destination) : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	parent_attachment_point(string) : "[HA] Attachment Point" : : "If set, attach to this attachment point on the parent during spawn."
@@ -2459,6 +2460,7 @@
 	[
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	globalname(string) : "Global Entity Name" : : "Name by which this entity is linked to another entity in a different map. When the player transitions to a new map, entities in the new map with globalnames matching entities in the previous map will have the previous map's state copied over their state."
+	angles(angle) : "Pitch Yaw Roll (Y Z X)" : "0 0 0" : "This entity's orientation in the world. Pitch is rotation around the Y axis, yaw is the rotation around the Z axis, roll is the rotation around the X axis."
 	parentname(target_destination) : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	parent_attachment_point(string) : "[HA] Attachment Point" : : "If set, attach to this attachment point on the parent during spawn."
 
@@ -3498,7 +3500,7 @@
 		[
 		1: "[1] Force HUMAN permission" : 0
 		2: "[2] Force SMALL_CENTERED permission" : 0
-		4: "[4] Force wide_human permission" : 0
+		4: "[4] Force WIDE_HUMAN permission" : 0
 		8: "[8] Force TINY permission" : 0
 		16: "[16] Force WIDE_SHORT permission" : 0
 		32: "[32] Force MEDIUM permission" : 0
