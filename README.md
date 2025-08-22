@@ -1,6 +1,6 @@
 ## What is Enchanced Black Mesa FGD ?
 
-This is heavy improved Black Mesa FGD from [TeamSpen's HammerAddons](https://github.com/TeamSpen210/HammerAddons). This project is at development stage.
+This is heavy improved Black Mesa FGD from [TeamSpen's HammerAddons](https://github.com/TeamSpen210/HammerAddons). This project is at development stage, planned to be announced together with the release of one of my projects.
 
 ## How to install ?
 
