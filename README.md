@@ -8,15 +8,14 @@ This is heavy improved Black Mesa FGD from [TeamSpen's HammerAddons](https://git
 2. Download [latest](https://github.com/MyGamepedia/Enhanced-Black-Mesa-FGD/releases/latest) version of `Enchanced Black Mesa FGD`.
 3. Drop archive files into your `Black Mesa` folder with files replacement (if it will ask).
 4. Make sure that your `gameinfo.txt` include `hammer` folder and that Hammer use `blackmase.fgd` without the original files from the game files.
-5. Enjoy and report issues!
+5. Enjoy!
 
 
-## Can I help ?
+## Possible positions
 
-Yes, you can.
+### Icon Artist
+Artist for point entity icons in Valve or Crowbar Collective style.
 
-Do you want to report an issue ? Feels free! Report any issues, even if it is really small.
+## Contribution
 
-Do you want to create icons for entities ? Feels free! However, it is important that the style of the icons matches the Valve style or Crowbar Collective style. 
-
-Do you want to suggest something ? Feels free! Use issue tracker for this.
+You can test changes and report issues if you find. You are also able to add your own changes, using `Pull requests` system. 
