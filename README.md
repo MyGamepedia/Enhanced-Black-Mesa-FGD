@@ -18,4 +18,5 @@ Artist for point entity icons in Valve or Crowbar Collective style.
 
 ## Contribution
 
-You can test changes and report issues if you find. You are also able to add your own changes, using `Pull requests` system. 
+-Report issues if you find. 
+-You are able to add your own changes, using `Pull requests` system. 
