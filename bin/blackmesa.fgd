@@ -5568,7 +5568,7 @@
 	slopescaledepthbias3(float) : "Slope Scale DepthBias 3" : "2.0" : "Slope DepthBias for cascade 3"
 	viewmodeldepthbias(float) : "View Model DepthBias" : "0.000009" : "DepthBias for viewmodel cascade"
 	viewmodelslopescaledepthbias(float) : "View Model Slope Scale DepthBias" : "0.9" : "DepthBias for viewmodel cascade"
-	csmvolumemode(choices) : "CSM Volume Mode" : 0 : "CSM Volume Modes - Auto: Static cache will update once every 10 frames (approx) covering max shadow distance or whole map around player. Manual : Static cache area coverage and updates are managed via csm volumes i/o. \n Use Manual mode for better quality and performence. \n In near future Auto mode will be removed from the game." =
+	csmvolumemode(choices) : "CSM Volume Mode" : 0 : "CSM Volume Modes - Auto: Static cache will update once every 10 frames (approx) covering max shadow distance or whole map around player. Manual : Static cache area coverage and updates are managed via Cascade Shadow Mapping Volumes. \n Use Manual mode for better performence." =
 		[
 		0: "Auto"
 		1: "Manual"
@@ -5774,9 +5774,7 @@
 		1: "[1] No Damage" : 0
 		2: "[2] Repeatable" : 0
 		4: "[4] No Fireball" : 0
-		8: "[8] No Smoke" : 0
 		16: "[16] No Decal" : 0
-		32: "[32] No Sparks" : 0
 		64: "[64] No Sound" : 0
 		128: "[128] Random Orientation" : 0
 		256: "[256] No Fireball Smoke" : 0
@@ -5789,36 +5787,6 @@
 		]
 
 	ignoredentity(target_destination) : "Ignored Entity" : : "Do not harm or affect the named entity."
-	ignoredclass(choices) : "Ignored Class" : 0 : "Do not harm or affect this class." =
-		[
-		0: "None"
-		1: "Players"
-		2: "Player Allies"
-		3: "Vital Player Allies"
-		4: "Antlions"
-		5: "Barnacles"
-		6: "npc_bullseyes"
-		7: "Citizens - Passive"
-		8: "Citizens Rebel"
-		9: "Combine"
-		10: "Combine Gunships"
-		11: "Conscripts"
-		12: "Headcrabs"
-		13: "Manhacks"
-		14: "Metropolice"
-		15: "Military"
-		16: "Scanners"
-		17: "Stalkers"
-		18: "Vortigaunts"
-		19: "Zombies"
-		20: "Protosnipers"
-		21: "Missiles"
-		22: "Flares"
-		23: "Earth Fauna"
-		24: "Hacked Rollermines"
-		25: "Combine Hunters"
-		]
-
 
 	// Inputs
 	input Explode(void) : "Triggers the explosion."
@@ -8648,7 +8616,7 @@
 
 	// Inputs
 	input Toggle(void) : "Toggle the relay between enabled and disabled."
-	input FireEvent(void) : "Tells the achievement system the specifed event has occured."
+	input FireEvent(void) : "Tells the achievement system the specified event has occured."
 
 	// Outputs
 	output OnFired(void) : "When the event fires, this fires."
@@ -12886,7 +12854,7 @@
 		]
 	
 	isdynamicmoving(integer) : "CanMove" : 0 : "CanMove"
-	ammocount(integer) : "Ammo Count" : 1 : "Amount of specifed ammo to give."
+	ammocount(integer) : "Ammo Count" : 1 : "Amount of specified ammo to give."
 
 	// Outputs
 	output OnUsed(void) : "Fires when +used by the player."
@@ -15420,10 +15388,11 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop()
-= prop_retinalscanner: "Black Mesa's retinal scanner system."
+= prop_retinalscanner: "Represents a retinal scanner, device used in the Black Mesa Research Facility mainly for the purpose of identifying an employee and his access to a certain part of the àacility, by scanning the employee's retina in the eye."
 	[
-	model(studio) : "World model" : "models/props_lab/retinalscanner.mdl"
-	locked(choices) : "Start Locked" : 0 =
+	model(studio) : "World model" : "models/props_lab/retinalscanner.mdl" : "Model to use for the scanner."
+	linedivider_retinalscanner0(string) readonly : "----------------------------------------------------------------------------------------------------------"		
+	locked(choices) : "Start Locked" : 0 : "Lock scanner when spawned if this value is enabled." =
 		[
 		0: "No"
 		1: "Yes"
@@ -15431,27 +15400,28 @@
 
 	nextlockeduse(float) : "Next Locked Use" : 4 : "Amount in seconds this scanner will reset after it was used when locked."
 	nextunlockeduse(float) : "Next Unlocked Use" : 4 : "Amount in seconds this scanner will reset after it was used when unlocked."
-	lockedsound(sound) : "Locked Sound" : : "Sound to play when locked."
-	unlockedsound(sound) : "Unlocked Sound" : : "Sound to play when unlocked."
-	lockedusesound(sound) : "Locked Primary Use Sound" : : "Primary sound to play when used but locked."
-	unlockedusesound(sound) : "Unlocked Primary Use Sound" : : "Primary sound to play when used but unlocked."
-	lockedusevox(sound) : "Locked Secondary Use Sound" : : "Secondary sound to play when used but locked."
-	unlockedusevox(sound) : "Unlocked Secondary Use Sound" : : "Secondary sound to play when used but unlocked."
+	lockedsound(sound) : "Locked Sound" : : "Sound to play when locked by Lock input."
+	unlockedsound(sound) : "Unlocked Sound" : : "Sound to play when unlocked by Unlock input."
+	lockedusesound(sound) : "Locked Use Sound" : : "Sound to play when used but locked."
+	unlockedusesound(sound) : "Unlocked Use Sound" : : "Sound to play when used but unlocked."
+	lockedusevox(sound) : "Locked Secondary Use Sound" : : "Sound to play after the use locked sound is played."
+	unlockedusevox(sound) : "Unlocked Secondary Use Sound" : : "Sound to play after the use unlocked sound is played."
 	delaylockedvox(float) : "Delay Locked Secondary Sound" : 0 : "Secondary locked sound delay."
 	delayunlockedvox(float) : "Delay Unlocked Secondary Sound" : 0 : "Secondary unlocked sound delay."
 
 	// Inputs
-	input Lock(void) : "Lock the scanner"
-	input Unlock(void) : "Unlock the scanner"
-	input LockSilent(void) : "Silent Lock the scanner"
-	input UnlockSilent(void) : "Silent Unlock the scanner"
-	input Press(void) : "Use the scanner"
+	input Lock(void) : "Lock the scanner."
+	input Unlock(void) : "Unlock the scanner."
+	input LockSilent(void) : "Lock the scanner with no sound."
+	input UnlockSilent(void) : "Unlock the scanner with no sound."
+	input Press(void) : "Use the scanner."
+	input PlayVoxSound(string) : "Play specified sound."
 
 	// Outputs
-	output OnLocked(void) : "Called when locked"
-	output OnUnlocked(void) : "Called when unlocked"
-	output OnUseLocked(void) : "Called when used but locked"
-	output OnUseUnlocked(void) : "Called when used but unlocked"
+	output OnLocked(void) : "Called when locked."
+	output OnUnlocked(void) : "Called when unlocked."
+	output OnUseLocked(void) : "Called when used but locked."
+	output OnUseUnlocked(void) : "Called when used but unlocked."
 	]
 
 @PointClass base(BasePropPhysics, SetModel) 
