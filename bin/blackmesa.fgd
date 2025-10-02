@@ -7014,6 +7014,12 @@
 	startwidth(float) : "Start Width" : "8.0"
 	endwidth(float) : "End Width" : "1.0"
 	spritename(sprite) : "Sprite Name" : "sprites/bluelaser1.vmt"
+	animate(choices) : "Animated" : 0 =
+		[
+		0: "No"
+		1: "Yes"
+		]
+		
 	renderamt(integer) : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
 	rendermode(choices) : "Render Mode" : 5 =
@@ -11192,7 +11198,7 @@
 
 @BaseClass base(BaseEntityAnimating) = BaseMesaPickup
 	[
-	respawntime(float) : "Respawn Time" : 15 : "Time waited between respawns in multiplayer mode."
+	respawntime(float) : "Respawn Time" :  : "Time waited between respawns in multiplayer mode."
 	spawnflags(flags)  =
 		[
 		1: "[1] Start Asleep" : 0
