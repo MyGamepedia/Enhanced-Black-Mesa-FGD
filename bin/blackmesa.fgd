@@ -11198,7 +11198,7 @@
 
 @BaseClass base(BaseEntityAnimating) = BaseMesaPickup
 	[
-	respawntime(float) : "Respawn Time" :  : "Time waited between respawns in multiplayer mode."
+	respawntime(float) : "Respawn Time" :  : "Time waited between respawns in multiplayer mode. Empty to grab value from sk_item_respawn_delay."
 	spawnflags(flags)  =
 		[
 		1: "[1] Start Asleep" : 0
