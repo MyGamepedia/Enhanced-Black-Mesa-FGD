@@ -10720,6 +10720,8 @@
 		0: "No"
 		1: "Yes"
 		]
+		
+	m_flPostYaw(float) : "Post Yaw" : -1 : "The yaw direction of the target after finishing the sequence (-1 for none)."
 
 	spawnflags(flags)  =
 		[
