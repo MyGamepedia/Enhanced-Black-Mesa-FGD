@@ -6720,11 +6720,26 @@
 	overlayname9(material) : "Overlay Name 9" : : "Name of the ninth overlay material to display. If left blank, overlay displaying will finish, and this entity will consider itself done."
 	overlaytime9(float) : "Overlay Duration 9" : "1.0" : "Amount of time that the ninth overlay should be displayed for, after which it will begin showing the tenth overlay. Set to -1 to show the ninth overlay indefinitely."
 	overlayname10(material) : "Overlay Name 10" : : "Name of the tenth overlay material to display. If left blank, overlay displaying will finish, and this entity will consider itself done."
-	overlaytime10(float) : "Overlay Duration 10" : "1.0" : "Amount of time that the tenth overlay should be displayed for, after which this entity will stop displaying overlays. Set to -1 to show the tenth overlay indefinitely."
+	overlaytime10(float) : "Overlay Duration 10" : "1.0" : "Amount of time that the tenth overlay should be displayed for, after which this entity will stop displaying overlays. Set to -1 to show the tenth overlay indefinitely."	
+	texframeindex(choices) : "Starting Overlay" : "1" : "[SourceCoop] The index for first displayed overlay." =
+		[
+		"1": 0
+		"2": 1
+		"3": 2
+		"4": 3
+		"5": 4
+		"6": 5
+		"7": 6
+		"8": 7
+		"9": 8
+		"10": 9
+		]
 
 	// Inputs
 	input StartOverlays(void) : "Start displaying the first overlay."
 	input StopOverlays(void) : "Stop displaying any overlays."
+	input StartOverlaysForEveryone(void) : "SourceCoop. Start displaying the first overlay for all valid players."
+	input StopOverlaysForEveryone(void) : "SourceCoop. Stop displaying any overlays for all valid players."
 	input SwitchOverlay(integer) : "Switch to displaying a specific overlay. Pass in the desired overlay number in the parameter."
 	]
 
@@ -12875,7 +12890,7 @@
 = item_healthcharger: "Health Charger"
 	[
 	charge(float) : "Charge" : 50 : "How full the charger should be (0 - 100)"
-	mprate(float) : "Charge Rate Multiplier" : "1.00" : "Multiplies charge rate."
+	mprate(float) : "Charge Rate Multiplier" : "1.0" : "Multiplies charge rate. In multiplayer, value overrides to 2.0 when charger spawned."
 	skintype(choices) : "Force Skin" : 0 =
 	[
 		0: "None"
@@ -12909,7 +12924,7 @@
 = item_suitcharger: "HEV recharger"
 	[
 	charge(float) : "Charge" : 75 : "How full the charger should be (0 - 100)"
-	mprate(float) : "Charge Rate Multiplier" : 1 : "Multiplies charge rate."
+	mprate(float) : "Charge Rate Multiplier" : "1.0" : "Multiplies charge rate. In multiplayer, value overrides to 2.0 when charger spawned."
 	skintype(choices) : "Force Skin" : 0 =
 	[
 		0: "None"
