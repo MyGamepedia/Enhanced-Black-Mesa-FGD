@@ -6721,7 +6721,7 @@
 	overlaytime9(float) : "Overlay Duration 9" : "1.0" : "Amount of time that the ninth overlay should be displayed for, after which it will begin showing the tenth overlay. Set to -1 to show the ninth overlay indefinitely."
 	overlayname10(material) : "Overlay Name 10" : : "Name of the tenth overlay material to display. If left blank, overlay displaying will finish, and this entity will consider itself done."
 	overlaytime10(float) : "Overlay Duration 10" : "1.0" : "Amount of time that the tenth overlay should be displayed for, after which this entity will stop displaying overlays. Set to -1 to show the tenth overlay indefinitely."	
-	texframeindex(choices) : "Starting Overlay" : "1" : "[SourceCoop] The index for first displayed overlay." =
+	texframeindex(choices) : "Starting Overlay" : "0" : "[SourceCoop] The index for first displayed overlay." =
 		[
 		"0": 1
 		"1": 2
