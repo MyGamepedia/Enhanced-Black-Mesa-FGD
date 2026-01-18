@@ -6720,26 +6720,13 @@
 	overlayname9(material) : "Overlay Name 9" : : "Name of the ninth overlay material to display. If left blank, overlay displaying will finish, and this entity will consider itself done."
 	overlaytime9(float) : "Overlay Duration 9" : "1.0" : "Amount of time that the ninth overlay should be displayed for, after which it will begin showing the tenth overlay. Set to -1 to show the ninth overlay indefinitely."
 	overlayname10(material) : "Overlay Name 10" : : "Name of the tenth overlay material to display. If left blank, overlay displaying will finish, and this entity will consider itself done."
-	overlaytime10(float) : "Overlay Duration 10" : "1.0" : "Amount of time that the tenth overlay should be displayed for, after which this entity will stop displaying overlays. Set to -1 to show the tenth overlay indefinitely."	
-	texframeindex(choices) : "Starting Overlay" : "0" : "[SourceCoop] The index for first displayed overlay." =
-		[
-		"0": 1
-		"1": 2
-		"2": 3
-		"3": 4
-		"4": 5
-		"5": 6
-		"6": 7
-		"7": 8
-		"8": 9
-		"9": 10
-		]
+	overlaytime10(float) : "Overlay Duration 10" : "1.0" : "Amount of time that the tenth overlay should be displayed for, after which this entity will stop displaying overlays. Set to -1 to show the tenth overlay indefinitely."
 
 	// Inputs
 	input StartOverlays(void) : "Start displaying the first overlay."
 	input StopOverlays(void) : "Stop displaying any overlays."
-	input StartOverlaysForEveryone(void) : "SourceCoop. Start displaying the first overlay for all valid players."
-	input StopOverlaysForEveryone(void) : "SourceCoop. Stop displaying any overlays for all valid players."
+	input StartOverlaysAll(void) : "SourceCoop. Start displaying the first overlay for all valid players."
+	input StopOverlaysAll(void) : "SourceCoop. Stop displaying any overlays for all valid players."
 	input SwitchOverlay(integer) : "Switch to displaying a specific overlay. Pass in the desired overlay number in the parameter."
 	]
 
@@ -11572,7 +11559,8 @@
 		[
 		1: "[1] Start constrained" : 0
 		2: "[2] Deny player pickup (reserve for NPC)" : 0
-		4: "[4] Not puntable by Gravity Gun" : 0
+		8: "[8] Do not play weapon pick up sound" : 0
+		1073741824: "[1073741824] No respawn" : 0
 		]
 
 
