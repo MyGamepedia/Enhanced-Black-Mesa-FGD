@@ -7016,11 +7016,6 @@
 	startwidth(float) : "Start Width" : "8.0"
 	endwidth(float) : "End Width" : "1.0"
 	spritename(sprite) : "Sprite Name" : "sprites/bluelaser1.vmt"
-	animate(choices) : "Animated" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
 		
 	renderamt(integer) : "FX Amount (0 - 255)" : 255 : "The FX amount is used by the selected Render Mode."
 	rendercolor(color255) : "FX Color (R G B)" : "255 255 255" : "The FX color is used by the selected Render Mode."
@@ -17419,23 +17414,10 @@
 
 @BaseClass base(BaseNPC, RappelNPC) = BaseMarine
 	[
-	numgrenades(choices) : "Number of Grenades" : 5 : "Number of grenades that will have marine. This is hardcorded, you can't use your own numbers." =
+	additionalequipment(choices) : "Weapon" : "weapon_mp5" : "Determines the weapon the marine will spawn with, mp5, shotgun or pick one of these randomly." = 
 		[
-		0: "None"
-		1: "1"
-		2: "2"
-		3: "3"
-		4: "4"
-		5: "5"
-		-1: "Unlimited"
-		]
-
-	additionalequipment(choices) : "Weapons" : "weapon_mp5" =
-		[
-		"weapon_glock": "weapon_glock"
-		"weapon_mp5": "weapon_mp5"
-		"weapon_shotgun": "weapon_shotgun"
-		"weapon_rpg": "weapon_rpg"
+		"weapon_mp5": "Mp5"
+		"weapon_shotgun": "Shotgun"
 		0: "Random"
 		]
 
@@ -18089,6 +18071,11 @@
 	studioprop("models/humans/marine.mdl")
 = npc_human_commander: "Marines commander. The only marine who can use MP5 grenades."
 	[
+	additionalequipment(choices) readonly : "Weapon" : "weapon_mp5" : "Determines the weapon the marine will spawn with, for commander and medic only mp5 can be used." =
+		[
+		"weapon_mp5": "Mp5"
+		]
+	
 	]
 
 @NpcClass base(BaseMarine) 
@@ -18116,4 +18103,9 @@
 	studioprop("models/humans/marine.mdl")
 = npc_human_medic: "Marines medic. Heals other marines with medkits."
 	[
+	additionalequipment(choices) readonly : "Weapon" : "weapon_mp5" : "Determines the weapon the marine will spawn with, for commander and medic only mp5 can be used." =
+		[
+		"weapon_mp5": "Mp5"
+		]
+	
 	]
