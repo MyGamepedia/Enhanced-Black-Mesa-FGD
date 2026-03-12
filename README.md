@@ -15,7 +15,7 @@ This is heavy improved Black Mesa FGD from [TeamSpen's HammerAddons](https://git
 ## Possible positions
 
 ### Icon Artist
-Artist for point entity icons in Valve or Crowbar Collective style.
+Artist for point entity icons, should be done in Valve or Crowbar Collective style.
 
 ## Contribution
 
