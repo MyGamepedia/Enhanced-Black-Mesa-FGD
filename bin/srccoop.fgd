@@ -1,0 +1,63 @@
+@include "blackmesa.fgd"
+
+@BaseClass base(BaseLogicalNPC) = BaseNPC: "Behaviour only applicable to visible NPCs."
+	[
+	custommodel(studio) : "Custom Model" : : "The model to use for this NPC. It may not work on NPCs with character manifest support due to timing issues, to fix, fire AddOutput with parameter ''custommodel yourmodel'' parameter when NPC appears."
+	physdamagescale(float) : "Physics Impact Damage Scale" : "1.0" : "Scales damage energy when this object is hit by a physics object. NOTE: 0 means this feature is disabled for backwards compatibility.\nSet to 1.0 for materials as strong as flesh, smaller numbers indicate stronger materials."
+	target(target_destination) : "Target Path Corner" : : "If set, the name of a path corner entity that this NPC will walk to, after spawning."
+	expressionoverride(sound) : "Expression Override" : : "Enter a VCD file to override facial expressions on this NPC."
+	dontusespeechsemaphore(choices) : "Don't Use Speech Semaphore?" : 0 : "Friendly NPCs are not allowed to speak if another friendly NPC is speaking. In some cases we don't want speaking NPCs to prevent other NPCs from speaking (for instance, if there is a friendly NPC speaking for a long time on a monitor). To make this NPC not prevent other NPCs from talking, make it not grab the semaphore when it speaks." =
+		[
+		0: "No (Use speech semaphore)"
+		1: "Yes (Don't use speech semaphore)"
+		]
+	
+	linedivider_npc(string) readonly : "----------------------------------------------------------------------------------------------------------"
+
+	// Inputs
+	input SetBodyGroup(integer) : "HACK: Sets this NPC's body group (from 0 - n). You'd better know what you are doing!"
+	input SetExpressionOverride(string) : "Set a VCD file to override facial expressions on this NPC."
+	]
+
+@SolidClass base(Trigger) 
+	line(255 255 255, targetname, filtername)
+	line(255 255 255, targetname, landmark)
+	color(200 0 0)
+= trigger_coop: "Trigger that can count the number of players, either fractionally or as a specific number. Filters can be used with this entity, however only players can use the special features of this entity."
+	[
+		CountType(choices) : "Count Type" : 1 : "How you want the trigger to count players." =
+		[
+			0 : "Specific Number"
+			1 : "Percentage"
+		]
+
+		UseHud(choices) : "Use HUD" : 1 : "Should we use the HUD to display the number of players?" =
+		[
+			0 : "No"
+			1 : "Yes"
+		]
+		
+		PlayerValue(integer) : "Number of Players" : 50 : "The value this trigger will use to compare with.  Use value range of 0 - 100 for percentage."
+		target(target_destination) : "Target" : "" : "Target to teleport the player to with TeleportPlayersNotTouching Input."
+		renderamt(integer) : "HUD Alpha" : 255 : "Alpha of the hud text, where 0 = fully transparent and 255 = fully opaque." 
+		rendercolor(color255) : "HUD Color (R G B)" : "255 255 255"
+
+		input Alpha(integer) : "Sets HUD alpha (0 - 255)."
+		input Color(color255) : "Sets HUD render color (R G B)."
+		input TeleportPlayersNotTouching(void) : "Teleport Players who are not touching this trigger to the Target's location."
+
+		output OnPlayersIn(void) : "This gets fired if the required amount of players are touching this volume."
+		output OnPlayersOut(void) : "This gets fired after the player count drops below the requirement."
+		output OnAllPlayersIn(void) : "This gets fired when every player is touching the trigger, will couple with OnPlayersIn. (Use OnEndTouchAll for opposite effect)"
+	]
+	
+@PointClass base(BaseScreenOverlay) 
+	color(200 0 0)
+	iconsprite("editor/ficool2/env_screenoverlay")
+= env_screenoverlay: "An entity that can display and control a set of screen overlays, to be displayed over the player's view. Useful for view effects like drunkenness, or teleporter afterimages, etc."
+	[
+	
+	// Inputs
+	input StartOverlaysAll(void) : "Start displaying the first overlay for all valid players."
+	input StopOverlaysAll(void) : "Stop displaying any overlays for all valid players."
+	]
