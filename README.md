@@ -7,8 +7,9 @@ This is heavy improved Black Mesa FGD from [TeamSpen's HammerAddons](https://git
 1. Install TeamSpen's HammerAddons at first. Follow [this guide](https://github.com/TeamSpen210/HammerAddons/wiki/Installation).
 2. Download [latest](https://github.com/MyGamepedia/Enhanced-Black-Mesa-FGD/releases/latest) version of `Enchanced Black Mesa FGD`.
 3. Drop archive files into your `Black Mesa` folder with files replacement (if it will ask).
-4. Make sure that your `gameinfo.txt` include `hammer` folder and that Hammer use `blackmase.fgd` without the original files from the game files.
-5. Enjoy!
+4. Make sure that your `gameinfo.txt` include `hammer` folder and that Hammer uses `blackmase.fgd` without the original files from the game files.
+5. (Optional) To have [SourceCoop](https://github.com/MyGamepedia/SourceCoop) features, open Hammer, Tools->Options...->Game Configurations->Add, pick `srccoop.fgd` file from your `bin` folder in `Black Mesa` folder, press `OK`.
+6. Enjoy!
 
 
 ## Possible positions
