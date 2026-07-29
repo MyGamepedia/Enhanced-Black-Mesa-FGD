@@ -8311,11 +8311,11 @@
 
 
 @PointClass base(BaseEntityPoint) 
-	studio("models/editor/playerstart.mdl")
+	studioprop()
 = info_teleport_destination: "An entity that does nothing itself, but can be used to specify the destination for a trigger_teleport entity. An info_target can be used instead."
 	[
+	model(studio) : "[H] Model" : "models/editor/playerstart.mdl" : "The model shown in Hammer, to use for positioning."
 	]
-
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/info_target.vmt")
