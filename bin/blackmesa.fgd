@@ -4703,7 +4703,7 @@
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/ai_goal_standoff.vmt")
-= ai_goal_standoff: "AI Goal Standoff"
+= ai_goal_standoff: "This entity enables NPCs to take part in standoffs - they will attack more tactically, take cover frequently, and possibly wait for the player to lead forward."
 	[
 	actor(target_name_or_class) : "Actor(s) to affect"
 	searchtype(choices) : "Search Type" : 0 : "How to search for the entities using the targetname." =
@@ -4732,6 +4732,7 @@
 		2: "Medium"
 		3: "High"
 		4: "Very High"
+		5: "Custom"
 		]
 
 	playerbattleline(choices) : "Player battleline" : 1 : "Player defines a battle line, applies to allies only" =
@@ -4768,6 +4769,7 @@
 	input Activate(void) : "Begin contesting position."
 	input Deactivate(void) : "Cease contesting position."
 	input SetAggressiveness(integer) : "Set aggressiveness."
+	input UpdateActors(void) : "Tell the goal entity to re-check Actor(s) to affect in case any disappeared, or any new NPCs spawned."
 	]
 
 @PointClass base(BaseEntityPoint) 
