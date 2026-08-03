@@ -5063,7 +5063,7 @@
 		2048: "[2048] Don't Complain" : 0
 		]
 
-	forcestate(choices) : "AI state to set" : 0 =
+	forcestate(choices) : "AI state to set" : 0 : "Overrides the NPC's current alertness state. " =
 		[
 		0: "<None>"
 		1: "Set state to IDLE"
@@ -5071,7 +5071,7 @@
 		3: "Set state to COMBAT"
 		]
 
-	schedule(choices) : "Schedule to run" : 1 =
+	schedule(choices) : "Schedule to run" : 1 : "Which AI schedule to run. " =
 		[
 		0: "<None>"
 		1: "Walk to Goal Entity"
@@ -5082,7 +5082,7 @@
 		6: "Set enemy to Goal Entity AND Run to Goal Entity"
 		]
 
-	interruptability(choices) : "Interruptability" : 0 =
+	interruptability(choices) : "Interruptability" : 0 : "What can cause the NPC to give up on this schedule? " =
 		[
 		0: "General"
 		1: "Damage or Death"
@@ -5093,6 +5093,7 @@
 
 	// Inputs
 	input StartSchedule(void) : "Starts the scripted schedule. This will first locate an NPC that matches the given target, then tell the NPC to run the specified schedule."
+	input StopSchedule(void) : "Tells NPC targets to stop running this schedule."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -17695,11 +17696,11 @@
 	studioprop("models/xenians/houndeye.mdl")
 = npc_houndeye: "Houndeye."
 	[
-	m_benablememoryupdateeveryframe(choices) : "Enable Memory Update Every Frame" : 0 =
-		[
-		0: "No"
-		1: "Yes"
-		]
+	//m_benablememoryupdateeveryframe(choices) : "Enable Memory Update Every Frame" : 0 =
+	//	[
+	//	0: "No"
+	//	1: "Yes"
+	//	]
 
 
 	// Inputs
