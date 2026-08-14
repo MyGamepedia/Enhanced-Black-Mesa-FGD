@@ -1,0 +1,9 @@
+"Sprite"
+{
+	$baseTexture "editor/mygamepedia/godrays_settings"
+	$spriteorientation "vp_parallel"
+	$spriteorigin "[ 0.50 0.50 ]"  // Place above the model.
+	$spriterendermode 2
+	$no_fullbright" 1
+	%keywords "ChatGPT"
+}

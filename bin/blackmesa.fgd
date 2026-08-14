@@ -5861,7 +5861,7 @@
 	]
 
 @PointClass base(BaseEntityPoint) 
-	iconsprite("editor/env_fire")
+	iconsprite("editor/ficool2/env_fire_trail")
 	color(200 200 0)
 = env_fire_trail: "The trail of fire created by ignited pieces of some vehicles."
 	[
@@ -9393,7 +9393,7 @@
 	]
 
 @PointClass base(BaseEntityPoint, BmGodraysDirectional, BmGodraysNormal) 
-	lightprop("models/editor/spot.mdl")
+	lightprop("models/editor/cone_helper.mdl")
 	iconsprite("editor/light_new.vmt")
 = newLight_Dir: "It places a godrays and disk/circle as sun effect in the skybox where it does not parallax, giving the impression that it is nearly infinitely far away. The entity does not contribute any actual lighting (the lighting code is disabled); it is merely a visual representation of the Sun."
 	[
@@ -9404,7 +9404,7 @@
 	]
 
 @PointClass base(BaseEntityPoint, BmNewLightBaseMain, BmNewLightShadowMain, BmNewLightShadowFace, BmNewLightShadowBias, BmNewLightCookieMain, BmNewLightGodraysMode, BmGodraysNormal, BmGodraysFancy, BmNewLightShadowPasses) 
-	studio("models/editor/axis_helper_white.mdl")
+	studio("models/editor/angle_helper.mdl")
 	iconsprite("editor/light_new.vmt")
 	sphere(range)
 	sphere(NearZ)
@@ -9470,7 +9470,7 @@
 
 @PointClass base(BaseEntityPoint)
 	studio("models/editor/spot.mdl")
-	iconsprite("editor/light_new.vmt")
+	iconsprite("editor/mygamepedia/NewLights_Settings.vmt")
 	sphere(range)
 	sphere(NearZ)
 	frustum(phi,NearZ,Range,LightColor,-1)
@@ -9552,7 +9552,8 @@
 
 	]
 	
-@PointClass base(BaseEntityPoint, BmGodraysNormal) 
+@PointClass base(BaseEntityPoint, BmGodraysNormal)
+	iconsprite("editor/mygamepedia/godrays_settings.vmt")
 = godrays_settings : "This entity dynamically changes some godrays settings for newLight_Point if triggered by the input. It should also affect newLight_Dir entity, but due to the incorrectly specified class it does not work for this entity."
 [
 	TargetGodRays(target_destination) : "Target Point Light Entity" : "" : "Here you enter name of new light entity (with godrays support) for which you want to apply changes. Works with multiple lights if they have the same name."

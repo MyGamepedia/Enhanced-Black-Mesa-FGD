@@ -1,0 +1,9 @@
+"Sprite"
+{
+	$baseTexture "editor/mygamepedia/NewLights_Settings"
+	$spriteorientation "vp_parallel"
+	$spriteorigin "[ 0.50 0.75 ]"  // Place above the model.
+	$spriterendermode 2
+	$no_fullbright" 1
+	%keywords "ChatGPT"
+}
