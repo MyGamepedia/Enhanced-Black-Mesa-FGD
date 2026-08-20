@@ -9469,7 +9469,7 @@
 	]
 
 @PointClass base(BaseEntityPoint)
-	studio("models/editor/spot.mdl")
+	studio("models/editor/angle_helper.mdl")
 	iconsprite("editor/mygamepedia/NewLights_Settings.vmt")
 	sphere(range)
 	sphere(NearZ)
