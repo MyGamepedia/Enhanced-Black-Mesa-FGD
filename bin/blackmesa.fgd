@@ -13800,7 +13800,8 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop()
-= prop_ragdoll: "A prop that physically simulates and can be articulated with internal joints. The joint constraints are part of the physics model."
+	ragdoll()
+= prop_ragdoll_original: "A prop that physically simulates and can be articulated with internal joints. The joint constraints are part of the physics model. Unbreakable version."
 	[
 	spawnflags(flags)  =
 		[
@@ -13811,57 +13812,63 @@
 		65536: "[65536] Start asleep" : 0
 		]
 
-	mimicname(string) : "Character Manifest Mimic Name" : : "Choose a name or a classname from the character manifest to dress the ragdoll."
-	health(integer) : "Health" : 100 : "The amount of damage the ragdoll takes before gibbing."
+	mimicname(choices) : "Character Manifest Mimic Name" : "" : "Choose a name or a classname from the character manifest to dress the ragdoll. Enter text for custom value." =
+		[
+		"": "None"
+		"npc_human_scientist": 			"Scientist"
+		"npc_human_security": 			"Security"
+		"npc_human_grunt": 				"Grunt"
+		"npc_human_commander": 			"Commander"
+		"npc_human_grenadier": 			"Grenadier"
+		"npc_human_medic": 				"Medic"
+		"generic_actor": 				"Generic Actor"
+		"npc_xen_grunt": 				"Xen Alien Grunt"
+		"npc_alien_grunt_melee": 		"Alien Grunt Melee"
+		"npc_furniture": 				"Furniture"
+		"monster_furniture": 			"Monster Furniture"
+		"npc_human_scientist_female":	"Scientist Female"
+		"npc_human_assassin":			"Assassin"
+		"npc_alien_slave": 				"Alien Slave"
+		"npc_xorteb": 					"Xort Earthbound"
+		"npc_xort": 					"Xort"
+		"npc_gargantua": 				"Gargantua"
+		"npc_alien_grunt": 				"Alien Grunt"
+		"npc_alien_grunt_elite": 		"Alien Grunt Elite"
+		"npc_human_scientist_eli": 		"Scientist Eli"
+		"npc_human_scientist_kleiner": 	"Scientist Kleiner"
+		"npc_eli": 						"Eli"
+		"npc_kleiner": 					"Kleiner"
+		]
+
 	angleoverride(string) : "Override Animation" : : "Filled in by the engine via hammer_update_entity, do not edit by hand except to clear."
-	body(integer) : "Body" : 0 : "Specifies which body group should be used."
+	body(integer) : "Body" : 0 : "Specifies which body group should be used for this ragdoll."
 
 	// Inputs
-	input AllowBloodPool(void) : "Corpse once will create pool of blood (particle effect) if it is placed on brush."
 	input StartRagdollBoogie(float) : "Begins ragdoll boogie effect. Parameter override = number of seconds to boogie."
 	input EnableMotion(void) : "Enable physics motion/collision response."
 	input DisableMotion(void) : "Disable physics motion/collision response."
 	input FadeAndRemove(float) : "Fade out then remove (kill) self. Parameter override = duration of fade"
 	]
 	
-@PointClass base(prop_ragdoll) 
+@PointClass base(prop_ragdoll_original) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studioprop()
+= prop_ragdoll: "A prop that physically simulates and can be articulated with internal joints. The joint constraints are part of the physics model. Breakable version."
+	[
+	health(integer) : "Health" : 100 : "The amount of damage the ragdoll takes before breakable ragdoll gibbing."
+
+	// Inputs
+	input AllowBloodPool(void) : "Creates pool of blood (particle effect) if breakable ragdoll is placed on brush."
+	]
+	
+@PointClass base(prop_ragdoll_original) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studioprop()
 = item_healthkit_ragdoll_clone: "Healthkit that appears in singleplayer to replace other medkit entities."
 	[
-	model(studio) : "Model" : "models/weapons/w_medkit.mdl" : "Model to use for this healthkit."
-
-	// Outputs
-	output OnPlayerPickup(void) : "Fires when the player picks up this object."
-	output OnPlayerDenied(void) : "Fires when the player attempts to pick up this object but is denied."
-	]
-
-@PointClass base(BaseEntityPhysics, EnableDisable, SetModel) 
-	sphere(fademindist)
-	sphere(fademaxdist)
-	studioprop()
-	ragdoll()
-= prop_ragdoll_original: "A prop that physically simulates and can be articulated with internal joints. The joint constraints are part of the physics model. This is the original real prop_ragdoll, not remapped breakable one."
-	[
-	spawnflags(flags)  =
-		[
-		4: "[4] Debris - Don't collide with the player or other debris" : 1
-		8192: "[8192] Allow Dissolve" : 0
-		16384: "[16384] Motion Disabled" : 0
-		32768: "[32768] Allow stretch" : 0
-		65536: "[65536] Start asleep" : 0
-		]
-
-	mimicname(string) : "Character Manifest Mimic Name" : : "Choose a name or a classname from the character manifest to dress the ragdoll."
-	angleoverride(string) : "Override Animation" : : "Filled in by the engine via hammer_update_entity, do not edit by hand except to clear."
-	budy(integer) : "Body" : 0 : "Specifies which body group should be used."
-
-	// Inputs
-	input StartRagdollBoogie(float) : "Begins ragdoll boogie effect. Parameter override = number of seconds to boogie."
-	input EnableMotion(void) : "Enable physics motion/collision response."
-	input DisableMotion(void) : "Disable physics motion/collision response."
-	input FadeAndRemove(float) : "Fade out then remove (kill) self. Parameter override = duration of fade"
+	model(studio) : "Model" : "models/weapons/w_medkit.mdl" : "Model to use for this healthkit ragdoll clone."
 	]
 
 @PointClass base(BaseEntityAnimating, SetModel) 
@@ -16709,9 +16716,10 @@
 	line(255 0 0, targetname, enemyfilter)
 	color(0 200 200)
 	line(255 255 255, targetname, target)
-	studio("models/xenians/agrunt_unarmored.mdl")
+	studioprop()
 = npc_alien_grunt_melee: "New unarmored alien grunt."
 	[
+	model(studio) : "Model" : "models/xenians/agrunt_unarmored.mdl" : "The model to use for this alien grunt melee."
 	]
 
 @NpcClass base(BaseNPC) 
@@ -17912,9 +17920,10 @@
 	line(255 0 0, targetname, enemyfilter)
 	color(0 200 200)
 	line(255 255 255, targetname, target)
-	studio("models/xenians/agrunt.mdl")
+	studioprop()
 = npc_xen_grunt: "Xen Grunt. Smart version of alien grunt."
 	[
+	model(studio) : "Model" : "models/xenians/agrunt.mdl" : "The model to use for this xen alien grunt."
 	mainbehaviortreename(string) : "Main Behavior Tree Name"
 	assaultbehaviortreename(string) : "Assault Behavior Tree Name"
 
