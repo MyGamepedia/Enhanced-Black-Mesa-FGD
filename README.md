@@ -11,6 +11,11 @@ This is heavy improved Black Mesa FGD from [TeamSpen's HammerAddons](https://git
 5. (Optional) To have [SourceCoop](https://github.com/MyGamepedia/SourceCoop) features, open Hammer, Tools->Options...->Game Configurations->Add, pick `srccoop.fgd` file from your `bin` folder in `Black Mesa` folder, press `OK`.
 6. Enjoy!
 
+## Possible positions
+
+### Icon Artist
+Artist for point entity icons, should be done in Valve or Crowbar Collective style.
+
 ## Contribution
 
 - Report issues if you find. 
