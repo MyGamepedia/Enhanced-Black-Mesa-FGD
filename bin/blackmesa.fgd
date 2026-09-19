@@ -3880,7 +3880,7 @@
 	maxnpccount(integer) : "Num. of NPCs" : 1 : "Number of NPCs that will spawn before this spawner is exhausted."
 	spawnfrequency(string) : "Frequency" : 5 : "How often (in seconds) a new NPC will be spawned. If set to -1, a new NPC will be made when the last NPC dies."
 	maxlivechildren(integer) : "Max Live NPCs" : 5 : "Maximum number of live children allowed at any one time (new ones will not be made until one dies). If set to -1, no limit is applied."
-	forcescheduleonspawn(string) : "ForceScheduleOnSpawn" : : "Name of NPC schedule that we want to play on spawn."
+	forcescheduleonspawn(target_destination) : "Force Schedule On Spawn" : : "Name of NPC schedule that we want to play on spawn."
 	ignoreentity(target_destination) : "Entity To Ignore" : : "If set, an entity to ignore when checking if there's room to spawn."
 
 	// Inputs
@@ -4399,7 +4399,7 @@
 		2: "1024"
 		]
 	
-	shadowradius(float) : "ShadowRadius" : "-1.0" : "Radius of shadow edges for soft shadows. If its value is negative, code will auto assign a value depending on ShadowLod. These code based values can be adjusted via convars nr_shadow_rad_High, nr_shadow_rad_Med and nr_shadow_rad_Low."
+	shadowradius(float) : "ShadowRadius" : "1.0" : "Radius of shadow edges for soft shadows. If its value is negative, code will auto assign a value depending on ShadowLod. These code based values can be adjusted via convars nr_shadow_rad_High, nr_shadow_rad_Med and nr_shadow_rad_Low."
 	nearz(float) : "NearZ" : 2 : "NearZ used by shadowmap camera for this light. This is the distance at which the light source will start cast shadows."
 	linedivider_BmNewLightShadowMain0(string) readonly : "----------------------------------------------------------------------------------------------------------"				
 	]
@@ -12309,7 +12309,7 @@
 	wait(float) : "Delay Before Reset (-1 stay)" : 3 : "Amount of time, in seconds, after the button has been pressed before it returns to the starting position. Once it has returned, it can be used again. If the value is set to -1, the button never returns."
 	spawnflags(flags)  =
 		[
-		1: "[1] Don't move" : 0
+		1: "[1] Don't move" : 1
 		32: "[32] Toggle" : 0
 		256: "[256] Touch Activates" : 0
 		512: "[512] Damage Activates" : 0
@@ -13360,6 +13360,7 @@
 	line(0 0 255, targetname, attach2)
 	line(128 128 128, targetname, constraintsystem)
 	sphere(teleportfollowdistance)
+	studio("models/editor/axis_helper.mdl")
 	iconsprite("editor/phys_ballsocket.vmt")
 	line(255 255 255, targetname, attach1)
 	line(255 255 255, targetname, attach2)
@@ -14354,6 +14355,23 @@
 	line(255 255 0, targetname, target)
 = func_tracktrain: "A moving platform that the player can ride. It follows a path of path_track entities.\nNOTE: Build your train so that the front of the train is facing down the X axis. When it spawns it will automatically rotate to face the next path_track on the path."
 	[
+	spawnflags(flags)  =
+		[
+		1: "[1] No Pitch (X-rot)" : 0
+		2: "[2] No User Control" : 0
+		4: "[4] Forward Only" : 0
+		8: "[8] Passable" : 0
+		16: "[16] Always Fixed Orientation" : 0
+		128: "[128] Rideable Train (HL1 Train)" : 0
+		256: "[256] Use max speed for pitch shifting move sound" : 0
+		512: "[512] Not blockable by players" : 0
+		]
+		
+	// Inputs
+	input SetEmergencyStop(void) : "Slows down the train until it fully stops movement. Normally used by prop_train_awesome when the player is off the train."
+	input EnableControls(void) : "Allows player controls."
+	input DisableControls(void) : "Prevents player controls. If a prop_train_awesome is paranted, prop_train_awesome will always use red light color. If a player was controlling the train, the player will stop control."
+	input SetVelocityType(integer) : "Sets the way train toggles between speed modes. 0 - instant. 1 - smooth. 2 - instant, attempt to use backward movement will cause train to constantly switch between backward and low speed forward."	
 	]
 
 @SolidClass base(func_wall) 
