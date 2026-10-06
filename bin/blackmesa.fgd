@@ -3551,7 +3551,7 @@
 	[
 	model(studio) : "World Model" : : "Specify the model to place."
 	skin(integer) : "Skin" : 0 : "Some models have multiple versions of their textures, called skins. Set this to a number other than 0 to use that skin instead of the default."
-	rendercolor(color255) : "Base Color (R G B)" : "Color tint used by the model."
+	rendercolor(color255) : "Base Color (R G B)" : "255 255 255" : "Color tint used by the model."
 	solid(choices) : "Collisions" : 6 : "Method of collision for this prop." =
 		[
 		0: "None"
