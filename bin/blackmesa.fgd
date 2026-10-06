@@ -2209,10 +2209,11 @@
 	]
 
 @PointClass 
+	wirebox(boxmin, boxmax)
 	color(0 0 255)
 	sidelist()
 	iconsprite("editor/env_cubemap.vmt")
-	line(255 255 255, targetname, parallaxobb)
+	line(255 255 255, targetname)
 = env_cubemap: "An entity that creates a sample point for the Cubic Environment Map."
 	[
 	cubemapsize(choices) : "Cubemap Size" : 0 =
@@ -2230,6 +2231,14 @@
 		]
 
 	sides(sidelist) : "Brush faces" : : "(Optional) Brushes faces to directly attach to the env_cubemap. Press Pick then click on faces in the 3D View to select them. Use CTRL while clicking to add or remove from the selection."
+	parallax(choices) : "Is Parallax-Corrected ?" : 0 : "Determines if this cubemap will use parallax cubemap volume to become parallax corrected cubemap." =
+		[
+		0: "No"
+		1: "Yes"
+		]
+
+	boxmin(vector) : "Box Projection Mins" : "-96 -96 -96" : "Mins vectors for the parallax cubemap volume. Can be adjusted using the wirebox. "
+	boxmax(vector) : "Box Projection Maxs" : "96 96 96" : "Maxs vectors for the parallax cubemap volume. Can be adjusted using the wirebox. "
 	]
 
 @SolidClass 
@@ -3542,6 +3551,7 @@
 	[
 	model(studio) : "World Model" : : "Specify the model to place."
 	skin(integer) : "Skin" : 0 : "Some models have multiple versions of their textures, called skins. Set this to a number other than 0 to use that skin instead of the default."
+	rendercolor(color255) : "Base Color (R G B)" : "Color tint used by the model."
 	solid(choices) : "Collisions" : 6 : "Method of collision for this prop." =
 		[
 		0: "None"
@@ -9152,6 +9162,20 @@
 
 	// Inputs
 	input Shutdown(void) : "Remove the manager and all scenes referenced by it (and all scenes referenced by logic_scene_list_manager's embedded in this one)."
+	]
+	
+@PointClass base(BaseEntityPoint) 
+	iconsprite("editor/logic_skill.vmt")
+	color(0 100 250)
+= logic_skill: " An entity that can fire specific outputs based on the server's currently set difficulty. "
+	[
+	// Inputs
+	input GetSkill (void) : "Tests current difficulty value, and fires OnSkill1, OnSkill2, or OnSkill3 output, depending on the current difficulty."
+
+	// Outputs
+	output OnSkill1(void) : "Fired if test of current difficulty value results in Easy/Normal (skill 1)."
+	output OnSkill2(void) : "Fired if test of current difficulty value results in Normal/Black Mesa (skill 2)."
+	output OnSkill3(void) : "Fired if test of current difficulty value results in Hard (skill 3)."
 	]
 
 @PointClass base(BaseEntityPoint, EnableDisable) 
