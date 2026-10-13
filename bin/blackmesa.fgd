@@ -2370,7 +2370,7 @@
 @PointClass 
 	size(-1 -1 0, 1 1 1)
 	color(80 150 225)
-	studio("models/editor/overlay_helper_box.mdl")
+	studio("models/editor/axis_helper_thick_info_overlay.mdl")
 	iconsprite("editor/vizzys/info_overlay_transition")
 	sidelist()
 	sidelist(sides2)
@@ -7999,7 +7999,7 @@
 @PointClass base(BaseEntityPoint) 
 	size(-1 -1 0, 1 1 1)
 	color(80 150 225)
-	studio("models/editor/overlay_helper_box.mdl")
+	studio("models/editor/axis_helper_thick_info_overlay.mdl")
 	sphere(fademindist)
 	sphere(fademaxdist)
 	overlay()
@@ -8343,7 +8343,7 @@
 @PointClass base(BaseEntityPoint) 
 	decal()
 	line(128 128 128, targetname, applyentity)
-	studio("models/editor/decal_helper.mdl")
+	studio("models/editor/axis_helper_thick_infodecal.mdl")
 = infodecal: "An entity that places a decal on the world. If the decal has no target name, it will immediately apply itself when the level is loaded.If it has a name specified, it won't apply until it receives the 'Activate' input."
 	[
 	texture(material) : "Texture" : : "The texture used for the decal."
