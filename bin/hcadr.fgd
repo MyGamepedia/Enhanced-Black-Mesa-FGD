@@ -1,0 +1,177 @@
+@include "blackmesa.fgd"
+
+@PointClass base(Weapon) 
+	color(0 0 200)
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studioprop("models/weapons/w_knife.mdl")
+= weapon_knife: "HCADR. Knife."
+	[
+	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= item_weapon_shotgun: "M500 shotgun."
+	[
+	model(studio) : "Model" : "models/weapons/w_m500.mdl" : "Model to use for this shotgun."
+	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= item_weapon_mp5: "MP5."
+	[
+	model(studio) : "Model" : "models/weapons/w_mp5_mp.mdl" : "Model to use for this shotgun."
+	]
+	
+@SolidClass base(BaseTrain) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	line(255 255 0, targetname, target)
+= func_tracktrain: "A moving platform that the player can ride. It follows a path of path_track entities.\nNOTE: Build your train so that the front of the train is facing down the X axis. When it spawns it will automatically rotate to face the next path_track on the path."
+	[
+	spawnflags(flags)  =
+		[
+		1: "[1] No Pitch (X-rot)" : 0
+		2: "[2] No User Control" : 0
+		4: "[4] Forward Only" : 0
+		8: "[8] Passable" : 0
+		16: "[16] Always Fixed Orientation" : 0
+		128: "[128] Rideable Train (HL1 Train)" : 0
+		256: "[256] Use max speed for pitch shifting move sound" : 0
+		512: "[512] Not blockable by players" : 0
+		]
+		
+	// Inputs
+	input SetEmergencyStop(void) : "Slows down the train until it fully stops movement. Normally used by prop_train_awesome when the player is off the train."
+	input EnableControls(void) : "Allows player controls."
+	input DisableControls(void) : "Prevents player controls. If a prop_train_awesome is paranted, prop_train_awesome will always use red light color. If a player was controlling the train, the player will stop control."
+	input SetVelocityType(integer) : "Sets the way train toggles between speed modes. 0 - instant. 1 - smooth. 2 - instant, attempt to use backward movement will cause train to constantly switch between backward and low speed forward."	
+
+	// Outputs
+	output OnBackward(void) : "HCADR only. Fired when backward movement starts."
+	output OnForward(void) : "HCADR only. Fired when forward movement starts."
+	output OnStop(void) : "HCADR only. Fired when train stopped movement."
+	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= item_weapon_spas12: "HCADR. Original Black Mesa shotgun."
+	[
+	model(studio) : "Model" : "models/weapons/w_shotgun.mdl" : "Model to use for this shotgun."
+	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= item_weapon_spas12_c12: "HCADR. Original Black Mesa shotgun."
+	[
+	model(studio) : "Model" : "models/weapons_c12/w_shotgun.mdl" : "Model to use for this shotgun."
+	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= item_weapon_m4: "HCADR. M4."
+	[
+	model(studio) : "Model" : "models/weapons/w_m4.mdl" : "Model to use for this m4."
+	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= item_weapon_eagle: "HCADR. Desert Eagle."
+	[
+	model(studio) : "Model" : "models/weapons/w_eagle.mdl" : "Model to use for this eagle."
+	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= item_weapon_crowbar_melee: "HCADR. Original Black Mesa crowbar."
+	[
+	model(studio) : "Model" : "models/weapons/w_crowbar.mdl" : "Model to use for this crowbar."
+	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= item_weapon_crowbar: "Crowbar."
+	[
+	model(studio) : "Model" : "models/props_cwthfr/wrench.mdl" : "Model to use for this crowbar."
+	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= item_weapon_sec_glock: "HCADR. Original Black Mesa security glock."
+	[
+	model(studio) : "Model" : "models/weapons/w_glock_mp.mdl" : "Model to use for this crowbar."
+	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= item_ammo_m4: "M4 ammo."
+	[
+	model(studio) : "Model" : "models/weapons/ammo_m4.mdl" : "Model to use for this ammo."
+	]
+	
+@PointClass base(BaseEntityPoint, BmNewLightBaseMain, BmNewLightShadowMain, BmNewLightShadowFace, BmNewLightShadowBias, BmNewLightCookieMain, BmNewLightGodraysMode, BmGodraysNormal, BmGodraysFancy, BmNewLightShadowPasses) 
+	studio("models/editor/angle_helper.mdl")
+	iconsprite("editor/light_new.vmt")
+	sphere(range)
+	sphere(NearZ)
+= newLight_Point: "It creates an invisible deferred light source that shines in all directions, includes godrays and lightcookies."
+	[
+
+	// Inputs
+	input TurnOn(void) : "Turn the light on."
+	input TurnOff(void) : "Turn the light off."
+	input Toggle(void) : "Toggle the light's current state."
+	input TurnOnGodRays(void) : "Turn the godrays on."
+	input TurnOffGodRays(void) : "Turn the godrays off."
+	input SetIntensityForLight(float) : "Change light's intensity value. Doesn't affect the godrays."
+	input SetColorLight(color255) : "Change light's color value. Doesn't affect the godrays."
+	input SetShadowRadius(void) : "Set Shadow Radius value."
+	]
+
+@PointClass base(BaseEntityPoint, BmNewLightReverseDir, BmNewLightsSettings, BmNewLightShadowFOV, BmNewLightShadowBias, BmNewLightCookieSpot, BmNewLightShadowPasses) 
+	lightprop("models/editor/spot.mdl")
+	iconsprite("editor/light_new.vmt")
+	sphere(range)
+	sphere(NearZ)
+	frustum(phi,NearZ,Range,LightColor,-1)
+= newLight_Spot: "It is a cone-shaped, invisible deferred light source, includes lightcookies with animations for them. The animations is based on row and column atlases or scroll mode."
+	[
+
+	// Inputs
+	input TurnOn(void) : "Turn the light on."
+	input TurnOff(void) : "Turn the light off."
+	input Toggle(void) : "Toggle the light's current state."
+	input SetIntensityForLight(float) : "Change light's color value."
+	input SetColorLight(color255) : "Change light's intensity value."
+	input InputFixRotBugDueToTram(void) : "This is an unused input. Doesn't seem to do anything. Perhaps it initially should enable the direction reversing."
+	input SetShadowRadius(void) : "Set Shadow Radius value."
+	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= item_syringe_scientist: "Scientist's syringe."
+	[
+	model(studio) : "Model" : "models/items/xen/healthvial.mdl" : "Model to use for the syringe."
+	]
