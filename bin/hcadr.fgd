@@ -70,15 +70,6 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_spas12_c12: "HCADR. Original Black Mesa shotgun."
-	[
-	model(studio) : "Model" : "models/weapons_c12/w_shotgun.mdl" : "Model to use for this shotgun."
-	]
-	
-@PointClass base(BaseMesaPickup) 
-	sphere(fademindist)
-	sphere(fademaxdist)
-	studio()
 = item_weapon_m4: "HCADR. M4."
 	[
 	model(studio) : "Model" : "models/weapons/w_m4.mdl" : "Model to use for this m4."
@@ -97,27 +88,18 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_crowbar_melee: "HCADR. Original Black Mesa crowbar."
+= item_weapon_wrench: "HCADR. Wrench."
 	[
-	model(studio) : "Model" : "models/weapons/w_crowbar.mdl" : "Model to use for this crowbar."
+	model(studio) : "Model" : "models/props_cwthfr/wrench.mdl" : "Model to use for this pipewrench."
 	]
 	
 @PointClass base(BaseMesaPickup) 
 	sphere(fademindist)
 	sphere(fademaxdist)
 	studio()
-= item_weapon_crowbar: "Crowbar."
+= item_weapon_beretta: "HCADR. Beretta."
 	[
-	model(studio) : "Model" : "models/props_cwthfr/wrench.mdl" : "Model to use for this crowbar."
-	]
-	
-@PointClass base(BaseMesaPickup) 
-	sphere(fademindist)
-	sphere(fademaxdist)
-	studio()
-= item_weapon_sec_glock: "HCADR. Original Black Mesa security glock."
-	[
-	model(studio) : "Model" : "models/weapons/w_glock_mp.mdl" : "Model to use for this crowbar."
+	model(studio) : "Model" : "models/weapons/w_beretta.mdl" : "Model to use for this beretta."
 	]
 	
 @PointClass base(BaseMesaPickup) 
