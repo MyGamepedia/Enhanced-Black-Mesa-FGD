@@ -157,3 +157,21 @@
 	[
 	model(studio) : "Model" : "models/items/xen/healthvial.mdl" : "Model to use for the syringe."
 	]
+	
+@PointClass base(BaseMesaPickup) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	studio()
+= item_syringe_scientist: "Scientist's syringe."
+	[
+	model(studio) : "Model" : "models/items/xen/healthvial.mdl" : "Model to use for the syringe."
+	]
+	
+@PointClass base(generic_actor) 
+	sphere(fademindist)
+	sphere(fademaxdist)
+	color(0 200 200)
+	studioprop()
+= gonarch_actor: "Gonarch actor NPC."
+	[
+	]
