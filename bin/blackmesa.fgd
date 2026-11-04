@@ -4340,37 +4340,37 @@
 @BaseClass = BmNewLightShadowFace
 	[
 	
-	shadowfacex(choices) : "Shadows (+X)" : 1 : "Sets shadow state (enabled or disabled) for +X face." =
+	shadowfacex(choices) : "Shadows Side Forward (+X)" : 1 : "Sets shadow state (enabled or disabled) for +X face." =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	shadowfacex_minus(choices) : "Shadows (-X)" : 1 : "Sets shadow state (enabled or disabled) for -Y face." =
+	shadowfacex_minus(choices) : "Shadows Side Backward (-X)" : 1 : "Sets shadow state (enabled or disabled) for -X face." =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	shadowfacey(choices) : "Shadows (+Y)" : 1 : "Sets shadow state (enabled or disabled) for +Y face." =
+	shadowfacey(choices) : "Shadows Side Right (+Y)" : 1 : "Sets shadow state (enabled or disabled) for +Y face." =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	shadowfacey_minus(choices) : "Shadows (-Y)" : 1 : "Sets shadow state (enabled or disabled) for -Y face." =
+	shadowfacey_minus(choices) : "Shadows Side Left (-Y)" : 1 : "Sets shadow state (enabled or disabled) for -Y face." =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	shadowfacez(choices) : "Shadows (+Z)" : 1 : "Sets shadow state (enabled or disabled) for +Z face." =
+	shadowfacez(choices) : "Shadows Side Top (+Z)" : 1 : "Sets shadow state (enabled or disabled) for +Z face." =
 		[
 		0: "No"
 		1: "Yes"
 		]
 
-	shadowfacez_minus(choices) : "Shadows (-Z)" : 1 : "Sets shadow state (enabled or disabled) for -Z face." =
+	shadowfacez_minus(choices) : "Shadows Side Bottom (-Z)" : 1 : "Sets shadow state (enabled or disabled) for -Z face." =
 		[
 		0: "No"
 		1: "Yes"
@@ -9421,6 +9421,11 @@
 	iconsprite("editor/light_new.vmt")
 = newLight_Dir: "It places a godrays and disk/circle as sun effect in the skybox where it does not parallax, giving the impression that it is nearly infinitely far away. The entity does not contribute any actual lighting (the lighting code is disabled); it is merely a visual representation of the Sun."
 	[
+	enablegodrays(choices) : "Enable GodRays ?" : 1 : "Sets godrays state on spawn, enabled or disabled." =
+		[
+		0: "Disabled"
+		1: "Enabled"
+		]
 	
 	// Inputs
 	input TurnOnGodRays(void) : "Turn the godrays on."
