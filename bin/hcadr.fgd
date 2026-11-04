@@ -145,7 +145,7 @@
 	input Toggle(void) : "Toggle the light's current state."
 	input SetIntensityForLight(float) : "Change light's color value."
 	input SetColorLight(color255) : "Change light's intensity value."
-	input InputFixRotBugDueToTram(void) : "This is an unused input. Doesn't seem to do anything. Perhaps it initially should enable the direction reversing."
+	input InputFixRotBugDueToTram(void) : "Resets the bounding box size taking into account the current FOV and range values. Can be used to fix the bounding box size after applying new settings for light."
 	input SetShadowRadius(void) : "Set Shadow Radius value."
 	]
 	
