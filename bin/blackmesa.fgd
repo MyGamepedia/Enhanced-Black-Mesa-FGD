@@ -9465,7 +9465,7 @@
 	input Toggle(void) : "Toggle the light's current state."
 	input SetIntensityForLight(float) : "Change light's color value."
 	input SetColorLight(color255) : "Change light's intensity value."
-	input InputFixRotBugDueToTram(void) : "This is an unused input. Doesn't seem to do anything. Perhaps it initially should enable the direction reversing."
+	input InputFixRotBugDueToTram(void) : "Resets the bounding box size taking into account the current FOV and range values. Can be used to fix the bounding box size after applying new settings for light."
 	]
 
 @PointClass base(BaseEntityPoint) = newLights_Spawner: "This entity creates client side new lights over a given area when it appears and also after loading save. Created new lights removes if this entity is removed from level. Initially created to test new lighting system"
@@ -10060,12 +10060,14 @@
 	fogstart(float) : "Fog Start" : 2048 : "The near fog plane."
 	fogend(float) : "Fog End" : 4096 : "The far fog/clipping plane."
 	fogmaxdensity(float) : "Fog Max Density [0..1]" : 1 : "The maximum fog density. 0=no fog, 1=full fog."
+	framerate(integer) : "Frame Rate" : 32 : "Maximum camera update rate in frames per second."
 
 	// Inputs
 	input ChangeFOV(string) : "Changes camera's FOV over time"
 	input SetOnAndTurnOthersOff(void) : "Turn the camera on, and turn all other cameras off."
 	input SetOn(void) : "Turn the camera on."
 	input SetOff(void) : "Turn the camera off."
+	input SetFrameRate(integer) : "Sets the camera refresh rate."
 	]
 
 @PointClass base(BaseEntityPoint) 
@@ -10608,7 +10610,7 @@
 	input OffsetToPlayerAndEnable(void) : "Enable the viewproxy, but alter the offset such that it doesn't move the camera."
 	]
 
-@PointClass base(BaseEntityPoint) = point_weaponstrip: "Strip a weapon from the player"
+@PointClass base(BaseEntityPoint) = point_weaponstrip: "Strip a weapon from the player."
 	[
 	weapon(choices) : "Weapon to strip" : 2 =
 		[
@@ -10632,7 +10634,7 @@
 
 
 	// Inputs
-	input StripWeapon(void) : "Strip weapon from combatant"
+	input StripWeapon(void) : "Strip the weapon."
 	]
 
 @PointClass base(BaseEntityPoint) 
