@@ -3448,7 +3448,7 @@
 
 @PointClass base(Angles) 
 	instance()
-	size(-2 -2 -2, 2 2 2)
+	iconsprite("editor/func_instance.vmt", 16)
 = func_instance: "An entity for placing an instance of a map file.  You may translate and rotate this entity. You can use the replace keys to do parameter changes on the instance contents in a $ at the beginning of a variable name. Then just use the $variable name inside of the instance contents on any value portion of a key/value pair."
 	[
 	targetname(target_source) : "Fix Up Name" : : "The name that all entities will be fixed up with based upon the fix up style."
@@ -6140,7 +6140,7 @@
     studio("models/editor/angle_helper.mdl")
 	sphere(GlowProxySize)
 	sphere(flareattenuation)
-	iconsprite("editor/lensflare.vmt", 16)
+	iconsprite("editor/env_lensflare.vmt", 16)
 = env_lensflare: "Controls lensflare. "
 	[
 	spawnflags(flags)  =
@@ -7480,7 +7480,9 @@
 	input EndGame(void) : "End the multiplayer game."
 	]
 
-@PointClass base(BaseEntityPoint) = game_mp_gamerules: "Manage the active gamerules."
+@PointClass base(BaseEntityPoint) 
+	iconsprite("editor/game_mp_gamerules.vmt", 16)
+= game_mp_gamerules: "Manage the active gamerules."
 	[
 
 	// Inputs
@@ -7544,7 +7546,9 @@
 	input SetMaxRagdollCountDX8(integer) : "Set the Max Ragdoll Count on DX8 hardware."
 	]
 
-@PointClass base(BaseEntityPoint) = game_round_start: "Fires output when the round is starting."
+@PointClass base(BaseEntityPoint)
+	iconsprite("editor/game_round_start.vmt", 16)
+= game_round_start: "Fires output when the round is starting."
 	[
 
 	// Outputs
@@ -7855,7 +7859,7 @@
 	]
 
 @PointClass base(BaseEntityPoint) 
-	iconsprite("editor/info_target.vmt", 16)
+	iconsprite("editor/info_nihilanth_summon.vmt", 16)
 = info_nihilanth_summon: "Nihilanth summon spawn point."
 	[
 	]
@@ -8286,7 +8290,7 @@
 	]
 
 @PointClass base(BaseEntityPoint) 
-	iconsprite("editor/info_target.vmt", 16)
+	iconsprite("editor/info_stopallsounds.vmt", 16)
 = info_stopallsounds: "This entity stops all sounds when activated, similar to how stopsound command works."
 	[
 
@@ -8331,7 +8335,7 @@
 	]
 
 @PointClass base(BaseEntityPoint) 
-	iconsprite("editor/info_target.vmt", 16)
+	iconsprite("editor/info_timescale_controller.vmt", 16)
 = info_timescale_controller: "host_timescale controller entity."
 	[
 
@@ -8368,8 +8372,8 @@
 	]
 
 @KeyframeClass base(BaseEntityPoint, KeyFrame) 
+	studio("models/editor/axis_helper_thick.mdl")
 	line(255 255 255, targetname, nextkey)
-	size(-6 -6 -6, 6 6 6)
 	color(255 200 0)
 	iconsprite("editor/vizzys/keyframe_track", 16)
 	keyframe()
@@ -9023,7 +9027,7 @@
 	]
 
 @PointClass base(BaseEntityPoint) 
-	iconsprite("editor/logic_auto.vmt", 16)
+	iconsprite("editor/logic_parent.vmt", 16)
 = logic_parent: "Sets the parent of an entity."
 	[
 	spawnflags(flags)  =
@@ -9042,7 +9046,7 @@
 
 @PointClass base(BaseEntityPoint, DamageFilter) 
 	color(200 0 0)
-	iconsprite("editor/playerproxy.vmt", 16)
+	iconsprite("editor/logic_playerproxy.vmt", 16)
 = logic_playerproxy: "An entity that is used to relay inputs/outputs to the player and back to the world."
 	[
 
@@ -9064,17 +9068,6 @@
 	output OnJump(void)	: "Fired when a player jumps. Doesn't work."
 	output OnDuck(void)	: "Fired when a player starts to duck. Doesn't work."
 	output OnUnDuck(void)	: "Fired when a player releases the duck button. Doesn't work."
-	]
-
-@PointClass base(BaseEntityPoint) 
-	color(0 100 250)
-	line(255 255 255, targetname, filtername)
-	line(255 255 255, targetname, measuretarget)
-	sphere(radius)
-= logic_proximity: "Point version of trigger_proximity. Non-functional, use trigger_proximity instead."
-	[
-	measuretarget(target_destination) : "Point to Measure From" : : "The name of a target entity who's origin is the point to measure the player's distance from."
-	radius(float) : "Radius to measure within" : 256 : "The radius to which the distance should be mapped. If the player is outside the radius they will be ignored."
 	]
 
 @PointClass base(BaseEntityPoint, EnableDisable) 
@@ -9178,6 +9171,20 @@
 	output OnSkill3(void) : "Fired if test of current difficulty value results in Hard (skill 3)."
 	]
 
+@PointClass base(BaseEntityPoint) 
+	iconsprite("editor/logic_skill_puzzle.vmt", 16)
+	color(0 100 250)
+= logic_skill_puzzle: " An entity that can fire specific outputs based on the server's currently set puzzle difficulty. "
+	[
+	// Inputs
+	input GetSkill (void) : "Tests current puzzle difficulty value, and fires OnSkill1, OnSkill2, or OnSkill3 output, depending on the current puzzle difficulty."
+
+	// Outputs
+	output OnSkill1(void) : "Fired if test of current puzzle difficulty value results in Easy/Normal (skill_puzzle 1)."
+	output OnSkill2(void) : "Fired if test of current puzzle difficulty value results in Normal/Black Mesa (skill_puzzle 2)."
+	output OnSkill3(void) : "Fired if test of current puzzle difficulty value results in Hard (skill_puzzle 3)."
+	]
+
 @PointClass base(BaseEntityPoint, EnableDisable) 
 	iconsprite("editor/logic_timer.vmt", 16)
 	color(0 100 250)
@@ -9241,7 +9248,7 @@
 	]
 
 @PointClass base(BaseEntityPoint) 
-	iconsprite("editor/info_target.vmt", 16)
+	iconsprite("editor/material_timer.vmt", 16)
 = material_timer: "This is a simple point entity that does a countdown (like buttons with timer in  Portal 2) and fire outputs. It doesn't do anything with materials despite the classname."
 	[
 	length(float) : "Length" : 30 : "Length of countdown."
@@ -9373,7 +9380,7 @@
 
 @MoveClass base(BaseEntityPoint, KeyFrame, Mover) 
 	line(255 255 255, targetname, nextkey)
-	size(-8 -8 -8, 8 8 8)
+	studio("models/editor/axis_helper_thick.mdl")
 	color(255 170 0)
 	iconsprite("editor/vizzys/move_keyframed", 16)
 	animator()
@@ -9468,7 +9475,9 @@
 	input InputFixRotBugDueToTram(void) : "Resets the bounding box size taking into account the current FOV and range values. Can be used to fix the bounding box size after applying new settings for light."
 	]
 
-@PointClass base(BaseEntityPoint) = newLights_Spawner: "This entity creates client side new lights over a given area when it appears and also after loading save. Created new lights removes if this entity is removed from level. Initially created to test new lighting system"
+@PointClass base(BaseEntityPoint)
+	iconsprite("editor/newlights_spawner.vmt", 16)
+= newLights_Spawner: "This entity creates client side new lights over a given area when it appears and also after loading save. Created new lights removes if this entity is removed from level. Initially created to test new lighting system"
 	[
 	lighttype(choices) : "Light Type" : 0 : "What light type do we want to spawn ?"=
 		[
@@ -9499,7 +9508,7 @@
 
 @PointClass base(BaseEntityPoint)
 	studio("models/editor/angle_helper.mdl")
-	iconsprite("editor/mygamepedia/NewLights_Settings.vmt", 16)
+	iconsprite("editor/newlights_settings.vmt", 16)
 	sphere(range)
 	sphere(NearZ)
 	frustum(phi,NearZ,Range,LightColor,-1)
@@ -9553,7 +9562,9 @@
 	input InputApplySettings(void) : "Triggers the entity to apply the settings."
 	]
 
-@PointClass base(BaseEntityPoint) = newlights_gbuffersettings: "An entity to control some of the Gbuffer Settings via Hammer. You need nr_allow_hammer_nerfs 1 or 2 value, this entity doesn't work with 0 value."
+@PointClass base(BaseEntityPoint)
+	iconsprite("editor/newlights_gbuffersettings.vmt", 16)
+= newlights_gbuffersettings: "An entity to control some of the Gbuffer Settings via Hammer. You need nr_allow_hammer_nerfs 1 or 2 value, this entity doesn't work with 0 value."
 	[
 	enable4waysfastpath(choices) : "Enable 4Ways Fast Path ?" : 1 : "Enable or disable Lightmapped_4WayBlend fast path. The same does r_4way_use_fast_normal cvar." =
 		[
@@ -9582,7 +9593,7 @@
 	]
 	
 @PointClass base(BaseEntityPoint, BmGodraysNormal)
-	iconsprite("editor/mygamepedia/godrays_settings.vmt", 16)
+	iconsprite("editor/godrays_settings.vmt", 16)
 = godrays_settings : "This entity dynamically changes some godrays settings for newLight_Point if triggered by the input. It should also affect newLight_Dir entity, but due to the incorrectly specified class it does not work for this entity."
 [
 	TargetGodRays(target_destination) : "Target Point Light Entity" : "" : "Here you enter name of new light entity (with godrays support) for which you want to apply changes. Works with multiple lights if they have the same name."
@@ -10610,7 +10621,9 @@
 	input OffsetToPlayerAndEnable(void) : "Enable the viewproxy, but alter the offset such that it doesn't move the camera."
 	]
 
-@PointClass base(BaseEntityPoint) = point_weaponstrip: "Strip a weapon from the player."
+@PointClass base(BaseEntityPoint) 
+	iconsprite("editor/point_weaponstrip.vmt" , 16)
+= point_weaponstrip: "Strip a weapon from the player."
 	[
 	weapon(choices) : "Weapon to strip" : 2 =
 		[
@@ -12104,7 +12117,7 @@
 
 @FilterClass base(filter_base) 
 	color(0 255 0)
-	iconsprite("editor/filter_class.vmt", 16)
+	iconsprite("editor/filter_activator_class.vmt", 16)
 = filter_activator_class: "A filter that filters by the class name of the activator."
 	[
 	filterclass(string) : "Filter Classname" : : "The class name to filter by. If the filter mode is Allow, only entities whose class name matches the given string will pass the filter. If the filter mode is Disallow, all entities EXCEPT those whose class name matches the given string will pass the filter."
@@ -12112,7 +12125,7 @@
 
 @FilterClass base(filter_base) 
 	color(0 255 0)
-	iconsprite("editor/filter_class.vmt", 16)
+	iconsprite("editor/filter_activator_flag.vmt", 16)
 = filter_activator_flag: "Filters by the entity flags of the activator"
 	[
 	flag(choices) : "Flag" : 0 : "None: Does nothing. On ground: Activator must touch surface, will not work if activator in air. Crouching: Activator must crouch, only for player and bots. Grenade: Activator must have grenade_ prefix in entity classname. In a normal situation, triggers don't work with such entities (with exception of trigger_weaponfire). On fire: Activator must be ignited, also works with prop_flare if it is turned on." =
@@ -12168,7 +12181,7 @@
 
 @FilterClass base(filter_base) 
 	color(0 255 0)
-	iconsprite("editor/vizzys/filter_damage_type.vmt", 16)
+	iconsprite("editor/filter_damage_type.vmt", 16)
 = filter_damage_class: "A damage filter that filters by the class name of the attacker or inflicter. This can only be used as a damage filter, not as an activator filter."
 	[
 	filterclass(string) : "Filter Classname" : : "The class name to filter by. If the filter mode is Allow, only entities whose class name matches the given string will pass the filter. If the filter mode is Disallow, all entities EXCEPT those whose class name matches the given string will pass the filter."
@@ -13594,7 +13607,7 @@
 
 @PointClass base(Angles, ForceController) 
 	line(128 128 128, targetname, attach1)
-	size(-8 -8 -8, 8 8 8)
+	iconsprite("editor/phys_thruster.vmt", 16)
 	line(255 255 255, targetname, attach1)
 	color(128 128 128)
 = phys_thruster: "An entity used to apply constant acceleration to a physics object. The force and torque is calculated using the position and direction of the thruster as an impulse. So moving those off the object's center will cause torque as well. Torque can be removed by unchecking the 'apply torque' flag. The position of the thruster can be forced to be at the object's center by checking to 'ignore pos' flag."
@@ -13609,7 +13622,7 @@
 
 @PointClass base(ForceController) 
 	line(128 128 128, targetname, attach1)
-	size(-8 -8 -8, 8 8 8)
+	iconsprite("editor/phys_torque.vmt", 16)
 	halfgridsnap
 	line(255 255 255, targetname, attach1)
 	color(128 128 128)
@@ -15307,15 +15320,6 @@
 	sphere(fademindist)
 	sphere(fademaxdist)
 = prop_dynamic: "A prop that can be placed in hierarchy and can play animations. It can also be configured to break when it takes enough damage. Note that the health of the object will be overridden by the health inside the model, to ensure consistent health game-wide. If the model used by the prop is configured to be used as a prop_physics (i.e. it should be physically simulated) then it cannot normally  be used as a prop_dynamic. Upon level load it will display a warning in the console and remove itself. Use a prop_dynamic_override instead."
-	[
-	]
-
-@PointClass base(prop_dynamic)
-	sphere(exploderadius)
-	studioprop()
-	sphere(fademindist)
-	sphere(fademaxdist)
-= dynamic_prop : "Alternate name for prop_dynamic."
 	[
 	]
 
