@@ -4574,6 +4574,7 @@
 
 @PointClass base(BaseEntityPoint) 
 	iconsprite("editor/ficool2/ai_battle_line", 16)
+	studio("models/editor/angle_helper.mdl")
 = ai_battle_line: "Battle line"
 	[
 	spawnflags(flags)  =
