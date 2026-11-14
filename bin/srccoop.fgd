@@ -53,7 +53,7 @@
 	
 @PointClass base(BaseScreenOverlay) 
 	color(200 0 0)
-	iconsprite("editor/ficool2/env_screenoverlay")
+	iconsprite("editor/ficool2/env_screenoverlay", 16)
 = env_screenoverlay: "An entity that can display and control a set of screen overlays, to be displayed over the player's view. Useful for view effects like drunkenness, or teleporter afterimages, etc."
 	[
 	

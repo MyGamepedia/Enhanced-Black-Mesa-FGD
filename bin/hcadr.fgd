@@ -113,7 +113,7 @@
 	
 @PointClass base(BaseEntityPoint, BmNewLightBaseMain, BmNewLightShadowMain, BmNewLightShadowFace, BmNewLightShadowBias, BmNewLightCookieMain, BmNewLightGodraysMode, BmGodraysNormal, BmGodraysFancy, BmNewLightShadowPasses) 
 	studio("models/editor/angle_helper.mdl")
-	iconsprite("editor/light_new.vmt")
+	iconsprite("editor/light_new.vmt", 16)
 	sphere(range)
 	sphere(NearZ)
 = newLight_Point: "It creates an invisible deferred light source that shines in all directions, includes godrays and lightcookies."
@@ -132,7 +132,7 @@
 
 @PointClass base(BaseEntityPoint, BmNewLightReverseDir, BmNewLightsSettings, BmNewLightShadowFOV, BmNewLightShadowBias, BmNewLightCookieSpot, BmNewLightShadowPasses) 
 	lightprop("models/editor/spot.mdl")
-	iconsprite("editor/light_new.vmt")
+	iconsprite("editor/light_new.vmt", 16)
 	sphere(range)
 	sphere(NearZ)
 	frustum(phi,NearZ,Range,LightColor,-1)
