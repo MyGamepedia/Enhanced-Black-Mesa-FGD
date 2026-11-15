@@ -18059,14 +18059,6 @@
 	[
 	]
 
-@NpcClass base(npc_headcrab_black) 
-	color(0 200 200)
-	line(255 255 255, targetname, target)
-	studio("models/Headcrabblack.mdl")
-= npc_headcrab_poison: "Black poison headcrab."
-	[
-	]
-
 @NpcClass base(npc_houndeye) 
 	sphere(fademindist)
 	sphere(fademaxdist)
