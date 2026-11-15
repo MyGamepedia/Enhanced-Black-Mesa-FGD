@@ -18053,12 +18053,6 @@
 	[
 	]
 
-@NpcClass base(npc_sniper) 
-	studio("models/combine_soldier.mdl")
-= proto_sniper: "Alternate name for npc_sniper."
-	[
-	]
-
 @NpcClass base(npc_houndeye) 
 	sphere(fademindist)
 	sphere(fademaxdist)
