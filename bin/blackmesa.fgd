@@ -2237,8 +2237,8 @@
 		1: "Yes"
 		]
 
-	boxmin(vector) : "Box Projection Mins" : "-96 -96 -96" : "Mins vectors for the parallax cubemap volume. Can be adjusted using the wirebox. "
-	boxmax(vector) : "Box Projection Maxs" : "96 96 96" : "Maxs vectors for the parallax cubemap volume. Can be adjusted using the wirebox. "
+	boxmin(vector) : "Box Projection Mins" : "-16 -16 -16" : "Mins vectors for the parallax cubemap volume. Can be adjusted using the wirebox. "
+	boxmax(vector) : "Box Projection Maxs" : "16 16 16" : "Maxs vectors for the parallax cubemap volume. Can be adjusted using the wirebox. "
 	]
 
 @SolidClass 
